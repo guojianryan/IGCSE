@@ -178,7 +178,7 @@
         </div>
         <div class="lab">
           <label class="field" for="url-input">Edit this URL, or load an example</label>
-          <input id="url-input" type="text" spellcheck="false" maxlength="300" value="https://www.cambridgeinternational.org/programmes/igcse/index.html">
+          <input id="url-input" name="url" type="text" spellcheck="false" maxlength="300" value="https://www.cambridgeinternational.org/programmes/igcse/index.html">
           <div class="presets">
             <button class="btn small ghost" type="button" data-url="https://www.cambridgeinternational.org/programmes/igcse/index.html">Cambridge page</button>
             <button class="btn small ghost" type="button" data-url="http://example.com/index.html">HTTP page</button>
@@ -243,7 +243,7 @@
           <h3>Watch one message travel</h3>
           <p>Type a fake checkout message. The left pane is what HTTP would expose. The right pane is a classroom picture of scrambling, not real TLS.</p>
           <label class="field" for="packet">Message</label>
-          <input id="packet" type="text" maxlength="280" value="card=4242&amp;name=Student&amp;amount=20">
+          <input id="packet" name="packet" type="text" maxlength="280" value="card=4242&amp;name=Student&amp;amount=20">
           <div class="panes">
             <div class="pane http">
               <h4>HTTP · plaintext</h4>
@@ -356,7 +356,7 @@
         <div class="lab">
           <h3>Resolve a name</h3>
           <label class="field" for="dns-input">Domain name</label>
-          <input id="dns-input" type="text" maxlength="200" spellcheck="false" value="www.cambridgeinternational.org">
+          <input id="dns-input" name="domain" type="text" maxlength="200" spellcheck="false" value="www.cambridgeinternational.org">
           <div class="row-actions">
             <button class="btn small" id="dns-go" type="button">Ask the DNS</button>
           </div>
@@ -431,7 +431,7 @@
           <h3>Question 1 <span class="marks">2 marks</span></h3>
           <p>Explain why an e-commerce website uses HTTPS instead of HTTP when a customer is entering payment details.</p>
           <label class="field" for="ans-1">Your answer</label>
-          <textarea id="ans-1" maxlength="800"></textarea>
+          <textarea id="ans-1" name="answer-1" maxlength="800"></textarea>
           <div class="row-actions">
             <button class="btn small check-written" type="button">Compare with the mark scheme</button>
           </div>
@@ -441,8 +441,8 @@
               <li>HTTPS encrypts the payment data, such as the card number, during transmission.</li>
               <li>That stops a third party who intercepts the traffic from reading or stealing it.</li>
             </ol>
-            <label class="award">Marks you would give
-              <input type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 1">
+            <label class="award" for="mark-1">Marks you would give
+              <input id="mark-1" name="mark-1" type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 1">
             </label>
           </div>
         </article>
@@ -450,7 +450,7 @@
           <h3>Question 2 <span class="marks">3 marks</span></h3>
           <p>Describe the role of a Domain Name Server (DNS) when a web page is retrieved.</p>
           <label class="field" for="ans-2">Your answer</label>
-          <textarea id="ans-2" maxlength="800"></textarea>
+          <textarea id="ans-2" name="answer-2" maxlength="800"></textarea>
           <div class="row-actions">
             <button class="btn small check-written" type="button">Compare with the mark scheme</button>
           </div>
@@ -461,8 +461,8 @@
               <li>It searches its database for the matching numerical IP address.</li>
               <li>It returns that IP address to the browser so the browser can request the page from the server.</li>
             </ol>
-            <label class="award">Marks you would give
-              <input type="number" min="0" max="3" step="1" value="0" aria-label="Marks for question 2">
+            <label class="award" for="mark-2">Marks you would give
+              <input id="mark-2" name="mark-2" type="number" min="0" max="3" step="1" value="0" aria-label="Marks for question 2">
             </label>
           </div>
         </article>
@@ -470,7 +470,7 @@
           <h3>Question 3 <span class="marks">2 marks</span></h3>
           <p>State two differences between a session cookie and a persistent cookie.</p>
           <label class="field" for="ans-3">Your answer</label>
-          <textarea id="ans-3" maxlength="800"></textarea>
+          <textarea id="ans-3" name="answer-3" maxlength="800"></textarea>
           <div class="row-actions">
             <button class="btn small check-written" type="button">Compare with the mark scheme</button>
           </div>
@@ -480,8 +480,8 @@
               <li>A session cookie is stored in RAM. A persistent cookie is stored on secondary storage, such as a hard drive or SSD.</li>
               <li>A session cookie is deleted when the browser closes. A persistent cookie remains until its expiry date or until it is deleted manually.</li>
             </ol>
-            <label class="award">Marks you would give
-              <input type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 3">
+            <label class="award" for="mark-3">Marks you would give
+              <input id="mark-3" name="mark-3" type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 3">
             </label>
           </div>
         </article>
@@ -511,14 +511,14 @@
           <p class="lede">Tick an idea only when you can say it without looking. The ticks stay in this browser.</p>
         </div>
         <div class="check-list" id="checklist">
-          <label><input type="checkbox" value="internet"> The Internet is the physical infrastructure of interconnected networks.</label>
-          <label><input type="checkbox" value="www"> The World Wide Web is the collection of pages and sites accessed over the Internet.</label>
-          <label><input type="checkbox" value="url"> A URL is made of a protocol, a domain name and a file path.</label>
-          <label><input type="checkbox" value="http"> HTTP is a client-server request-response protocol. HTTPS adds SSL/TLS encryption.</label>
-          <label><input type="checkbox" value="browser"> A web browser requests pages and renders HTML. It also provides the address bar, navigation, bookmarks, history, tabs and cookie storage.</label>
-          <label><input type="checkbox" value="dns"> DNS translates a domain name into an IP address. It does not store the web page.</label>
-          <label><input type="checkbox" value="session"> A session cookie is held in RAM and deleted when the browser closes.</label>
-          <label><input type="checkbox" value="persistent"> A persistent cookie is stored on secondary storage until it expires or the user deletes it.</label>
+          <label><input id="check-internet" name="check-internet" type="checkbox" value="internet"> The Internet is the physical infrastructure of interconnected networks.</label>
+          <label><input id="check-www" name="check-www" type="checkbox" value="www"> The World Wide Web is the collection of pages and sites accessed over the Internet.</label>
+          <label><input id="check-url" name="check-url" type="checkbox" value="url"> A URL is made of a protocol, a domain name and a file path.</label>
+          <label><input id="check-http" name="check-http" type="checkbox" value="http"> HTTP is a client-server request-response protocol. HTTPS adds SSL/TLS encryption.</label>
+          <label><input id="check-browser" name="check-browser" type="checkbox" value="browser"> A web browser requests pages and renders HTML. It also provides the address bar, navigation, bookmarks, history, tabs and cookie storage.</label>
+          <label><input id="check-dns" name="check-dns" type="checkbox" value="dns"> DNS translates a domain name into an IP address. It does not store the web page.</label>
+          <label><input id="check-session" name="check-session" type="checkbox" value="session"> A session cookie is held in RAM and deleted when the browser closes.</label>
+          <label><input id="check-persistent" name="check-persistent" type="checkbox" value="persistent"> A persistent cookie is stored on secondary storage until it expires or the user deletes it.</label>
         </div>
         <div class="row-actions">
           <span class="chip" id="check-count">0 / 8</span>
