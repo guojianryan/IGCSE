@@ -1,8 +1,9 @@
 import { partA } from "./content/part-a.js";
 import { partB } from "./content/part-b.js";
 import { partC } from "./content/part-c.js";
+import { chapter7 } from "./content/chapter7.js";
 
-export const topics = { ...partA, ...partB, ...partC };
+export const topics = { ...partA, ...partB, ...partC, ...chapter7 };
 
 export const catalogue = [
   ["1.1", "Number systems", "1-1-number-systems.html"],
@@ -23,7 +24,15 @@ export const catalogue = [
   ["6.1", "Automated systems", "6-1-automated-systems.html"],
   ["6.2", "Robotics", "6-2-robotics.html"],
   ["6.3", "Artificial intelligence", "6-3-artificial-intelligence.html"],
-  ["7", "Life cycle, decomposition, algorithms, validation and testing", "7-algorithms.html"],
+  ["7.1", "Program development life cycle", "7-1-life-cycle.html"],
+  ["7.2", "Decomposition and structure diagrams", "7-2-decomposition.html"],
+  ["7.3", "Purpose of an algorithm", "7-3-purpose.html"],
+  ["7.4", "Standard methods of solution", "7-4-standard-methods.html"],
+  ["7.5", "Validation and verification", "7-5-validation.html"],
+  ["7.6", "Test data", "7-6-test-data.html"],
+  ["7.7", "Trace tables", "7-7-trace-tables.html"],
+  ["7.8", "Finding and correcting errors", "7-8-correcting-errors.html"],
+  ["7.9", "Writing and amending algorithms", "7-9-writing-algorithms.html"],
   ["8.1", "Programming concepts", "8-1-programming-concepts.html"],
   ["8.2", "Arrays", "8-2-arrays.html"],
   ["8.3", "File handling", "8-3-file-handling.html"],
