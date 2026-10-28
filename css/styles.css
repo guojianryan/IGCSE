@@ -713,6 +713,25 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .flow-col { display: flex; flex-direction: column; align-items: center; }
 .flow-label { margin: 0 0 6px; font-family: var(--mono); font-size: 0.78rem; color: var(--amber); }
 .flow-back { margin: 8px 0 0; max-width: 26ch; text-align: center; color: var(--teal); font-size: 0.88rem; }
+.flow-svg { width: min(720px, 100%); height: auto; display: block; margin: 8px auto 0; }
+.flow-svg .flow-line { fill: none; stroke: var(--muted); stroke-width: 2; }
+.flow-svg .flow-head { fill: var(--muted); }
+.flow-svg .flow-term,
+.flow-svg .flow-process,
+.flow-svg .flow-io,
+.flow-svg .flow-decision { fill: #0b0e15; stroke-width: 2; }
+.flow-svg .flow-term { stroke: var(--teal); }
+.flow-svg .flow-process { stroke: var(--blue); }
+.flow-svg .flow-io { stroke: var(--amber); }
+.flow-svg .flow-decision { stroke: var(--coral); }
+.flow-svg text {
+  fill: var(--ink);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 15px;
+}
+.flow-svg .flow-tag { fill: var(--amber); font-size: 13px; }
+.flow-svg .flow-back { fill: var(--teal); font-size: 13px; max-width: none; margin: 0; text-align: left; }
+.sim-grid { margin-top: 16px; }
 #ledger { margin: 8px 0 0; padding-left: 1.15em; }
 #ledger li + li { margin-top: 0.35em; }
 
@@ -736,6 +755,13 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
   body { background: white; color: black; }
   body::before, header, .stage, .lab, .actions, footer .fine { display: none !important; }
   .card, .callout, .q, .fn, .map-card, .worked, .shape, .diamond::before { break-inside: avoid; border-color: #ccc; background: white; }
+  .flow-svg .flow-term,
+  .flow-svg .flow-process,
+  .flow-svg .flow-io,
+  .flow-svg .flow-decision { fill: white; stroke: black; }
+  .flow-svg text, .flow-svg .flow-tag, .flow-svg .flow-back { fill: black; }
+  .flow-svg .flow-line { stroke: black; }
+  .flow-svg .flow-head { fill: black; }
   .tabpanel.is-hidden { display: block !important; }
   .tabbar { display: none; }
   .pseudo { color: black; background: white; }

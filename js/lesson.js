@@ -144,6 +144,7 @@ function teach(section) {
   if (section.table) wrap.append(dataTable(section.table));
   if (section.walk) wrap.append(walkthrough(section.walk));
   if (section.tabs) wrap.append(tabSet(section.tabs));
+  if (section.links?.length) wrap.append(simLinks(section.links, section.linksLede));
   if (section.exam) wrap.append(callout("Exam watch", section.exam, "exam"));
   if (section.note) wrap.append(callout("Remember", section.note, "note"));
   block.append(wrap);
@@ -230,7 +231,7 @@ function tabSet(spec) {
     charts.forEach((chart) => {
       const column = el("div", "chart-card");
       if (chart.title) column.append(el("h3", "", chart.title));
-      column.append(renderChart(chart.steps));
+      column.append(renderChart(chart));
       host.append(column);
     });
     if (host !== panel) panel.append(host);
@@ -251,13 +252,182 @@ function tabSet(spec) {
   return box;
 }
 
-function renderChart(steps) {
-  const chart = el("div", "chart");
-  steps.forEach((step, index) => {
-    if (index > 0 && step.shape !== "branch") chart.append(flowArrow());
-    chart.append(drawStep(step));
+function renderChart(chart) {
+  if (chart.layout === "decision") return drawDecision(chart);
+  if (chart.layout === "loop") return drawLoop(chart);
+  const box = el("div", "chart");
+  (chart.steps || []).forEach((step, index) => {
+    if (index > 0 && step.shape !== "branch") box.append(flowArrow());
+    box.append(drawStep(step));
   });
-  return chart;
+  return box;
+}
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function svgEl(tag, attrs = {}, text) {
+  const node = document.createElementNS(SVG_NS, tag);
+  Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function flowSvg(markerId, width, height, label) {
+  const svg = svgEl("svg", {
+    class: "flow-svg",
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": label,
+  });
+  const marker = svgEl("marker", {
+    id: markerId,
+    viewBox: "0 0 8 8",
+    markerWidth: "8",
+    markerHeight: "8",
+    refX: "7",
+    refY: "4",
+    orient: "auto",
+  });
+  marker.append(svgEl("path", { class: "flow-head", d: "M0,0 L8,4 L0,8 Z" }));
+  const defs = svgEl("defs");
+  defs.append(marker);
+  svg.append(defs);
+  svg.marker = `url(#${markerId})`;
+  return svg;
+}
+
+function flowLine(points, marker) {
+  return svgEl("polyline", {
+    class: "flow-line",
+    points: points.map(([x, y]) => `${x},${y}`).join(" "),
+    ...(marker ? { "marker-end": marker } : {}),
+  });
+}
+
+function flowText(x, y, text, className) {
+  return svgEl("text", {
+    class: className || "flow-symbol",
+    x,
+    y,
+    "text-anchor": "middle",
+    "dominant-baseline": "middle",
+  }, text);
+}
+
+function flowTerminator(x, y, w, h, text) {
+  const group = svgEl("g");
+  group.append(svgEl("rect", { class: "flow-term", x, y, width: w, height: h, rx: h / 2 }));
+  group.append(flowText(x + w / 2, y + h / 2, text));
+  return group;
+}
+
+function flowProcess(x, y, w, h, text) {
+  const group = svgEl("g");
+  group.append(svgEl("rect", { class: "flow-process", x, y, width: w, height: h, rx: 4 }));
+  group.append(flowText(x + w / 2, y + h / 2, text));
+  return group;
+}
+
+function flowIo(cx, top, halfW, h, skew, text) {
+  const bottom = top + h;
+  const group = svgEl("g");
+  group.append(svgEl("polygon", {
+    class: "flow-io",
+    points: `${cx - halfW + skew},${top} ${cx + halfW + skew},${top} ${cx + halfW - skew},${bottom} ${cx - halfW - skew},${bottom}`,
+  }));
+  group.append(flowText(cx, top + h / 2, text));
+  return group;
+}
+
+function flowDiamond(cx, cy, hw, hh, text) {
+  const group = svgEl("g");
+  group.append(svgEl("polygon", {
+    class: "flow-decision",
+    points: `${cx},${cy - hh} ${cx + hw},${cy} ${cx},${cy + hh} ${cx - hw},${cy}`,
+  }));
+  group.append(flowText(cx, cy, text));
+  return group;
+}
+
+function flowTag(x, y, text, anchor, className) {
+  return svgEl("text", {
+    class: className || "flow-tag",
+    x,
+    y,
+    "text-anchor": anchor || "middle",
+    "dominant-baseline": "middle",
+  }, text);
+}
+
+function drawDecision(chart) {
+  const svg = flowSvg(
+    "flow-head-decision",
+    760,
+    510,
+    `Decision flowchart. Start, ${chart.input}, then ${chart.question}. Yes: ${chart.yes}. No: ${chart.no}. Both paths meet at Stop.`,
+  );
+  svg.append(flowTerminator(300, 16, 160, 42, "Start"));
+  svg.append(flowLine([[380, 58], [380, 84]], svg.marker));
+  svg.append(flowIo(380, 84, 92, 48, 14, chart.input));
+  svg.append(flowLine([[380, 132], [380, 156]], svg.marker));
+  svg.append(flowDiamond(380, 236, 128, 80, chart.question));
+  svg.append(flowLine([[252, 236], [150, 236], [150, 346]], svg.marker));
+  svg.append(flowTag(196, 220, "Yes"));
+  svg.append(flowLine([[508, 236], [610, 236], [610, 346]], svg.marker));
+  svg.append(flowTag(564, 220, "No"));
+  svg.append(flowIo(150, 346, 86, 48, 12, chart.yes));
+  svg.append(flowIo(610, 346, 86, 48, 12, chart.no));
+  svg.append(flowLine([[150, 394], [150, 432], [610, 432]]));
+  svg.append(flowLine([[610, 394], [610, 432]]));
+  svg.append(flowLine([[380, 432], [380, 452]], svg.marker));
+  svg.append(flowTerminator(300, 452, 160, 42, "Stop"));
+  return svg;
+}
+
+function drawLoop(chart) {
+  const [output, update] = chart.body;
+  const svg = flowSvg(
+    "flow-head-loop",
+    760,
+    560,
+    `Loop flowchart. ${chart.setup}. While ${chart.question}: ${output}, then ${update}, and the flow line returns to the decision. Otherwise Stop.`,
+  );
+  const x = 250;
+  svg.append(flowTerminator(x - 80, 16, 160, 42, "Start"));
+  svg.append(flowLine([[x, 58], [x, 78]], svg.marker));
+  svg.append(flowProcess(x - 110, 78, 220, 46, chart.setup));
+  svg.append(flowLine([[x, 124], [x, 176]], svg.marker));
+  svg.append(flowDiamond(x, 250, 118, 74, chart.question));
+  svg.append(flowLine([[368, 250], [468, 250]], svg.marker));
+  svg.append(flowTag(418, 232, "No"));
+  svg.append(flowTerminator(468, 228, 148, 44, "Stop"));
+  svg.append(flowTag(x + 14, 344, "Yes", "start"));
+  svg.append(flowLine([[x, 324], [x, 362]], svg.marker));
+  svg.append(flowIo(x, 362, 96, 48, 14, output));
+  svg.append(flowLine([[x, 410], [x, 430]], svg.marker));
+  svg.append(flowProcess(x - 132, 430, 264, 46, update));
+  svg.append(flowLine([[x, 476], [x, 528], [44, 528], [44, 150], [x, 150]], svg.marker));
+  svg.append(flowTag(58, 508, "back to the decision", "start", "flow-back"));
+  return svg;
+}
+
+function simLinks(links, lede) {
+  const box = el("div", "sim-grid");
+  if (lede) box.append(el("p", "teaching", lede));
+  const grid = el("div", links.length > 2 ? "grid-3" : "grid-2");
+  links.forEach((link) => {
+    const anchor = el("a", "map-card");
+    anchor.href = link.href;
+    anchor.target = "_blank";
+    anchor.rel = "noopener noreferrer";
+    anchor.setAttribute("href", link.href);
+    anchor.append(el("span", "", "CompSimu"));
+    anchor.append(el("h3", "", link.title));
+    if (link.text) anchor.append(el("p", "", link.text));
+    grid.append(anchor);
+  });
+  box.append(grid);
+  return box;
 }
 
 function drawStep(step) {

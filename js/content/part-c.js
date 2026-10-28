@@ -1,3 +1,9 @@
+const sim = (slug, title, text) => ({
+  href: `https://guojianryan.github.io/CompSimu/simulations/${slug}/index.html`,
+  title,
+  text,
+});
+
 export const partC = {
   "5.3": {
     id: "5.3",
@@ -497,6 +503,14 @@ export const partC = {
           ],
           result: "A linear search of that finished list for 4 looks at 1, then 2, then 4, and stops. It does not jump to the middle.",
         },
+        linksLede: "These simulations are on CompSimu. Each one steps through a standard method from this topic. Open one, follow the steps, then come back to the trace and the pseudocode.",
+        links: [
+          sim("linear-search", "Linear search", "Look at each item in turn until the target is found or the list ends."),
+          sim("bubble-sort", "Bubble sort", "Compare adjacent items and swap them when they are out of order. Repeat until a pass makes no swaps."),
+          sim("array-sum", "Totalling", "Start a total at 0 and add every value."),
+          sim("count-occurrences", "Counting", "Start at 0 and add 1 each time the value you are looking for appears."),
+          sim("max-min", "Maximum and minimum", "Keep the largest value seen so far, and the smallest."),
+        ],
       },
       {
         id: "checks",
@@ -603,41 +617,25 @@ export const partC = {
             },
             {
               label: "Decision",
-              note: "The diamond asks a question with two outcomes. Label the flow lines Yes and No, or True and False. Both paths can meet again at the next symbol.",
+              note: "The diamond asks a question with two outcomes. The Yes line leaves the left point and the No line leaves the right point. Both paths meet again before Stop.",
               charts: [{
                 title: "Pass or fail",
-                steps: [
-                  { shape: "term", text: "Start" },
-                  { shape: "io", text: "INPUT Mark" },
-                  { shape: "decision", text: "Mark >= 50?" },
-                  {
-                    shape: "branch",
-                    yes: [{ shape: "io", text: "OUTPUT \"Pass\"" }],
-                    no: [{ shape: "io", text: "OUTPUT \"Fail\"" }],
-                  },
-                  { shape: "term", text: "Stop" },
-                ],
+                layout: "decision",
+                input: "INPUT Mark",
+                question: "Mark >= 50?",
+                yes: "OUTPUT \"Pass\"",
+                no: "OUTPUT \"Fail\"",
               }],
             },
             {
               label: "Loop",
-              note: "A loop is a decision whose Yes flow line comes back. This one outputs 1, then 2, then 3. When Count becomes 4 the No line leaves the loop.",
+              note: "A loop is a decision whose Yes flow line comes back. This one outputs 1, then 2, then 3. When Count becomes 4 the No line leaves the loop. The line on the left returns to the decision.",
               charts: [{
                 title: "Count from 1 to 3",
-                steps: [
-                  { shape: "term", text: "Start" },
-                  { shape: "process", text: "Count ← 1" },
-                  { shape: "decision", text: "Count <= 3?" },
-                  {
-                    shape: "branch",
-                    yes: [
-                      { shape: "io", text: "OUTPUT Count" },
-                      { shape: "process", text: "Count ← Count + 1" },
-                      { shape: "back", text: "This flow line returns to the decision. It does not start a new chart." },
-                    ],
-                    no: [{ shape: "term", text: "Stop" }],
-                  },
-                ],
+                layout: "loop",
+                setup: "Count ← 1",
+                question: "Count <= 3?",
+                body: ["OUTPUT Count", "Count ← Count + 1"],
               }],
             },
             {
@@ -931,6 +929,10 @@ Value ← ROUND(RANDOM() * 6, 0)`,
           ],
           result: "Keywords are upper case. The identifier starts with a capital. Assignment is an arrow, not an equals sign. Equals is a comparison.",
         },
+        linksLede: "CompSimu shows the same idea in Python: a variable keeps the latest value given to it. A swap needs a third variable, or the first value is lost.",
+        links: [
+          sim("python-swap", "Assignment and a swap", "Watch two variables when one is assigned to the other, and why a swap needs a temporary variable."),
+        ],
       },
       {
         id: "control",
@@ -954,6 +956,10 @@ Value ← ROUND(RANDOM() * 6, 0)`,
             "Nested selection and iteration are included. No more than three levels will be required.",
           ],
         },
+        linksLede: "The loop lab runs a count-controlled loop, a pre-condition loop and a post-condition loop on the same task, so you can see when the body runs and when the loop stops.",
+        links: [
+          sim("loop-lab", "FOR, WHILE and REPEAT", "Compare a count-controlled loop, a pre-condition loop and a post-condition loop."),
+        ],
       },
       {
         id: "operators",
@@ -1100,6 +1106,17 @@ Value ← ROUND(RANDOM() * 6, 0)`,
           ],
           result: "The maximum is 9, at index 1. The loop did not stop there. Finding a maximum looks at every element.",
         },
+        linksLede: "These CompSimu pages walk through the array problems from this topic. A 1D array uses one index. A 2D array uses a loop inside a loop.",
+        links: [
+          sim("array-sum", "Total a 1D array", "Add every element into a running total."),
+          sim("count-occurrences", "Count matches", "Count how many elements equal a given value."),
+          sim("max-min", "Maximum and minimum", "Visit every element and keep the largest and the smallest."),
+          sim("parallel-arrays", "Parallel arrays", "Two lists of the same length. The same index refers to one record."),
+          sim("matrix-print", "Print a 2D array", "The outer loop steps through the rows. The inner loop steps through the columns."),
+          sim("matrix-sum", "Total a 2D array", "Add every cell, using one loop inside another."),
+          sim("matrix-count", "Count matches in a 2D array", "Count the cells that match a value, row by row."),
+          sim("matrix-max-min", "Maximum and minimum in a 2D array", "The same comparison as a 1D array, inside a second loop."),
+        ],
       },
     ],
     lab: "array",
