@@ -8,7 +8,7 @@ Open `index.html` in a browser, or serve the folder:
 python3 -m http.server 8765
 ```
 
-Topics 5.1 and 5.2 are the original lesson pages. The other topics share one lesson layout: explanation, a calculator or sorting activity where it helps, a short quiz, and a checklist saved in the browser.
+Topics 5.1 and 5.2 are the original lesson pages. Each other topic is a lesson in the same style: a syllabus map, teaching for both columns of the content table, a worked example where the topic needs one, an activity, a short quiz, and a checklist saved in the browser.
 
 To regenerate the shared topic pages after editing `js/content/`:
 

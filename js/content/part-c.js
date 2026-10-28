@@ -5,26 +5,87 @@ export const partC = {
     title: "Cyber security",
     paper: "Paper 1 · Computer systems",
     chapter: "5 The internet and its uses",
-    lede: "A cyber security threat is an attempt to steal data, damage a system or stop people using it. Each threat has an aim and a recognisable process. A matching protection reduces that risk.",
+    lede: "Each threat has an aim and a process you should be able to describe. The matching half of the topic is the protection that reduces that risk. Describe what the threat is trying to achieve. Do not describe how to carry one out.",
+    mapTitle: "The threat, then the protection",
+    map: [
+      ["#access", "5.3.1", "Access and deception", "Brute force, hacking, interception, phishing, pharming and social engineering."],
+      ["#malware", "5.3.1", "Malware and denial of service", "Six kinds of malware, and a distributed denial of service attack."],
+      ["#protect", "5.3.2", "Protections", "Access, authentication, software, people, and the network."],
+    ],
     sections: [
       {
-        id: "threats",
-        kicker: "Threats",
-        title: "What the attack is trying to do",
-        columns: [
-          { title: "Access and theft", points: ["Brute force tries many passwords until one works. The aim is unauthorised access.", "Hacking is any unauthorised access to a system or its data. Data interception captures data while it is being transmitted.", "Phishing uses a fake message that looks trustworthy so the user reveals personal data. Pharming redirects a user from a genuine site to a fake one. Social engineering manipulates a person into giving information away."] },
-          { title: "Malware and denial of service", points: ["A virus attaches to a program and needs that host to spread. A worm spreads by itself across a network. A Trojan horse is disguised as legitimate software.", "Spyware secretly collects information. Adware displays unwanted advertising. Ransomware encrypts files and demands payment for the key.", "A distributed denial of service attack uses many computers to flood a server so that genuine users cannot reach it."] },
+        id: "access",
+        kicker: "5.3.1",
+        nav: "Access",
+        title: "Threats that steal access or data",
+        lede: "Say what happens, in one or two sentences, and say the aim. A list of names without the aim does not answer the question.",
+        prose: [
+          "A brute-force attack tries many passwords until one is accepted. The aim is unauthorised access. Hacking is any unauthorised access to a system or to its data. The aim is to get in without permission. Data interception captures data while it is being transmitted, so the aim is to obtain data that was meant for someone else.",
+          "Phishing uses a fake message that looks trustworthy, so that the user reveals personal data. Pharming redirects the user from a genuine website to a fake one, and the user may then enter those details thinking the site is real. Social engineering manipulates a person, rather than a technical weakness, into giving information away. In all three, the aim is to collect data the person did not mean to hand over.",
         ],
-        exam: "Name the threat and its aim. Do not describe how to carry one out.",
+        pair: {
+          able: ["Describe the processes involved in, and the aim of, a range of cyber security threats."],
+          notes: ["Including brute-force attack, data interception, hacking, pharming, phishing and social engineering."],
+        },
+        exam: "Name the threat and its aim. A description of how to carry an attack out is not what the question wants, and it is not a useful answer.",
       },
       {
-        id: "solutions",
-        kicker: "Keeping data safe",
-        title: "Protections that match the threat",
-        columns: [
-          { title: "Access and software", points: ["Access levels limit each user to the data their role needs. Authentication uses a username and password, biometrics, or two-step verification.", "Anti-malware, including anti-virus and anti-spyware, finds and removes malicious software. Automatic updates repair known weaknesses."] },
-          { title: "People and the network", points: ["Check the spelling and tone of a message, and check the URL behind a link, before entering any details.", "A firewall filters traffic. Privacy settings limit what is shared. A proxy server sits between the user and the internet and can filter requests. SSL encrypts data during transmission."] },
+        id: "malware",
+        kicker: "5.3.1",
+        nav: "Malware",
+        title: "Malware and distributed denial of service",
+        lede: "Malware is software with a malicious purpose. The six names are distinguished by how they arrive and what they do. A DDoS attack is not malware. It is a flood.",
+        prose: [
+          "A virus attaches itself to a program and needs that host to spread. A worm spreads by itself across a network, with no host file. A Trojan horse is disguised as legitimate software, so the user chooses to run it. Spyware secretly collects information. Adware displays unwanted advertising. Ransomware encrypts files and demands payment for the key. The aim of malware is to damage, spy, inconvenience or extort.",
+          "A distributed denial of service attack uses many computers to send so much traffic that a server cannot answer genuine users. The aim is to stop the service being used. It does not have to steal the data. Recognise it by the many sources and the flooded service.",
         ],
+        pair: {
+          able: ["Describe malware and a distributed denial of service attack, including the aim of each."],
+          notes: ["Malware includes virus, worm, Trojan horse, spyware, adware and ransomware. A DDoS attack is listed separately."],
+        },
+        table: {
+          title: "How to tell the six kinds apart",
+          head: ["Name", "What you would recognise", "Aim"],
+          rows: [
+            ["Virus", "It is attached to a program and needs that program to spread", "To spread and to cause harm"],
+            ["Worm", "It spreads across a network by itself", "To spread without a host file"],
+            ["Trojan horse", "It looks like legitimate software", "To be run by the user and then do harm"],
+            ["Spyware", "It collects information without the user knowing", "To steal information"],
+            ["Adware", "It displays unwanted advertising", "To push adverts"],
+            ["Ransomware", "Files are encrypted and a payment is demanded", "To extort payment for the key"],
+          ],
+        },
+      },
+      {
+        id: "protect",
+        kicker: "5.3.2",
+        nav: "Protections",
+        title: "Solutions that keep data safe",
+        lede: "A protection answer should name the solution and the risk it reduces. “Use a firewall” is weaker than “a firewall filters traffic, so unwanted connections can be blocked”.",
+        prose: [
+          "Access levels limit each user to the data their role needs, so a stolen ordinary account cannot reach everything. Authentication checks who the user is: a username and password, biometrics such as a fingerprint, or two-step verification, where a second check is required as well as the password. Anti-malware, including anti-virus and anti-spyware, finds and removes malicious software. Automatic software updates repair weaknesses that are already known.",
+          "People are part of the defence. Check the spelling and tone of a message, and check the URL attached to a link, before entering any details. That resists phishing. A firewall filters traffic entering or leaving the network. Privacy settings limit what is shared. A proxy server sits between the user and the internet and can filter requests. Secure socket layer (SSL) encrypts data during transmission, so intercepted data is not readable.",
+        ],
+        pair: {
+          able: ["Explain how a range of solutions are used to help keep data safe from security threats."],
+          notes: [
+            "Access levels, anti-malware including anti-virus and anti-spyware, and authentication by username and password, biometrics or two-step verification.",
+            "Automatic software updates, checking spelling and tone, checking the URL of a link, firewalls, privacy settings, proxy servers and SSL.",
+          ],
+        },
+        table: {
+          title: "Match the protection to the risk",
+          head: ["Protection", "The risk it reduces"],
+          rows: [
+            ["Access levels", "A user, or a stolen account, reaching data they do not need"],
+            ["Authentication and two-step verification", "Someone using a password alone to get in"],
+            ["Anti-malware and automatic updates", "Known malware and known weaknesses in software"],
+            ["Checking the message and the URL", "Phishing that relies on the user not looking carefully"],
+            ["Firewall and proxy server", "Unwanted traffic and unwanted requests"],
+            ["Privacy settings", "Personal data being shared more widely than intended"],
+            ["SSL", "Data being read while it is transmitted"],
+          ],
+        },
       },
     ],
     sort: {
@@ -48,8 +109,8 @@ export const partC = {
     checks: [
       "I can describe the aim of brute force, hacking, interception, phishing, pharming and social engineering.",
       "I can distinguish a virus, worm, Trojan horse, spyware, adware and ransomware.",
-      "I can describe a DDoS attack.",
-      "I can match a protection, including a firewall, authentication, anti-malware, updates, SSL and a proxy server, to the risk it reduces.",
+      "I can describe a DDoS attack as a flood whose aim is to deny use.",
+      "I can match each protection in the list to the risk it reduces.",
     ],
   },
   "6.1": {
@@ -58,26 +119,57 @@ export const partC = {
     title: "Automated systems",
     paper: "Paper 1 · Computer systems",
     chapter: "6 Automated and emerging technologies",
-    lede: "An automated system uses a sensor, a microprocessor and an actuator together. The sensor measures the world, the microprocessor decides, and the actuator carries out the action. The same pattern appears in industry, transport, agriculture, weather, gaming, lighting and science.",
+    lede: "A sensor, a microprocessor and an actuator work together. The sensor measures, the microprocessor compares the reading with a stored value, and the actuator carries out the action. You then judge that system for the scenario you were given.",
+    mapTitle: "The collaboration, then the judgement",
+    map: [
+      ["#parts", "6.1.1", "The three parts", "Sensor, microprocessor and actuator, in scenarios from the list."],
+      ["#tradeoffs", "6.1.2", "For this scenario", "Advantages and disadvantages that belong to the situation, not a generic list."],
+    ],
     sections: [
       {
         id: "parts",
-        kicker: "The three parts",
-        title: "Measure, decide, act",
-        columns: [
-          { title: "How they collaborate", points: ["A sensor captures data, such as temperature or light.", "The microprocessor compares the reading with a stored value and decides what should happen.", "An actuator produces the physical response, such as opening a window or turning on a lamp."] },
-          { title: "A situation", points: ["In a greenhouse, a moisture sensor, a microprocessor and a water valve can water the plants when the soil is dry.", "In lighting, a light sensor can cause lamps to switch on when the room becomes dark. The question will name the situation. Use its sensor and its actuator."] },
+        kicker: "6.1.1",
+        nav: "Three parts",
+        title: "How the three parts collaborate",
+        lede: "Use the quantity in the question to choose the sensor, and the physical action to choose the actuator. The microprocessor is the decision in between.",
+        prose: [
+          "The sensor captures data from the environment. That reading is sent to the microprocessor, which compares it with a stored value and decides what should happen. The microprocessor then sends a signal to an actuator. The actuator produces the physical response: a motor, a valve, a heater, a lamp.",
+          "The syllabus expects this pattern in scenarios from industry, transport, agriculture, weather, gaming, lighting and science. Do not invent a different set of parts. Change the sensor and the actuator so they belong to the scenario.",
         ],
+        pair: {
+          able: ["Describe how sensors, microprocessors and actuators can be used in collaboration to create automated systems."],
+          notes: ["Scenarios can be taken from industry, transport, agriculture, weather, gaming, lighting and science."],
+        },
+        table: {
+          title: "The same pattern in different places",
+          head: ["Scenario", "Sensor", "Decision", "Actuator"],
+          rows: [
+            ["Industry", "Pressure or temperature", "Is the process outside its limit?", "A valve or a motor"],
+            ["Transport", "Proximity", "Is something too close?", "Brakes or a warning"],
+            ["Agriculture", "Moisture", "Is the soil too dry?", "A water valve"],
+            ["Weather", "Temperature or humidity", "Has a threshold been crossed?", "A display, fan or heater"],
+            ["Gaming", "Accelerometer", "How is the controller tilted?", "The motors in a handheld device"],
+            ["Lighting", "Light", "Is the room darker than the stored level?", "A lamp"],
+            ["Science", "pH or gas", "Has the reading left the safe range?", "An alarm or a pump"],
+          ],
+          note: "A question will name one situation. Answer with that situation’s sensor and actuator, not with all seven rows.",
+        },
       },
       {
         id: "tradeoffs",
-        kicker: "For a given situation",
-        title: "Advantages and disadvantages",
-        columns: [
-          { title: "Advantages", points: ["The system can run all the time and react faster than a person.", "It can do repetitive or dangerous work and can be consistent."] },
-          { title: "Disadvantages", points: ["It can be expensive to buy and maintain.", "It may not cope with an unexpected situation, and it can replace jobs."] },
+        kicker: "6.1.2",
+        nav: "Trade-offs",
+        title: "Advantages and disadvantages for the given scenario",
+        lede: "A mark scheme wants the point applied. “It is faster” is a start. “The greenhouse can be watered at night without a person on site” is the answer.",
+        prose: [
+          "Advantages that transfer to most scenarios: the system can operate all the time, it can react faster than a person, it can do repetitive work, it can do work that would be dangerous for a person, and it can be consistent. Pick the one the scenario makes obvious. A factory robot’s consistency matters. A chemical sensor’s ability to stay in a dangerous place matters.",
+          "Disadvantages: the system can be expensive to buy and to maintain, it may not cope with a situation that was not planned for, and it can replace jobs. Again, use the scenario. An automated greenhouse fails if the moisture sensor is the wrong sensor, or if a pipe bursts in a way the program does not test for.",
         ],
-        exam: "Tie every advantage or disadvantage to the situation in the question. A general list scores less than a point about that greenhouse, car or factory.",
+        pair: {
+          able: ["Describe the advantages and disadvantages of an automated system used for a given scenario."],
+          notes: ["The advantage or disadvantage must belong to the scenario, not only to automation in general."],
+        },
+        exam: "Tie every point to the situation in the question. A general list scores less than a point about that greenhouse, car or factory.",
       },
     ],
     order: {
@@ -99,7 +191,7 @@ export const partC = {
     ],
     checks: [
       "I can describe the path from sensor to microprocessor to actuator.",
-      "I can apply that path to a named situation.",
+      "I can apply that path to industry, transport, agriculture, weather, gaming, lighting or science.",
       "I can give an advantage that fits the situation.",
       "I can give a disadvantage that fits the situation.",
     ],
@@ -110,26 +202,73 @@ export const partC = {
     title: "Robotics",
     paper: "Paper 1 · Computer systems",
     chapter: "6 Automated and emerging technologies",
-    lede: "Robotics is the branch of computer science that covers the design, construction and operation of robots. A robot has a mechanical body, electrical parts and a program. Robots are used where the work is repetitive, precise or dangerous.",
+    lede: "Robotics is the branch of computer science that incorporates the design, construction and operation of robots. A robot has a mechanical structure, electrical components and a program. The role decides whether using one is an advantage.",
+    mapTitle: "What a robot is, then where it is used",
+    map: [
+      ["#what", "6.2.1", "Robotics", "The field, and examples such as factory equipment, domestic robots and drones."],
+      ["#characteristics", "6.2.2", "Three characteristics", "A framework, electrical components, and the fact it is programmable."],
+      ["#roles", "6.2.3", "Roles", "Industry, transport, agriculture, medicine, domestic settings and entertainment."],
+    ],
     sections: [
       {
         id: "what",
-        kicker: "Definition",
-        title: "What makes a robot",
-        columns: [
-          { title: "The three characteristics", points: ["A mechanical structure or framework gives the robot its body.", "Electrical components include sensors, microprocessors and actuators.", "The robot is programmable, so its behaviour can be changed without rebuilding it."] },
-          { title: "Examples", points: ["Factory equipment, a domestic robot vacuum and a drone are all robots.", "A remote-controlled toy with no program of its own is not the syllabus idea of a robot. The program is part of the definition."] },
+        kicker: "6.2.1",
+        nav: "Definition",
+        title: "What robotics means",
+        lede: "Robotics is not one machine. It is the work of designing a robot, building it, and operating it.",
+        prose: [
+          "The definition has three verbs: design, construction and operation. A question that asks “what is meant by robotics” wants that branch of computer science, not a story about a single robot you have seen.",
+          "Examples that fit are factory equipment, a domestic robot such as a robot vacuum, and a drone. What they share is the three characteristics in the next section. A remote-controlled toy with no program of its own is only a machine being driven. The program is part of the definition used here.",
         ],
+        pair: {
+          able: ["Understand what is meant by robotics."],
+          notes: [
+            "Robotics is a branch of computer science that incorporates the design, construction and operation of robots.",
+            "Examples include factory equipment, domestic robots and drones.",
+          ],
+        },
+      },
+      {
+        id: "characteristics",
+        kicker: "6.2.2",
+        nav: "Characteristics",
+        title: "The three characteristics",
+        lede: "All three are required. A metal arm with no program is a mechanism. A program with no body is software.",
+        prose: [
+          "The mechanical structure or framework is the body: the arm, the wheels, the frame of the drone. The electrical components include sensors, microprocessors and actuators, the same trio as an automated system, built into the robot. Programmable means the behaviour can be changed by changing the program, without rebuilding the machine.",
+          "When you describe a robot in a scenario, name something for each characteristic. A factory arm has a framework, sensors that check a part is in place, a microprocessor, actuators that move the joints, and a program for the task.",
+        ],
+        pair: {
+          able: ["Describe the characteristics of a robot."],
+          notes: ["A mechanical structure or framework; electrical components such as sensors, microprocessors and actuators; programmable."],
+        },
       },
       {
         id: "roles",
-        kicker: "Uses",
-        title: "Where robots are used",
-        lede: "Industry, transport, agriculture, medicine, homes and entertainment all use robots. The advantages and disadvantages depend on the role.",
-        columns: [
-          { title: "Advantages", points: ["A robot can repeat a precise action, work in a harmful environment and keep going without a rest.", "In medicine or a factory, that can be safer and more consistent than asking a person to do the same task."] },
-          { title: "Disadvantages", points: ["Robots are expensive to buy and maintain, and they need a power supply and a program.", "They cannot use judgement outside that program, and they can replace people’s jobs."] },
+        kicker: "6.2.3",
+        nav: "Roles",
+        title: "Roles, advantages and disadvantages",
+        lede: "The areas are industry, transport, agriculture, medicine, domestic settings and entertainment. Advantages and disadvantages must match the role.",
+        prose: [
+          "A robot can repeat a precise action, work in a harmful environment, and keep going without rest. In surgery or in a factory that can be safer and more consistent than asking a person to do the same task. On a farm it can repeat a route. At home it can vacuum while the person is out. In entertainment it can perform a repeated show.",
+          "The disadvantages travel with those roles. Robots are expensive to buy and maintain. They need a power supply and a program. They cannot use judgement outside that program, so an unexpected case can defeat them. They can replace people’s jobs. Choose the disadvantage the scenario makes real: cost in a small clinic, or lost jobs on a production line.",
         ],
+        pair: {
+          able: ["Understand the roles that robots can perform and describe the advantages and disadvantages of their use."],
+          notes: ["Areas include industry, transport, agriculture, medicine, domestic settings and entertainment."],
+        },
+        table: {
+          title: "A role and the point that belongs to it",
+          head: ["Area", "A possible advantage", "A possible disadvantage"],
+          rows: [
+            ["Industry", "Repeats a precise weld all day", "Expensive, and it can replace workers"],
+            ["Transport", "Moves goods on a fixed route", "Cannot judge an unexpected obstacle outside its program"],
+            ["Agriculture", "Works long hours in the field", "Needs power, maintenance and a program"],
+            ["Medicine", "Can be steadier than a hand for a planned action", "Very expensive, and it cannot improvise"],
+            ["Domestic", "Does a repetitive chore", "Limited to the jobs it was programmed for"],
+            ["Entertainment", "Repeats a performance exactly", "Still needs to be programmed and maintained"],
+          ],
+        },
       },
     ],
     sort: {
@@ -150,10 +289,10 @@ export const partC = {
       { q: "Which is a disadvantage of using robots in a factory?", options: ["They can repeat a task accurately", "They are expensive and can replace workers", "They can use sensors", "They have a framework"], answer: 1, why: "Cost and the effect on employment are the disadvantages. Accuracy is an advantage." },
     ],
     checks: [
-      "I can define robotics.",
+      "I can define robotics as design, construction and operation.",
       "I can state the three characteristics of a robot.",
-      "I can name areas where robots are used.",
-      "I can give an advantage and a disadvantage of that use.",
+      "I can name industry, transport, agriculture, medicine, domestic settings and entertainment.",
+      "I can give an advantage and a disadvantage that fit the role.",
     ],
   },
   "6.3": {
@@ -162,26 +301,75 @@ export const partC = {
     title: "Artificial intelligence",
     paper: "Paper 1 · Computer systems",
     chapter: "6 Automated and emerging technologies",
-    lede: "Artificial intelligence is the simulation of intelligent behaviour by a computer. The syllabus limits the detail to expert systems and machine learning. An expert system has four named parts.",
+    lede: "Artificial intelligence simulates intelligent behaviour with a computer. The characteristics are the data, the rules, the ability to reason, and sometimes the ability to learn and adapt. The two systems you must explain are expert systems and machine learning.",
+    mapTitle: "The idea, the characteristics, the two systems",
+    map: [
+      ["#meaning", "6.3.1", "What AI means", "A branch of computer science that simulates intelligent behaviour."],
+      ["#characteristics", "6.3.2", "Characteristics", "Data and rules, reasoning, and possibly learning and adapting."],
+      ["#systems", "6.3.3", "Expert systems and machine learning", "Four components, or a program that adapts its own processes or data."],
+    ],
     sections: [
       {
         id: "meaning",
-        kicker: "Definition",
-        title: "What AI is, and what it can do",
-        columns: [
-          { title: "The meaning", points: ["AI is a branch of computer science. A computer is made to simulate behaviour that would be called intelligent in a person.", "It collects data and the rules for using that data. It can reason. It can also include the ability to learn and adapt."] },
-          { title: "Two systems you must know", points: ["An expert system gives advice in a narrow area, using stored knowledge and rules.", "Machine learning is a program that automatically adapts its own processes or its own data."] },
+        kicker: "6.3.1",
+        nav: "Definition",
+        title: "What artificial intelligence means",
+        lede: "The definition is about behaviour, not about a particular product. A computer is made to do something that would be called intelligent if a person did it.",
+        prose: [
+          "AI is a branch of computer science. The behaviour might be giving advice, recognising a pattern, or changing what the program does as it receives more data. The computer is simulating that behaviour. It is not a claim that the machine understands in the way a person does.",
+          "This course limits the systems you must explain to expert systems and machine learning. A question that wanders into a named chatbot is still answered with these ideas: data, rules, reasoning, and whether the system learns.",
         ],
+        pair: {
+          able: ["Understand what is meant by artificial intelligence (AI)."],
+          notes: ["AI is a branch of computer science dealing with the simulation of intelligent behaviours by computers."],
+        },
       },
       {
-        id: "expert",
-        kicker: "Expert systems",
-        title: "The four components",
-        columns: [
-          { title: "Knowledge and rules", points: ["The knowledge base stores the facts.", "The rule base stores the rules that are applied to those facts."] },
-          { title: "Reasoning and the user", points: ["The inference engine applies the rules to the facts and draws a conclusion.", "The interface is how a person asks a question and reads the result."] },
+        id: "characteristics",
+        kicker: "6.3.2",
+        nav: "Characteristics",
+        title: "The characteristics to quote",
+        lede: "If the question says “characteristics of AI”, use this list. A brand name is not a characteristic.",
+        prose: [
+          "An AI system collects data and the rules for using that data. It can reason: it applies the rules to the data and reaches a conclusion. It can include the ability to learn and adapt, which means later behaviour can change because of what it has already processed. Learning is possible, not required, in the definition. An expert system can reason from fixed rules without adapting those rules itself.",
+          "Keep the four ideas in that order when you revise: data, rules, reasoning, and possibly learning and adapting. They are the characteristics. The components in the next section are how an expert system organises them.",
         ],
-        exam: "If a question says “characteristics of AI”, use the syllabus list: data, rules, reasoning, and possibly learning and adapting. Do not answer with a product name.",
+        pair: {
+          able: ["Describe the main characteristics of AI: collection of data and the rules for using that data, the ability to reason, and it can include the ability to learn and adapt."],
+          notes: ["Reasoning is required in the description. Learning and adapting are included when the system has them."],
+        },
+        exam: "Do not answer a characteristics question with a product name. Use data, rules, reasoning, and learning if it applies.",
+      },
+      {
+        id: "systems",
+        kicker: "6.3.3",
+        nav: "Two systems",
+        title: "Expert systems and machine learning",
+        lede: "An expert system gives advice in a narrow area. Machine learning is a program that automatically adapts its own processes or its own data.",
+        prose: [
+          "The knowledge base stores the facts. The rule base stores the rules that are applied to those facts. The inference engine applies the rules to the facts and draws a conclusion. The interface is how a person asks a question and reads the result. Leave one out and the system cannot do the job: facts without rules do not produce advice, and an engine with no interface cannot be asked.",
+          "Machine learning is different. The program changes its own processes, or the data it uses, as it works. Nobody has to rewrite the rules by hand for every new example. That automatic adaptation is the definition you need. You are not required to describe a training method.",
+        ],
+        pair: {
+          able: ["Explain the basic operation and components of AI systems to simulate intelligent behaviour."],
+          notes: [
+            "Limited to expert systems and machine learning.",
+            "Expert systems have a knowledge base, a rule base, an inference engine and an interface.",
+            "Machine learning is when a program has the ability to automatically adapt its own processes and/or data.",
+          ],
+        },
+        walk: {
+          title: "One question through an expert system",
+          lede: "A student asks whether a plant should be watered. The system only knows this narrow area.",
+          steps: [
+            { label: "Interface.", text: "The student types the question and the current moisture reading." },
+            { label: "Knowledge base.", text: "The facts include the moisture level that counts as dry for this plant." },
+            { label: "Rule base.", text: "One rule is: if the reading is below that level, then watering is advised." },
+            { label: "Inference engine.", text: "It applies that rule to the reading and concludes that the plant should be watered." },
+            { label: "Interface again.", text: "The advice is shown to the student." },
+          ],
+          result: "The facts and the rules are stored separately. The engine does the reasoning. The interface does not contain the knowledge.",
+        },
       },
     ],
     sort: {
@@ -202,10 +390,10 @@ export const partC = {
       { q: "Which component draws the conclusion in an expert system?", options: ["The interface", "The inference engine", "The knowledge base alone", "The actuator"], answer: 1, why: "The inference engine applies the rules to the facts. The interface shows the result." },
     ],
     checks: [
-      "I can define AI.",
-      "I can state the characteristics: data, rules, reasoning, and possibly learning.",
+      "I can define AI as the simulation of intelligent behaviour.",
+      "I can state the characteristics: data, rules, reasoning, and possibly learning and adapting.",
       "I can name the four parts of an expert system and the job of each.",
-      "I can define machine learning.",
+      "I can define machine learning as automatic adaptation of processes or data.",
     ],
   },
   "7": {
@@ -214,27 +402,177 @@ export const partC = {
     title: "Algorithm design and problem-solving",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "7 Algorithm design and problem-solving",
-    lede: "Paper 2 asks you to understand, trace, correct and write algorithms. On a written paper the answer is pseudocode, unless the 15-mark scenario allows Python, Visual Basic or Java. Flowcharts use the standard symbols.",
+    lede: "Paper 2 asks you to analyse a problem, design a solution, and then trace, correct or write the algorithm. On the written paper the answer is pseudocode. Program code is not credited, except in the 15-mark scenario, which also allows Python, Visual Basic or Java.",
+    mapTitle: "From the life cycle to an algorithm you could hand in",
+    mapLede: "The right-hand notes say what each stage includes, which standard methods are in the course, and exactly what extreme and boundary data mean.",
+    map: [
+      ["#cycle", "7.1", "Life cycle", "Analysis, design, coding and testing, and the tasks inside each."],
+      ["#decompose", "7.2", "Decomposition", "Sub-systems, then inputs, processes, outputs and storage."],
+      ["#methods", "7.4", "Standard methods", "Linear search, bubble sort, totalling, counting, maximum, minimum and average."],
+      ["#checks", "7.5", "Validation and verification", "Six validation checks. Visual check and double entry."],
+      ["#testing", "7.6", "Test data and traces", "Normal, abnormal, extreme and boundary, then a trace table."],
+      ["#write", "7.8", "Writing algorithms", "Pseudocode, flowcharts, and the precision the examiner requires."],
+    ],
     sections: [
       {
         id: "cycle",
-        kicker: "The life cycle",
+        kicker: "7.1",
+        nav: "Life cycle",
         title: "Analysis, design, coding and testing",
-        columns: [
-          { title: "Analysis and design", points: ["Analysis identifies the problem and the requirements. It uses abstraction and decomposition.", "Design breaks the problem down and plans it with structure diagrams, flowcharts and pseudocode. A system is made of sub-systems, and those are made of further sub-systems."] },
-          { title: "Coding and testing", points: ["Coding is writing the program and testing it as you go.", "Testing uses test data. You also need to be able to state the purpose of an algorithm and describe its processes."] },
+        lede: "The life cycle is limited to these four stages. Each stage has tasks. Naming the stage without the task is only half an answer.",
+        prose: [
+          "Analysis identifies the problem and the requirements. It uses abstraction, which means ignoring detail that does not affect the solution, and decomposition, which means breaking the problem into parts.",
+          "Design plans the solution. It also uses decomposition, and it produces a structure diagram, a flowchart or pseudocode. Coding is writing the program code and testing it as you go, which is iterative testing. Testing, as its own stage, runs the program with test data chosen to show whether it meets the requirements.",
         ],
-        note: "Standard methods you must recognise are linear search, bubble sort, totalling, counting, and finding a maximum, a minimum and an average.",
+        pair: {
+          able: ["Understand the program development life cycle, limited to analysis, design, coding and testing."],
+          notes: [
+            "Analysis: abstraction, decomposition, identification of the problem and the requirements.",
+            "Design: decomposition, structure diagrams, flowcharts, pseudocode.",
+            "Coding: writing program code and iterative testing.",
+            "Testing: testing program code with test data.",
+          ],
+        },
       },
       {
-        id: "data",
-        kicker: "Checks and test data",
-        title: "Validation, verification and choosing data",
-        columns: [
-          { title: "Validation and verification", points: ["Validation checks that input is sensible. The checks are range, length, type, presence, format and check digit.", "Verification checks that the input was entered correctly. A visual check compares it by eye. Double entry asks for the data twice and compares the copies."] },
-          { title: "Test data", points: ["Normal data is accepted and typical. Abnormal data should be rejected.", "Extreme data is the largest and smallest value that should still be accepted. Boundary data is those extreme values plus the first value on each side that should be rejected."] },
+        id: "decompose",
+        kicker: "7.2",
+        nav: "Decomposition",
+        title: "Sub-systems and the parts of a problem",
+        lede: "Every computer system is made of sub-systems, and those are made of further sub-systems. A problem is decomposed in the same way, until each part is small enough to design.",
+        prose: [
+          "A school library system might break into membership, loans and returns. Loans might break into checking the member, checking the book, and recording the loan. You stop when a part can be described clearly. The syllabus wants you to see the inputs, the processes, the outputs and the storage of each part.",
+          "Design methods are a structure diagram, which shows that breakdown as a hierarchy, a flowchart, which shows the order and the decisions, and pseudocode, which states the steps precisely. You also need to state the purpose of a given algorithm and describe the processes it carries out, not only its final output.",
         ],
-        exam: "A trace table records variables, outputs and user prompts at each step. Work down the algorithm. Do not jump to the final answer.",
+        pair: {
+          able: [
+            "Understand that every computer system is made of sub-systems, which are made of further sub-systems.",
+            "Decompose a problem into its component parts.",
+            "Use structure diagrams, flowcharts and pseudocode to design a solution.",
+            "Explain the purpose of a given algorithm.",
+          ],
+          notes: [
+            "Include inputs, processes, outputs and storage.",
+            "Include structure diagrams, flowcharts and pseudocode.",
+            "State the purpose of an algorithm and describe the processes involved in it.",
+          ],
+        },
+        table: {
+          title: "Flowchart symbols you must use",
+          head: ["Symbol", "What it shows"],
+          rows: [
+            ["Terminator", "The start or the stop of the process"],
+            ["Flow line", "An arrow. Control passes along it"],
+            ["Process", "Something being done"],
+            ["Input or output", "Data coming in or a result going out"],
+            ["Decision", "A yes/no question, with two outgoing paths"],
+            ["Subroutine", "A call to a separate flowchart"],
+          ],
+          note: "Use these shapes. A decision needs two labelled exits. A process is not a decision.",
+        },
+      },
+      {
+        id: "methods",
+        kicker: "7.4",
+        nav: "Standard methods",
+        title: "The standard methods of solution",
+        lede: "These are the only standard methods the questions are limited to. You should be able to recognise each one and write it.",
+        prose: [
+          "A linear search looks at each item in turn until it finds the target or reaches the end. A bubble sort repeatedly compares adjacent items and swaps them if they are in the wrong order. Each pass moves one more item into its place. The sort finishes when a pass makes no swaps.",
+          "Totalling keeps a running total: start at 0 and add each value. Counting starts at 0 and adds 1 each time an event happens. A maximum is updated whenever a value is larger than the largest so far. A minimum is updated whenever a value is smaller. An average is the total divided by the count. Do not divide before you have both.",
+        ],
+        pair: {
+          able: ["Understand standard methods of solution."],
+          notes: ["Limited to linear search, bubble sort, totalling, counting, and finding maximum, minimum and average values."],
+        },
+        walk: {
+          title: "One pass of a bubble sort on 4, 2, 5, 1",
+          steps: [
+            { label: "Compare 4 and 2.", text: "They are out of order, so swap. The list is 2, 4, 5, 1." },
+            { label: "Compare 4 and 5.", text: "They are in order. Leave them." },
+            { label: "Compare 5 and 1.", text: "Swap. The list is 2, 4, 1, 5. The 5 has bubbled to the end." },
+            { label: "Next pass.", text: "Repeat on the unsorted part. 2 and 4 stay. 4 and 1 swap, giving 2, 1, 4, 5. A further pass gives 1, 2, 4, 5." },
+          ],
+          result: "A linear search of that finished list for 4 looks at 1, then 2, then 4, and stops. It does not jump to the middle.",
+        },
+      },
+      {
+        id: "checks",
+        kicker: "7.5",
+        nav: "Checks",
+        title: "Validation and verification",
+        lede: "Validation asks whether the data is sensible. Verification asks whether it was entered correctly. A value can pass one and fail the other.",
+        prose: [
+          "A range check rejects a number outside stated limits, such as a mark below 0 or above 100. A length check rejects an entry that is too short or too long. A type check rejects the wrong kind of data, such as letters where an integer is required. A presence check rejects an empty entry. A format check rejects an entry that does not match a pattern, such as a date that is not DD/MM/YYYY. A check digit rejects a number whose calculated final digit does not match, such as a mistyped ISBN.",
+          "A visual check means a person looks at the entered data and compares it with the source. A double entry check asks for the data twice and compares the two copies. Verification can accept a mark of 99 when the candidate scored 69, if the person typed 99 both times and did not look back at the paper. Validation would accept it too, if 99 is inside the range. Neither check proves the mark is true. They look for different mistakes.",
+        ],
+        pair: {
+          able: [
+            "Understand the need for validation checks and the different types.",
+            "Understand the need for verification checks and the different types.",
+          ],
+          notes: [
+            "Validation: range, length, type, presence, format and check digit.",
+            "Verification: visual check and double entry.",
+          ],
+        },
+        exam: "A visual check is verification, not validation. A range check is validation, not verification.",
+      },
+      {
+        id: "testing",
+        kicker: "7.6",
+        nav: "Testing",
+        title: "Test data and trace tables",
+        lede: "Choose data that should be accepted, data that should be rejected, and the values on the boundary. Then be able to dry-run an algorithm one step at a time.",
+        prose: [
+          "Normal data is typical and should be accepted. Abnormal data should be rejected, often because it is the wrong type. Extreme data is the largest and the smallest value that should still be accepted. Boundary data is those extreme values together with the first value on each side that should be rejected.",
+          "For a whole number from 1 to 10, the normal example is 5. The extremes are 1 and 10. The boundary set is 0, 1, 10 and 11. The value 0 is the largest rejected value below the range. The value 11 is the smallest rejected value above it. Text such as “ten” is abnormal.",
+          "A trace table records, at each step, the variables, the outputs and the user prompts. Work down the algorithm. Write a new row when something changes. Do not jump to the answer you expect.",
+        ],
+        pair: {
+          able: [
+            "Suggest and apply suitable test data.",
+            "Complete a trace table to document a dry run of an algorithm.",
+            "Identify errors in an algorithm and suggest corrections.",
+          ],
+          notes: [
+            "Test data is limited to normal, abnormal, extreme and boundary.",
+            "Extreme data is the largest and smallest acceptable value.",
+            "Boundary data is the largest and smallest acceptable value and the corresponding smallest and largest rejected value.",
+            "A trace includes variables, outputs and user prompts at each step.",
+          ],
+        },
+        walk: {
+          title: "Trace: total the numbers 1, 2 and 3",
+          lede: "Total ← 0, then FOR Count ← 1 TO 3, Total ← Total + Count, and finally OUTPUT Total.",
+          steps: [
+            { label: "Start.", text: "Total is 0. Nothing has been output." },
+            { label: "Count = 1.", text: "Total becomes 0 + 1 = 1." },
+            { label: "Count = 2.", text: "Total becomes 1 + 2 = 3." },
+            { label: "Count = 3.", text: "Total becomes 3 + 3 = 6." },
+            { label: "Output.", text: "The output column records 6. The loop has ended." },
+          ],
+          result: "An error you might be asked to correct: Total ← Total + 1 would count the passes instead of totalling the values. The correction is Total ← Total + Count.",
+        },
+      },
+      {
+        id: "write",
+        kicker: "7.8",
+        nav: "Writing",
+        title: "Writing and amending an algorithm",
+        lede: "Precision matters. x > y is an acceptable condition. The sentence “x is greater than y” is not, because it is not pseudocode.",
+        prose: [
+          "You can be asked to write or amend an algorithm in pseudocode, in program code, or as a flowchart. On this paper, pseudocode is what earns the marks, except for the 15-mark scenario question. In that question you may use pseudocode or one of Python, Visual Basic or Java. Another programming language is not credited.",
+          "Keywords are written in upper case: IF, THEN, ELSE, ENDIF, FOR, TO, NEXT, WHILE, REPEAT, UNTIL, PROCEDURE, FUNCTION. Identifiers start with a capital letter. Assignment uses ←. A comment starts with //. Indent the statements inside a selection, a loop or a subroutine. Look at the flowchart symbols when the answer is a diagram, and at the pseudocode guide when the answer is code.",
+        ],
+        pair: {
+          able: ["Write and amend algorithms for given problems using pseudocode, program code and flowcharts."],
+          notes: [
+            "Precision is required. x > y is acceptable. “x is greater than y” is not.",
+            "Use the standard flowchart symbols and the pseudocode format from the syllabus.",
+          ],
+        },
+        note: "Spend time on the 15-mark scenario in class. It is the last question, it is unseen, and it uses the methods in topics 7 to 10. The logic matters more than the dialect.",
       },
     ],
     order: {
@@ -249,27 +587,27 @@ export const partC = {
     },
     sort: {
       title: "What kind of test data is it?",
-      lede: "A program accepts a whole number from 1 to 10.",
-      done: "Normal is typical and accepted. Abnormal is rejected. Extreme is the last accepted value. Boundary includes the first rejected value.",
+      lede: "A program accepts a whole number from 1 to 10. Boundary data includes the extreme values and the first rejected values. This card asks for the single best label.",
+      done: "5 is normal. 10 is the largest acceptable value, so it is extreme. 11 is the first rejected value on that side. “ten” is abnormal.",
       choices: [["normal", "Normal"], ["abnormal", "Abnormal"], ["extreme", "Extreme"], ["boundary", "Boundary"]],
       cards: [
         { text: "5", answer: "normal", why: "5 is inside the range and is a typical accepted value.", miss: "Extreme would be 1 or 10." },
-        { text: "10", answer: "extreme", why: "10 is the largest value that should be accepted.", miss: "10 is still accepted, so it is extreme. In this exercise the boundary card is the first rejected value." },
-        { text: "11", answer: "boundary", why: "11 is the first value above the range that should be rejected. Boundary data includes that rejected value.", miss: "10 would be the extreme accepted value." },
-        { text: "“ten”", answer: "abnormal", why: "The program expects a whole number. Text should be rejected.", miss: "Abnormal data is the wrong type or otherwise unacceptable." },
+        { text: "10", answer: "extreme", why: "10 is the largest value that should be accepted. Boundary data includes 10 as well, together with 11. The name of this single value is extreme.", miss: "11 is the rejected value just outside. 10 itself is still accepted." },
+        { text: "11", answer: "boundary", why: "11 is the smallest rejected value above the range. It is part of the boundary data and it is not acceptable, so it is not extreme.", miss: "10 would be the extreme accepted value." },
+        { text: "“ten”", answer: "abnormal", why: "The program expects a whole number. Text of the wrong type should be rejected.", miss: "Abnormal data is unacceptable because it is the wrong kind of input." },
       ],
     },
     mcqs: [
       { q: "On most of Paper 2, an algorithm must be written in what?", options: ["Any programming language", "Pseudocode", "Machine code", "SQL"], answer: 1, why: "Program code is not credited, except in the 15-mark scenario, which also allows Python, Visual Basic or Java." },
-      { q: "Which validation check rejects a number that is too high?", options: ["Range check", "Presence check", "Visual check", "Double entry"], answer: 0, why: "A range check tests the limits. A presence check only tests that something was entered." },
+      { q: "Which validation check rejects a number that is too high?", options: ["Range check", "Presence check", "Visual check", "Double entry"], answer: 0, why: "A range check tests the limits. A presence check only tests that something was entered. A visual check is verification." },
       { q: "Double entry is an example of what?", options: ["Validation", "Verification", "Compression", "Encryption"], answer: 1, why: "Verification checks that the data was copied correctly. Validation checks that it is sensible." },
       { q: "A bubble sort does what?", options: ["Finds one item by checking each position in turn", "Compares adjacent items and swaps them until the list is in order", "Totals a list of numbers", "Counts how many items were entered"], answer: 1, why: "Linear search checks each item in turn. Totalling and counting are separate standard methods." },
     ],
     checks: [
-      "I can describe the four stages of the program development life cycle.",
-      "I can name linear search, bubble sort, totalling, counting, maximum, minimum and average.",
-      "I can list the validation checks and the two verification checks.",
-      "I can choose normal, abnormal, extreme and boundary data, and I can complete a trace table.",
+      "I can describe analysis, design, coding and testing, including the tasks in each.",
+      "I can decompose a problem into inputs, processes, outputs and storage.",
+      "I can write a linear search, a bubble sort, a total, a count, a maximum, a minimum and an average.",
+      "I can choose normal, abnormal, extreme and boundary data, and complete a trace table.",
     ],
   },
   "8.1": {
@@ -278,26 +616,127 @@ export const partC = {
     title: "Programming concepts",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "8 Programming",
-    lede: "You need the building blocks of a program: data types, sequence, selection, iteration, operators, subroutines and a program that someone else can maintain. Answers on the written paper are in pseudocode.",
+    lede: "These are the constructs a program is built from. On the written paper you show them in pseudocode: types, sequence, selection, iteration, operators, subroutines and a program another person can maintain.",
+    mapTitle: "The constructs, then a program that can be maintained",
+    map: [
+      ["#types", "8.1.1", "Data and input", "Variables, constants, five types, INPUT and OUTPUT."],
+      ["#control", "8.1.4", "Sequence, selection, iteration", "IF, CASE, three kinds of loop, totalling, counting and strings."],
+      ["#operators", "8.1.4", "Operators", "Arithmetic, relational and logical, including MOD, DIV and NOT."],
+      ["#routines", "8.1.6", "Subroutines", "Procedures, functions, up to three parameters, local and global, library routines."],
+      ["#maintain", "8.1.8", "Maintainable programs", "Meaningful names, comments, and procedures and functions."],
+    ],
     sections: [
       {
-        id: "data",
-        kicker: "Data and structure",
-        title: "Types, sequence, selection and iteration",
-        columns: [
-          { title: "Values", points: ["A variable can change. A constant keeps the same value. Types are integer, real, char, string and Boolean.", "Input reads a value in. Output sends a result or a prompt out."] },
-          { title: "Control", points: ["Sequence is one statement after another. Selection uses IF or CASE. Iteration is a count-controlled loop, a pre-condition loop or a post-condition loop.", "Totalling adds values into a running total. Counting adds one each time an event happens. String work uses length, substring, upper and lower. The first character may be at position 0 or position 1."] },
+        id: "types",
+        kicker: "8.1.1",
+        nav: "Types",
+        title: "Variables, constants and input",
+        lede: "A variable can change. A constant keeps the value it was given. Both need a type, and both need a name that says what they hold.",
+        prose: [
+          "DECLARE Score : INTEGER creates a variable that can hold a whole number. A later line can assign a new score. CONSTANT PassMark ← 50 creates a constant. Using a constant makes the program easier to update: change the one declaration rather than every comparison. Only a literal can be the value of a constant.",
+          "INTEGER is a whole number. REAL can have a fractional part. CHAR is a single character inside single quotes. STRING is zero or more characters inside double quotes. BOOLEAN is TRUE or FALSE. INPUT Score reads a value into a variable. OUTPUT \"You scored \", Score sends a prompt or a result out. Several values can be output in one command, separated by commas.",
         ],
-        note: "Arithmetic operators are + − / * ^ MOD DIV. Relational operators are = < <= > >= <>. Logical operators are AND, OR and NOT. Nested selection or iteration will not go deeper than three levels.",
+        pair: {
+          able: [
+            "Declare and use variables and constants.",
+            "Understand and use the basic data types.",
+            "Understand and use input and output.",
+          ],
+          notes: ["Types are integer, real, char, string and Boolean."],
+        },
+        walk: {
+          title: "A short program in the pseudocode style",
+          steps: [
+            { label: "Constant.", text: "CONSTANT PassMark ← 50" },
+            { label: "Variable.", text: "DECLARE Score : INTEGER" },
+            { label: "Input.", text: "OUTPUT \"Enter the score\" then INPUT Score" },
+            { label: "Output.", text: "OUTPUT \"You entered \", Score" },
+          ],
+          result: "Keywords are upper case. The identifier starts with a capital. Assignment is an arrow, not an equals sign. Equals is a comparison.",
+        },
       },
       {
-        id: "structure",
-        kicker: "Structure",
-        title: "Subroutines, scope and a maintainable program",
-        columns: [
-          { title: "Procedures and functions", points: ["A procedure carries out a task. A function returns a value. Either may have up to three parameters.", "A local variable exists only inside the subroutine. A global variable can be used throughout the program. Library routines you can be asked about include MOD, DIV, ROUND and RANDOM."] },
-          { title: "Maintainable code", points: ["Use meaningful names for variables, constants, arrays, procedures and functions.", "Comment the program, and use procedures and functions so that each part has one job."] },
+        id: "control",
+        kicker: "8.1.4",
+        nav: "Control",
+        title: "Sequence, selection, iteration, totals and strings",
+        lede: "Sequence is one statement after another. Selection chooses. Iteration repeats. Totalling and counting are the two running values you will write most often.",
+        prose: [
+          "IF Score >= PassMark THEN … ELSE … ENDIF chooses between two paths. CASE Score OF chooses among several values, each with its own statements, and ENDCASE closes it. A count-controlled loop is FOR Count ← 1 TO 10 … NEXT Count. A pre-condition loop is WHILE a condition is true, so the body might never run. A post-condition loop is REPEAT … UNTIL a condition is true, so the body runs at least once.",
+          "Totalling is Total ← 0 before the loop and Total ← Total + Value inside it. Counting is Count ← 0 and Count ← Count + 1 when the event happens. Strings use length, substring, upper and lower. The first character may be at position 0 or position 1. Use the position the question uses. Nested selection and nested iteration are expected, and you will not be asked to write more than three levels.",
         ],
+        pair: {
+          able: [
+            "Use sequence, selection and iteration.",
+            "Use totalling, counting and string handling.",
+            "Use nested statements.",
+          ],
+          notes: [
+            "Selection includes IF and CASE. Iteration includes count-controlled, pre-condition and post-condition loops.",
+            "String operations are length, substring, upper and lower. The first character can be position zero or one.",
+            "Nested selection and iteration are included. No more than three levels will be required.",
+          ],
+        },
+      },
+      {
+        id: "operators",
+        kicker: "8.1.4",
+        nav: "Operators",
+        title: "Arithmetic, relational and logical operators",
+        lede: "The lists are closed. An operator that is not in the list will not be required, and one that is in the list must be written as the symbol.",
+        prose: [
+          "Arithmetic is + − * / ^ MOD and DIV. The caret raises to a power. MOD is the remainder and DIV is integer division. 17 MOD 5 is 2. 17 DIV 5 is 3. Relational operators compare two values: = < <= > >= and <> for not equal. The result is Boolean.",
+          "Logical operators combine Booleans: AND, OR and NOT. Both sides of AND must be true. Either side of OR can be true. NOT reverses a condition. Write Score >= 0 AND Score <= 100, not a sentence.",
+        ],
+        pair: {
+          able: ["Understand and use arithmetic, relational and logical operators."],
+          notes: [
+            "Arithmetic: + − / * ^ MOD DIV.",
+            "Relational: = < <= > >= <>.",
+            "Logical: AND, OR and NOT.",
+          ],
+        },
+      },
+      {
+        id: "routines",
+        kicker: "8.1.6",
+        nav: "Subroutines",
+        title: "Procedures, functions, scope and library routines",
+        lede: "A procedure carries out a task. A function does that and returns a value. Either may have up to three parameters.",
+        prose: [
+          "A parameter is a value passed into the subroutine so that the same code can work on different data. PROCEDURE Greet(Name : STRING) does not return a value. FUNCTION Larger(A : INTEGER, B : INTEGER) RETURNS INTEGER does. You call the function where a value is needed. You will not be given more than three parameters.",
+          "A local variable is declared inside the subroutine and cannot be used outside it. A global variable is declared for the whole program and can be used anywhere, which makes mistakes easier to spread. Prefer local variables. Library routines you can be asked to use are MOD, DIV, ROUND and RANDOM. MOD and DIV are also operators. ROUND rounds a real value. RANDOM produces a random number.",
+        ],
+        pair: {
+          able: [
+            "Understand procedures, functions and parameters.",
+            "Define and use procedures and functions, with or without parameters.",
+            "Understand and use local and global variables.",
+            "Understand and use library routines.",
+          ],
+          notes: [
+            "Procedures and functions may have up to three parameters.",
+            "Library routines include MOD, DIV, ROUND and RANDOM.",
+          ],
+        },
+      },
+      {
+        id: "maintain",
+        kicker: "8.1.8",
+        nav: "Maintenance",
+        title: "A program someone else can change",
+        lede: "Maintainable means a later reader can see what the program does and can change one part without breaking the rest.",
+        prose: [
+          "Use meaningful identifiers for variables, constants, arrays, procedures and functions. Score and PassMark are meaningful. X and Y are not, unless the convention is obvious, such as an index. Comment the program with // on the line before the code it explains, and comment syntax where a line would otherwise be mysterious.",
+          "Use procedures and functions so that each part has one job. A long sequence with every variable global is harder to test and harder to amend. The commenting feature of the language is part of the answer, not an optional extra.",
+        ],
+        pair: {
+          able: ["Understand how to create a maintainable program."],
+          notes: [
+            "Use meaningful identifiers, comments, and procedures and functions.",
+            "Meaningful names apply to variables, constants, arrays, procedures and functions.",
+          ],
+        },
       },
     ],
     sort: {
@@ -315,13 +754,13 @@ export const partC = {
       { q: "Which data type stores a single character?", options: ["Integer", "Real", "Char", "Boolean"], answer: 2, why: "Char is one character. String is a sequence of characters." },
       { q: "A post-condition loop is different from a pre-condition loop because it…", options: ["Never runs", "Tests the condition after the body, so the body runs at least once", "Can only count", "Cannot contain selection"], answer: 1, why: "Pre-condition tests before the body. Post-condition tests after it." },
       { q: "What does a function do that a procedure need not do?", options: ["Return a value", "Use a parameter", "Have a meaningful name", "Be written in binary"], answer: 0, why: "Both can have parameters. A function returns a value." },
-      { q: "Which choice makes a program easier to maintain?", options: ["Single-letter names for every variable", "Meaningful identifiers and comments", "A global variable for every value", "No procedures"], answer: 1, why: "A later reader, including you, needs names and comments that explain the code." },
+      { q: "Which choice makes a program easier to maintain?", options: ["Single-letter names for every variable", "Meaningful identifiers and comments", "A global variable for every value", "No procedures"], answer: 1, why: "A later reader needs names and comments that explain the code." },
     ],
     checks: [
-      "I can declare variables and constants and choose integer, real, char, string or Boolean.",
-      "I can use sequence, IF, CASE and the three kinds of loop.",
+      "I can declare variables and constants of type integer, real, char, string or Boolean.",
+      "I can write IF, CASE, a count-controlled loop, a pre-condition loop and a post-condition loop.",
       "I can use the arithmetic, relational and logical operators, including MOD and DIV.",
-      "I can explain parameters, local and global variables, and how to make a program maintainable.",
+      "I can explain parameters, local and global variables, library routines, and a maintainable program.",
     ],
   },
   "8.2": {
@@ -330,26 +769,60 @@ export const partC = {
     title: "Arrays",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "8 Programming",
-    lede: "An array stores a list or a table under one name. Each value is reached by an index. A one-dimensional array is a list. A two-dimensional array is a table. Loops are used to read and write the cells.",
+    lede: "An array is a fixed list or table of values of the same type, under one name. An index selects one element. A variable can be that index, which is how a loop visits every element.",
+    mapTitle: "Declare it, then walk it",
+    map: [
+      ["#declare", "8.2.1", "1D and 2D", "One index or two. The first index may be 0 or 1."],
+      ["#use", "8.2.2", "Read and write", "One cell, or every cell, using iteration and nested iteration."],
+    ],
     sections: [
       {
-        id: "shape",
-        kicker: "Shape",
+        id: "declare",
+        kicker: "8.2.1",
+        nav: "Declaring",
         title: "One dimension and two",
-        columns: [
-          { title: "1D", points: ["A one-dimensional array is a numbered list. Scores[0], Scores[1] and so on are its elements.", "The first index may be 0 or 1. Use the index the question uses. A variable can be used as the index."] },
-          { title: "2D", points: ["A two-dimensional array uses two indexes, like a row and a column.", "A nested loop can visit every cell: the outer loop steps through the rows and the inner loop steps through the columns."] },
+        lede: "Every element has the same type. The array has a fixed length. You reach an element with an index, and that index can be a variable.",
+        prose: [
+          "A one-dimensional array is a list. DECLARE Scores : ARRAY[1:5] OF INTEGER has five integers, and in this declaration the first index is 1. Scores[1] is the first element and Scores[5] is the last. Another system, or another question, may start at 0. Use the index the question uses. Do not assume.",
+          "A two-dimensional array needs two indexes, a row and a column. DECLARE Grid : ARRAY[1:3, 1:3] OF CHAR has three rows and three columns. Grid[2, 3] is one cell. A variable can stand in for either index, which is what makes a loop possible.",
         ],
+        pair: {
+          able: [
+            "Declare and use one-dimensional and two-dimensional arrays.",
+            "Understand the use of arrays, including a variable as an index.",
+          ],
+          notes: [
+            "A variable may be used as an index.",
+            "The first index can be zero or one.",
+          ],
+        },
+        exam: "Look at the declaration or the loop before you decide whether the first cell is index 0 or index 1. Both are accepted.",
       },
       {
         id: "use",
-        kicker: "Using an array",
-        title: "Write, read and walk the whole array",
-        columns: [
-          { title: "One cell", points: ["Assigning Scores[3] ← 7 writes 7 into that cell.", "Reading Scores[3] returns whatever is stored there. The index must be inside the array."] },
-          { title: "Every cell", points: ["A count-controlled loop from the first index to the last index can total the values, count matches, or find the largest.", "For a 2D array, one loop inside another covers every row and column."] },
+        kicker: "8.2.3",
+        nav: "Using",
+        title: "Writing, reading and visiting every cell",
+        lede: "An assignment writes. Using the element in an expression reads. A loop is how you do either for the whole array.",
+        prose: [
+          "Scores[3] ← 7 writes 7 into that cell. OUTPUT Scores[3] reads it. The index must exist. In an array declared from 1 to 5, Scores[0] and Scores[6] are not elements. The activity on this page uses a five-element array whose first index is 0, so the last index is 4. That is a legal choice. It is not the only choice.",
+          "A count-controlled loop from the first index to the last index can total the values, count matches, or find the largest. For a 2D array, one loop inside another covers every row and every column. The outer loop steps through the rows. The inner loop steps through the columns of the current row. Nested iteration is the method the syllabus names.",
         ],
-        exam: "Do not assume the first index. Look at the declaration or the loop in the question. Both 0 and 1 are accepted starting points.",
+        pair: {
+          able: ["Write values into an array, and read values from an array, using iteration."],
+          notes: ["Including nested iteration for a two-dimensional array."],
+        },
+        walk: {
+          title: "The highest value in a 1D array",
+          lede: "Scores holds 4, 9, 1, 7, 3 and the first index is 0.",
+          steps: [
+            { label: "Start.", text: "Highest ← Scores[0], so Highest is 4." },
+            { label: "Index = 1.", text: "9 is greater, so Highest ← 9." },
+            { label: "The rest.", text: "1, 7 and 3 are not greater. Highest stays 9." },
+            { label: "A 2D version.", text: "The same comparison sits inside a second loop, so every column of every row is visited." },
+          ],
+          result: "The maximum is 9, at index 1. The loop did not stop there. Finding a maximum looks at every element.",
+        },
       },
     ],
     lab: "array",
@@ -357,13 +830,13 @@ export const partC = {
       { q: "What is a one-dimensional array?", options: ["A single variable that cannot change", "A list of values under one name, each reached by an index", "A file on secondary storage", "A logic gate"], answer: 1, why: "The index selects the element. The array has one name." },
       { q: "Scores has indexes 0 to 4. Which statement reads the last element?", options: ["Scores[5]", "Scores[4]", "Scores[0]", "Scores"], answer: 1, why: "If the first index is 0 and there are five elements, the last index is 4." },
       { q: "Why is a variable used as an index inside a loop?", options: ["So the same line can visit a different element on each pass", "So the array becomes two-dimensional", "So the values are encrypted", "So the first index must be 1"], answer: 0, why: "The loop changes the variable, and the variable chooses the cell." },
-      { q: "How do you visit every cell of a two-dimensional array?", options: ["One loop", "A loop inside a loop", "A single IF", "A check digit"], answer: 1, why: "One loop handles the rows and the inner loop handles the columns." },
+      { q: "How do you visit every cell of a two-dimensional array?", options: ["One loop", "A loop inside a loop", "A single IF", "A check digit"], answer: 1, why: "One loop handles the rows and the inner loop handles the columns. That nested iteration is required." },
     ],
     checks: [
-      "I can declare and use a 1D array and a 2D array.",
-      "I know the first index might be 0 or 1.",
-      "I can read and write a cell, including with a variable index.",
-      "I can use iteration, including nested iteration, to walk an array.",
+      "I can declare a 1D array and a 2D array of one data type.",
+      "I know the first index might be 0 or 1, and I use the one in the question.",
+      "I can read and write a cell, including with a variable as the index.",
+      "I can use a loop, and a nested loop, to visit every element.",
     ],
   },
   "8.3": {
@@ -372,25 +845,51 @@ export const partC = {
     title: "File handling",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "8 Programming",
-    lede: "Data stored only in variables disappears when the program stops. A file keeps that data on secondary storage so the next run can use it. A program opens the file, reads or writes, and then closes it.",
+    lede: "A variable disappears when the program stops. A file keeps data on secondary storage so the next run can read it. The program opens the file, reads or writes a single item or a line of text, and then closes the file.",
+    mapTitle: "Why a file, then the three actions",
+    map: [
+      ["#purpose", "8.3.1", "Purpose", "The data is still there after the program has ended."],
+      ["#actions", "8.3.2", "Open, use, close", "Read or write one item, or a whole line of text."],
+    ],
     sections: [
       {
         id: "purpose",
-        kicker: "Purpose",
-        title: "Why a program uses a file",
-        columns: [
-          { title: "Persistence", points: ["A file stores data so that it still exists after the program has ended.", "The next time the program runs, it can read the stored data instead of asking for everything again."] },
-          { title: "What can be stored", points: ["A program can read or write a single item of data.", "It can also read or write a whole line of text."] },
+        kicker: "8.3.1",
+        nav: "Purpose",
+        title: "Why a program stores data in a file",
+        lede: "The file is the program’s link to secondary storage. Without it, the next run starts with empty variables.",
+        prose: [
+          "A running program keeps its variables in memory. That memory is lost when the program ends, which is the same reason RAM is volatile. A file stores the data the program must have next time: a list of names, a saved score, the last reading from a sensor.",
+          "The next run opens the file and reads those values instead of asking for everything again. You can be asked for this purpose in words, and you can be asked to write the open, the read or write, and the close.",
         ],
+        pair: {
+          able: ["Understand the purpose of storing data in a file to be used by a program."],
+          notes: ["The data must still be available after the program has ended, so that a later run can use it."],
+        },
       },
       {
         id: "actions",
-        kicker: "The actions",
-        title: "Open, use, close",
-        columns: [
-          { title: "Open", points: ["The file is opened for reading, for writing, or for both, depending on the task.", "Writing to a new file creates the stored data. Reading uses data that is already there."] },
-          { title: "Close", points: ["Closing the file finishes the operation and releases it.", "Leaving a file open can lose the last write or stop another process from using it."] },
+        kicker: "8.3.2",
+        nav: "Open and close",
+        title: "Open, read or write, close",
+        lede: "Opening says whether this run will read, write, or both. Closing finishes the operation. The data itself is a single item or a line of text.",
+        prose: [
+          "Open the file before you use it. Writing creates or replaces the stored data. Reading uses data that is already there. A single item might be one score. A line of text might be one student’s whole record. Those are the only two shapes this topic requires.",
+          "Close the file when the read or the write is finished. Closing completes the last write and releases the file so another process can use it. Leaving it open can lose the last data written. The order is always open, then use, then close.",
         ],
+        pair: {
+          able: ["Open, close and use a file for reading and writing."],
+          notes: ["Read and write a single item of data, or a line of text."],
+        },
+        walk: {
+          title: "Saving one line, then reading it back",
+          steps: [
+            { label: "Write.", text: "Open the file for writing. Write the line of text. Close the file." },
+            { label: "Later.", text: "The program can end. The line is still on secondary storage." },
+            { label: "Read.", text: "Open the file for reading. Read the line into a string variable. Close the file." },
+          ],
+          result: "A question that only says “write the value” still needs the open and the close around that write.",
+        },
       },
     ],
     order: {
@@ -406,14 +905,14 @@ export const partC = {
     mcqs: [
       { q: "Why store data in a file rather than only in a variable?", options: ["The data is still available after the program stops", "A file is stored in the accumulator", "A file does not need to be opened", "Variables cannot hold text"], answer: 0, why: "Variables belong to the running program. A file is kept on secondary storage." },
       { q: "Which sequence is correct?", options: ["Close, write, open", "Open, write, close", "Write, close, open", "Open, close, with no read or write ever needed"], answer: 1, why: "The file must be open before it is used, and it should be closed afterwards." },
-      { q: "A program may read which of these from a file?", options: ["A single item or a line of text", "Only images", "Only the instruction set", "A MAC address from the CPU"], answer: 0, why: "The syllabus limits file handling to items of data and lines of text." },
+      { q: "A program may read which of these from a file?", options: ["A single item or a line of text", "Only images", "Only the instruction set", "A MAC address from the CPU"], answer: 0, why: "File handling here is a single item of data or a line of text." },
       { q: "What is a risk of not closing a file?", options: ["The array index starts at 0", "The last data written may not be saved properly", "The colour depth increases", "The program becomes a high-level language"], answer: 1, why: "Closing completes the write and releases the file." },
     ],
     checks: [
       "I can explain why a program stores data in a file.",
-      "I can open a file for reading or writing.",
+      "I can open a file for reading or for writing.",
       "I can read or write a single item or a line of text.",
-      "I can explain why the file is closed.",
+      "I can explain why the file is then closed.",
     ],
   },
   "9": {
@@ -422,26 +921,100 @@ export const partC = {
     title: "Databases",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "9 Databases",
-    lede: "The syllabus uses a single table. You choose fields, data types and a primary key, and you read or complete SQL that selects, filters, orders and summarises the rows.",
+    lede: "You define one table: its fields, the data type of each field, and a primary key. You then read or complete SQL that selects, filters, sorts and summarises the rows you were given.",
+    mapTitle: "Build the table, then query it",
+    map: [
+      ["#define", "9.1", "The table", "Fields, records and validation, from a description of what must be stored."],
+      ["#types", "9.2", "Data types", "Text, character, Boolean, integer, real, and date/time."],
+      ["#key", "9.3", "Primary key", "A field that uniquely identifies every record."],
+      ["#sql", "9.4", "SQL", "SELECT, FROM, WHERE, AND, OR, ORDER BY, SUM and COUNT."],
+    ],
     sections: [
       {
-        id: "table",
-        kicker: "One table",
-        title: "Fields, records and a primary key",
-        columns: [
-          { title: "The structure", points: ["A field is one column, such as Name. A record is one row, one complete set of fields about one thing.", "Data types include text or alphanumeric, character, Boolean, integer, real, and date/time. Validation can reject a value that does not fit the field."] },
-          { title: "Primary key", points: ["A primary key uniquely identifies each record. No two rows may share its value, and it should not be left empty.", "StudentID is a typical key. Name is a poor key because two people can share a name."] },
+        id: "define",
+        kicker: "9.1",
+        nav: "The table",
+        title: "Fields, records and validation",
+        lede: "A single table is a grid. Designing it means deciding the columns before any row is entered.",
+        prose: [
+          "A field is one column, such as Name or Mark. A record is one row: the complete set of fields about one thing, such as one student. Given a description of what must be stored, you choose the fields and you do not add columns the description does not need.",
+          "Validation rejects a value that does not fit the field. A mark field might reject a value outside 0 to 100. That is the same range check as in topic 7, applied as the data goes into the table. The database still stores only the values that pass.",
         ],
+        pair: {
+          able: ["Define a single-table database from given data storage requirements."],
+          notes: ["Include fields, records and validation."],
+        },
+      },
+      {
+        id: "types",
+        kicker: "9.2",
+        nav: "Types",
+        title: "Choosing a data type",
+        lede: "The type must match what will be stored. A mark that will be added up is numeric. A name is not.",
+        prose: [
+          "Text, also called alphanumeric, holds letters, digits and symbols, such as a name or a class code. Character holds a single character. Boolean holds true or false, such as whether a fee has been paid. Integer holds a whole number. Real holds a number that may have a fractional part. Date/time holds a date, a time, or both.",
+          "Choose integer for a number of items and real for a measurement that can include a decimal. Do not store a date as text if you may need to sort the rows by date. The type is part of the design, not a decoration.",
+        ],
+        pair: {
+          able: ["Suggest suitable basic data types."],
+          notes: ["Text/alphanumeric, character, Boolean, integer, real, and date/time."],
+        },
+        table: {
+          title: "A field and a type that fits",
+          head: ["Field", "Type", "Why"],
+          rows: [
+            ["StudentID", "Integer", "A whole number, used as the key"],
+            ["Name", "Text", "Letters, and it will not be used in arithmetic"],
+            ["Mark", "Integer or real", "It may be added or averaged"],
+            ["FeePaid", "Boolean", "Only yes or no"],
+            ["DateJoined", "Date/time", "A real date sorts correctly"],
+          ],
+        },
+      },
+      {
+        id: "key",
+        kicker: "9.3",
+        nav: "Primary key",
+        title: "The primary key",
+        lede: "The purpose of a primary key is to identify one record. If two rows can share the value, it is not suitable.",
+        prose: [
+          "No two records may have the same primary key, and the key should not be left empty. StudentID works when every student has a different number. Name does not work, because two students can be called Chen. Class does not work, because a whole class shares it.",
+          "When you are given a table, look for the field whose values are all different and which identifies the thing the row is about. That is the key you should name, together with the reason.",
+        ],
+        pair: {
+          able: ["Understand the purpose of a primary key and identify a suitable primary key for a given table."],
+          notes: ["The key uniquely identifies each record."],
+        },
+        exam: "“It is the first field” is not a reason. Uniqueness is the reason.",
       },
       {
         id: "sql",
-        kicker: "SQL",
-        title: "The statements you can be asked to read",
-        columns: [
-          { title: "Select and filter", points: ["SELECT names the fields. FROM names the table. A star means every field.", "WHERE keeps only the rows that match. Conditions can be joined with AND or OR."] },
-          { title: "Order and summarise", points: ["ORDER BY sorts the rows ascending or descending.", "SUM adds a numeric field. COUNT counts the rows. You can be shown a script and asked what it outputs."] },
+        kicker: "9.4",
+        nav: "SQL",
+        title: "Reading and completing a query",
+        lede: "The statements are a closed list. Apply WHERE before you sort or summarise, and only show the fields the SELECT asks for.",
+        prose: [
+          "SELECT names the fields. A star means every field. FROM names the single table. WHERE keeps the rows that match a condition. AND means both conditions must be true. OR means either condition can be true. ORDER BY sorts the rows that remain, ASCENDING or DESCENDING.",
+          "SUM adds a numeric field. COUNT counts rows. You can be shown a script and a table and asked what is output. Work on the given rows only. Do not invent a row, and do not show a column that was not selected.",
         ],
-        exam: "Work on the given rows. Apply WHERE before ORDER BY, and do not invent columns that the SELECT list does not show.",
+        pair: {
+          able: ["Read, understand and complete SQL scripts to query data stored in a single table."],
+          notes: [
+            "Limited to SELECT, FROM, WHERE, ORDER BY DESCENDING, ORDER BY ASCENDING, SUM, COUNT, AND and OR.",
+            "You may have to identify the output of a statement against the given contents of a table.",
+          ],
+        },
+        walk: {
+          title: "One query on the four students",
+          lede: "SELECT Name, Mark FROM Students WHERE Mark >= 70 ORDER BY Mark DESCENDING. The rows are Amina 78, Ben 64, Chen 91 and Dia 55.",
+          steps: [
+            { label: "FROM.", text: "Start with all four rows of Students." },
+            { label: "WHERE.", text: "Mark >= 70 removes Ben and Dia. Amina and Chen remain." },
+            { label: "ORDER BY.", text: "Descending mark puts Chen (91) before Amina (78)." },
+            { label: "SELECT.", text: "The output has two columns, Name and Mark. StudentID and Class are not shown." },
+          ],
+          result: "COUNT(*) with WHERE Class = '10B' is the number 2, not the names. SUM(Mark) for class 10A is 78 + 91 = 169.",
+        },
       },
     ],
     lab: "sql",
@@ -449,13 +1022,13 @@ export const partC = {
       { q: "What is a primary key?", options: ["A field that uniquely identifies each record", "Any text field", "The first record in the table", "A password"], answer: 0, why: "The key must be unique for every row. A name often is not." },
       { q: "In a single table, a record is what?", options: ["One column", "One row", "The database server", "A validation rule"], answer: 1, why: "A field is a column. A record is the whole row." },
       { q: "What does WHERE Class = '10A' do?", options: ["Sorts the table", "Keeps only the rows whose Class is 10A", "Counts every row", "Deletes the table"], answer: 1, why: "WHERE filters. ORDER BY sorts. COUNT summarises." },
-      { q: "SELECT COUNT(*) FROM Students WHERE Mark < 60 returns what kind of result?", options: ["Every column of every row", "One number: how many rows matched", "The sum of the marks", "The primary key only"], answer: 1, why: "COUNT counts the matching rows. SUM would add a numeric field." },
+      { q: "SELECT COUNT(*) FROM Students WHERE Mark < 60 returns what kind of result?", options: ["Every column of every row", "One number: how many rows matched", "The sum of the marks", "The primary key only"], answer: 1, why: "COUNT counts the matching rows. SUM would add a numeric field. Dia is the only mark under 60, so the number is 1." },
     ],
     checks: [
-      "I can define a field, a record and a suitable data type.",
-      "I can choose a primary key and say why it must be unique.",
-      "I can read SELECT, FROM, WHERE, AND, OR and ORDER BY.",
-      "I can predict the result of SUM and COUNT on a given table.",
+      "I can choose fields and a data type, including date/time, from a description.",
+      "I can choose a primary key and explain why it must be unique.",
+      "I can read SELECT, FROM, WHERE, AND, OR and ORDER BY ASCENDING or DESCENDING.",
+      "I can predict the output of SUM and COUNT on a given table.",
     ],
   },
   "10": {
@@ -464,40 +1037,110 @@ export const partC = {
     title: "Boolean logic",
     paper: "Paper 2 · Algorithms, programming and logic",
     chapter: "10 Boolean logic",
-    lede: "A logic gate takes binary inputs and produces one binary output. You need the symbols and the truth tables for NOT, AND, OR, NAND, NOR and XOR. A circuit in the exam has at most three inputs and one output, and you do not have to simplify it.",
+    lede: "A logic gate turns binary inputs into one binary output. You identify the standard symbol, you know the function, and you can move between a problem statement, a logic expression, a circuit and a truth table. You do not simplify the circuit.",
+    mapTitle: "Six gates, then a circuit of at most three inputs",
+    map: [
+      ["#symbols", "10.1", "Symbols and functions", "NOT, AND, OR, NAND, NOR and XOR. NOT has one input."],
+      ["#tables", "10.2", "Truth tables", "Every combination of the inputs, one gate at a time."],
+      ["#circuits", "10.3", "Circuits and expressions", "At most three inputs and one output. Draw what you are given."],
+    ],
     sections: [
       {
-        id: "gates",
-        kicker: "Gates",
-        title: "What each gate outputs",
-        columns: [
-          { title: "NOT, AND, OR", points: ["NOT has one input. The output is the opposite of that input.", "AND outputs 1 only when both inputs are 1. OR outputs 1 when either input is 1, or both are."] },
-          { title: "NAND, NOR, XOR", points: ["NAND is the opposite of AND. NOR is the opposite of OR.", "XOR, also called EOR, outputs 1 when the inputs are different. Every gate except NOT has two inputs in this course."] },
+        id: "symbols",
+        kicker: "10.1",
+        nav: "Gates",
+        title: "The symbol and the function of each gate",
+        lede: "The shape is part of the answer when you draw. The output rule is the answer when you complete a table. XOR is also called EOR.",
+        prose: [
+          "NOT is a triangle with a small circle at the output. It has one input, and the output is the opposite of that input. AND is the D-shaped gate. The output is 1 only when both inputs are 1. OR is the curved shield. The output is 1 when either input is 1, or both are.",
+          "NAND is an AND with a circle on the output, so it is the opposite of AND. NOR is an OR with a circle, the opposite of OR. XOR, or EOR, is an OR shape with an extra curved line on the input side. The output is 1 when the inputs are different. Every gate except NOT has two inputs in this course.",
         ],
-        note: "Use the standard symbols from the syllabus when you draw a circuit. The shape is part of the answer.",
+        pair: {
+          able: [
+            "Identify and use the standard symbols for logic gates.",
+            "Define and understand the functions of the logic gates, including the binary output from all the possible binary inputs.",
+          ],
+          notes: [
+            "The gates are NOT, AND, OR, NAND, NOR and XOR (EOR).",
+            "NOT is a single-input gate. All other gates are limited to two inputs.",
+            "Use the standard symbols.",
+          ],
+        },
+        table: {
+          title: "Every input of the two-input gates",
+          head: ["A", "B", "AND", "OR", "NAND", "NOR", "XOR"],
+          rows: [
+            ["0", "0", "0", "0", "1", "1", "0"],
+            ["0", "1", "0", "1", "1", "0", "1"],
+            ["1", "0", "0", "1", "1", "0", "1"],
+            ["1", "1", "1", "1", "0", "0", "0"],
+          ],
+          note: "NOT has its own two rows: input 0 gives 1, and input 1 gives 0. NAND is NOT AND. NOR is NOT OR. XOR is 1 only when the inputs differ.",
+        },
+      },
+      {
+        id: "tables",
+        kicker: "10.2",
+        nav: "Truth tables",
+        title: "Completing a truth table",
+        lede: "List every combination before you fill any output. Two inputs have four rows. Three inputs have eight. Missing a row is a missed mark even if the gate is right.",
+        prose: [
+          "For inputs A, B and C, the eight rows run from 000 to 111. A reliable order is to make the right-most input alternate every row, the middle input alternate every two rows, and the left-most input alternate every four rows. Then the table is complete and you have not repeated a row.",
+          "Work across the circuit from the inputs towards the single output. Add a working column for each gate. Do that gate’s job using only the columns it actually receives. Do not try to simplify the expression first. The syllabus says the circuit is drawn for the statement given, without simplification.",
+        ],
+        pair: {
+          able: ["Complete a truth table from a problem statement, a logic expression or a logic circuit."],
+          notes: [
+            "A three-input table has eight rows, from 000 to 111.",
+            "Circuits are not simplified.",
+          ],
+        },
       },
       {
         id: "circuits",
-        kicker: "Circuits and expressions",
-        title: "From words, to a circuit, to a table",
-        columns: [
-          { title: "What you may be given", points: ["A problem statement, a logic expression or a truth table can be the starting point.", "You may have to draw the circuit, complete the truth table, or write the expression. Circuits have no more than three inputs and one output."] },
-          { title: "How to complete a table", points: ["List every combination of the inputs. Two inputs have four rows. Three inputs have eight.", "Work across the circuit from the inputs towards the output. Do one gate at a time. Do not try to simplify the expression first."] },
+        kicker: "10.3",
+        nav: "Circuits",
+        title: "Statements, expressions and circuits",
+        lede: "You can be given any one of the three and asked for either of the others. The limit is three inputs and one output.",
+        prose: [
+          "A problem statement in words becomes gates. “The alarm sounds when the door is open and it is not daytime” is Door AND NOT Day. Draw the NOT on Day first, then an AND whose inputs are Door and that NOT output. The expression is the same thing written with the gate names or the usual symbols. The truth table has four rows because there are two inputs.",
+          "Going the other way, read each gate from the inputs outward and write the expression, or fill the table. Do not replace the circuit with a shorter one you think is equivalent. Draw the statement you were given. Logic circuits in this course have a maximum of three inputs and one output.",
         ],
+        pair: {
+          able: [
+            "Use logic gates to create a circuit from a problem statement, a logic expression or a truth table.",
+            "Write a logic expression from a problem statement, a logic circuit or a truth table.",
+          ],
+          notes: [
+            "Circuits must be drawn for the statement given, without simplification.",
+            "Logic circuits are limited to a maximum of three inputs and one output.",
+          ],
+        },
+        walk: {
+          title: "Door AND NOT Day",
+          steps: [
+            { label: "Inputs.", text: "Door is 1 when the door is open. Day is 1 in daytime." },
+            { label: "NOT Day.", text: "The intermediate value is 1 only at night." },
+            { label: "AND.", text: "The alarm is 1 only when Door is 1 and NOT Day is 1. Open during the day does not sound it. Closed at night does not sound it." },
+            { label: "The four rows.", text: "Door 0 Day 0 gives 0. Door 0 Day 1 gives 0. Door 1 Day 0 gives 1. Door 1 Day 1 gives 0." },
+          ],
+          result: "The expression matches the circuit you drew. Simplifying it into a different diagram is not required and can lose the statement.",
+        },
+        exam: "NOT has one input. If you draw a second input on a NOT gate, the symbol is wrong before the table is even marked.",
       },
     ],
     lab: "gates",
     mcqs: [
       { q: "What is the output of NOT 1?", options: ["1", "0", "2", "It needs a second input"], answer: 1, why: "NOT reverses its single input. NOT 0 is 1." },
       { q: "AND with inputs 1 and 0 outputs what?", options: ["1", "0", "The same as OR", "The same as XOR"], answer: 1, why: "AND is 1 only when both inputs are 1. OR would output 1 here. XOR would also output 1." },
-      { q: "Which gate outputs 1 only when its two inputs are different?", options: ["AND", "NOR", "XOR", "NOT"], answer: 2, why: "XOR is 1 for 1 and 0, or 0 and 1. It is 0 when the inputs match." },
-      { q: "A circuit in this course is limited to what?", options: ["One input and three outputs", "Three inputs and one output, with no need to simplify", "Any number of inputs", "Decimal inputs"], answer: 1, why: "Draw the circuit you are given. Simplifying it is not required." },
+      { q: "Which gate outputs 1 only when its two inputs are different?", options: ["AND", "NOR", "XOR", "NOT"], answer: 2, why: "XOR is 1 for 1 and 0, or 0 and 1. It is 0 when the inputs match. XOR is also called EOR." },
+      { q: "A circuit in this course is limited to what?", options: ["One input and three outputs", "Three inputs and one output, drawn without simplification", "Any number of inputs", "Decimal inputs"], answer: 1, why: "Draw the circuit for the statement you are given. Simplifying it is not required." },
     ],
     checks: [
       "I can state the output of NOT, AND, OR, NAND, NOR and XOR for every input.",
-      "I can identify the standard symbol for each gate.",
-      "I can complete a truth table with two or three inputs.",
-      "I can build a circuit or an expression from a statement, a table or a circuit, without simplifying it.",
+      "I can describe the standard symbol for each gate, including the circle on NAND and NOR.",
+      "I can complete a truth table with two inputs or with three.",
+      "I can move between a statement, an expression and a circuit without simplifying it.",
     ],
   },
 };

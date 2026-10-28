@@ -48,6 +48,7 @@ export function renderTopic(topic) {
   if (!main) return;
   main.replaceChildren();
   const links = [{ href: "#overview", label: "Overview" }];
+  if (topic.map?.length) links.push({ href: "#syllabus", label: "Syllabus" });
   topic.sections.forEach((section) => links.push({ href: `#${section.id}`, label: section.nav || section.title }));
   if (topic.lab) links.push({ href: "#lab", label: "Try it" });
   if (topic.sort) links.push({ href: "#sort", label: "Sort" });
@@ -61,6 +62,7 @@ export function renderTopic(topic) {
   });
 
   main.append(hero(topic));
+  if (topic.map?.length) main.append(syllabusMap(topic));
   topic.sections.forEach((section) => main.append(teach(section)));
   if (topic.lab) main.append(labSection(topic.lab));
   if (topic.sort) main.append(sortSection(topic.sort));
@@ -77,6 +79,16 @@ function hero(topic) {
   wrap.append(el("p", "kicker", `Cambridge IGCSE Computer Science 0478 · ${topic.paper}`));
   wrap.append(el("h1", "", topic.title));
   wrap.append(el("p", "lede", topic.lede));
+  const actions = el("div", "actions");
+  const start = el("a", "btn", "Start the lesson");
+  start.href = topic.map?.[0]?.[0] || `#${topic.sections[0].id}`;
+  actions.append(start);
+  if (topic.mcqs?.length) {
+    const practiceLink = el("a", "btn ghost", "Jump to practice");
+    practiceLink.href = "#practice";
+    actions.append(practiceLink);
+  }
+  wrap.append(actions);
   const chips = el("ul", "chips");
   chips.append(chip(topic.id));
   chips.append(chip(topic.chapter));
@@ -90,6 +102,29 @@ function chip(text) {
   return item;
 }
 
+function syllabusMap(topic) {
+  const section = el("section", "block");
+  section.id = "syllabus";
+  const wrap = el("div", "wrap");
+  const head = el("div", "section-head");
+  head.append(el("p", "kicker", "Syllabus map"));
+  head.append(el("h2", "", topic.mapTitle || "Both columns of this topic"));
+  head.append(el("p", "lede", topic.mapLede || "Each card is one thing you should be able to do. Open it for the teaching, then for the notes that sit beside that statement in the syllabus."));
+  wrap.append(head);
+  const grid = el("div", topic.map.length > 4 ? "grid-3" : "grid-2");
+  topic.map.forEach(([href, code, title, text]) => {
+    const cardLink = el("a", "map-card");
+    cardLink.href = href;
+    cardLink.append(el("span", "", code));
+    cardLink.append(el("h3", "", title));
+    cardLink.append(el("p", "", text));
+    grid.append(cardLink);
+  });
+  wrap.append(grid);
+  section.append(wrap);
+  return section;
+}
+
 function teach(section) {
   const block = el("section", "block");
   block.id = section.id;
@@ -99,15 +134,72 @@ function teach(section) {
   head.append(el("h2", "", section.title));
   if (section.lede) head.append(el("p", "lede", section.lede));
   wrap.append(head);
+  (section.prose || []).forEach((paragraph) => wrap.append(el("p", "teaching", paragraph)));
+  if (section.pair) wrap.append(pair(section.pair));
   if (section.columns?.length) {
     const grid = el("div", section.columns.length > 2 ? "grid-3" : "grid-2");
     section.columns.forEach((column) => grid.append(card(column)));
     wrap.append(grid);
   }
+  if (section.table) wrap.append(dataTable(section.table));
+  if (section.walk) wrap.append(walkthrough(section.walk));
   if (section.exam) wrap.append(callout("Exam watch", section.exam, "exam"));
   if (section.note) wrap.append(callout("Remember", section.note, "note"));
   block.append(wrap);
   return block;
+}
+
+function pair(spec) {
+  const grid = el("div", "grid-2");
+  grid.append(pointCard("You should be able to", spec.able));
+  grid.append(pointCard("Notes and guidance", spec.notes));
+  return grid;
+}
+
+function pointCard(title, points) {
+  const article = el("article", "card");
+  article.append(el("h3", "", title));
+  const list = el("ul");
+  (points || []).forEach((point) => list.append(el("li", "", point)));
+  article.append(list);
+  return article;
+}
+
+function walkthrough(walk) {
+  const box = el("div", "worked");
+  box.append(el("h3", "", walk.title));
+  if (walk.lede) box.append(el("p", "", walk.lede));
+  const list = el("ol", "steps");
+  (walk.steps || []).forEach((step) => {
+    const item = el("li");
+    if (typeof step === "string") item.textContent = step;
+    else {
+      item.append(el("strong", "", step.label));
+      item.append(document.createTextNode(` ${step.text}`));
+    }
+    list.append(item);
+  });
+  box.append(list);
+  if (walk.result) box.append(el("p", "define", walk.result));
+  return box;
+}
+
+function dataTable(spec) {
+  const box = el("div", "worked");
+  if (spec.title) box.append(el("h3", "", spec.title));
+  if (spec.lede) box.append(el("p", "", spec.lede));
+  const table = el("table", "sheet");
+  const head = el("tr");
+  spec.head.forEach((cell) => head.append(el("th", "", cell)));
+  table.append(head);
+  spec.rows.forEach((row) => {
+    const line = el("tr");
+    row.forEach((cell) => line.append(el("td", "", String(cell))));
+    table.append(line);
+  });
+  box.append(table);
+  if (spec.note) box.append(el("p", "define", spec.note));
+  return box;
 }
 
 function card(column) {

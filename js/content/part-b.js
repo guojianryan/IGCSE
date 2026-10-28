@@ -5,25 +5,126 @@ export const partB = {
     title: "Computer architecture",
     paper: "Paper 1 · Computer systems",
     chapter: "3 Hardware",
-    lede: "The CPU processes instructions and data so that a result can be output. In a Von Neumann computer the same memory holds instructions and data, and the fetch–decode–execute cycle moves them through a small set of registers and buses.",
+    lede: "The CPU processes instructions and data so that a result can be output. In a Von Neumann computer the same memory holds instructions and data, and the fetch–decode–execute cycle moves them through a small set of registers, buses and units.",
+    mapTitle: "From the chip to the cycle",
+    map: [
+      ["#cpu", "3.1.1", "CPU and microprocessor", "The CPU processes input so a result can be output. A microprocessor is one chip."],
+      ["#parts", "3.1.2", "Von Neumann parts", "ALU, control unit, five registers and three buses, then one pass of the cycle."],
+      ["#speed", "3.1.3", "Cores, cache, clock", "Each one changes how much work the CPU finishes in a second."],
+      ["#set", "3.1.4", "Instruction set", "The list of machine-code commands that CPU can process."],
+      ["#embedded", "3.1.5", "Embedded systems", "One dedicated job, unlike a PC or a laptop."],
+    ],
     sections: [
       {
         id: "cpu",
-        kicker: "The CPU",
-        title: "Units, registers and buses",
+        kicker: "3.1.1",
+        nav: "CPU",
+        title: "What the CPU does",
+        lede: "Nothing is displayed, saved or moved until the processor has worked on the input. That work is the role of the central processing unit.",
+        prose: [
+          "The CPU processes the instructions and the data that are input into the computer, so that a result can be output. A program is a sequence of those instructions. Data is what the instructions act on. Both have to reach the CPU from memory.",
+          "A microprocessor is a type of integrated circuit on a single chip. In a phone, a washing machine or a small computer, that chip can be the CPU. The name describes how the processor is built, not a different job.",
+        ],
+        pair: {
+          able: [
+            "Understand the role of the central processing unit (CPU) in a computer.",
+            "Understand what is meant by a microprocessor.",
+          ],
+          notes: [
+            "The CPU processes instructions and data that are input so that the result can be output.",
+            "A microprocessor is a type of integrated circuit on a single chip.",
+          ],
+        },
+      },
+      {
+        id: "parts",
+        kicker: "3.1.2",
+        nav: "Von Neumann",
+        title: "Units, registers, buses and the cycle",
+        lede: "A Von Neumann computer stores instructions and data in the same memory. The CPU fetches an instruction from RAM, decodes it, and executes it, then starts again.",
+        prose: [
+          "The arithmetic logic unit (ALU) performs calculations and logical comparisons. The control unit (CU) decodes the instruction and sends control signals that tell the other parts what to do.",
+          "The program counter (PC) holds the address of the next instruction. The memory address register (MAR) holds the address that is about to be used. The memory data register (MDR) holds the data or instruction just fetched, or about to be written. The current instruction register (CIR) holds the instruction that is being decoded. The accumulator (ACC) holds a result.",
+          "The address bus carries addresses from the CPU to memory. The data bus carries data and instructions both ways. The control bus carries control signals, including whether memory should be read or written. Addresses and data are stored into the specific registers above. The buses transmit them. The units fetch, decode and execute.",
+        ],
+        pair: {
+          able: [
+            "Understand the purpose of the components in a CPU in a Von Neumann computer.",
+            "Describe the fetch–decode–execute cycle, including the role of each component.",
+          ],
+          notes: [
+            "Units: ALU and control unit. Registers: PC, MAR, MDR, CIR and ACC. Buses: address, data and control.",
+            "Instructions and data are fetched from RAM into the CPU, processed using each component, then executed.",
+            "Data and addresses are stored in specific registers. Buses transmit data, addresses and signals. Units fetch, decode and execute.",
+          ],
+        },
+        walk: {
+          title: "One pass of the fetch–decode–execute cycle",
+          lede: "Learn the registers in the order they are used. The activity later asks you to rebuild this sequence.",
+          steps: [
+            { label: "Address.", text: "The PC holds the address of the next instruction. That address is copied into the MAR." },
+            { label: "Fetch.", text: "The address travels on the address bus. The instruction is fetched from RAM into the MDR along the data bus, then copied into the CIR." },
+            { label: "Move on.", text: "The PC is incremented so that it already points at the following instruction." },
+            { label: "Decode.", text: "The control unit decodes the instruction sitting in the CIR and sends signals on the control bus." },
+            { label: "Execute.", text: "The instruction runs. A calculation uses the ALU, and a result can be stored in the accumulator. The cycle then starts again from the address in the PC." },
+          ],
+          result: "RAM holds the instruction until it is fetched. The CIR, not the MDR, is the register the control unit decodes.",
+        },
+      },
+      {
+        id: "speed",
+        kicker: "3.1.3",
+        nav: "Performance",
+        title: "Cores, cache and clock speed",
+        lede: "Three features change how quickly a CPU gets through instructions. A question usually asks for the effect, not just the name.",
+        prose: [
+          "A core is a processing unit inside the CPU. More cores can work on more instructions at the same time, so more tasks can make progress together. A program that is a single sequence still has to be done in order, but several programs, or several independent parts, can share the cores.",
+          "Cache is a small, fast store close to the CPU. It keeps copies of instructions and data that are used often, so the CPU does not have to wait for RAM as often. A larger cache can hold more of those frequent items, which improves performance until the cache is larger than the data the program actually reuses.",
+          "The clock sends a regular pulse. Each pulse starts another step of work. A faster clock starts more fetch–decode–execute cycles each second. Performance improves, and the processor produces more heat, but the syllabus point is the effect on the rate of the cycle.",
+        ],
+        pair: {
+          able: ["Understand what is meant by a core, cache and clock, and explain how they affect the performance of a CPU."],
+          notes: ["The number of cores, the size of the cache and the speed of the clock can affect performance."],
+        },
         columns: [
-          { title: "What the CPU does", points: ["It processes the instructions and data that are input, so a result can be output.", "A microprocessor is an integrated circuit on a single chip. It can be the CPU of a device."] },
-          { title: "Inside a Von Neumann CPU", points: ["The ALU performs arithmetic and logic. The control unit decodes instructions and sends signals.", "The PC holds the address of the next instruction. The MAR holds the address being used. The MDR holds the data or instruction just fetched or about to be written. The CIR holds the current instruction. The ACC holds a result.", "The address bus carries addresses. The data bus carries data and instructions. The control bus carries control signals."] },
+          { title: "More cores", points: ["More instructions can be processed at the same time.", "Useful when the work can be split.", "A single dependent sequence is not automatically many times faster."] },
+          { title: "Larger cache", points: ["More frequently used instructions and data stay close to the CPU.", "Fewer slow reads from RAM.", "The gain comes from reuse, not from cache being the main storage."] },
+          { title: "Faster clock", points: ["More cycles begin each second.", "Each instruction still has to be fetched, decoded and executed.", "Quote the cycle, not a brand name, in the answer."] },
         ],
       },
       {
-        id: "performance",
-        kicker: "Performance",
-        title: "Cores, cache, clock and embedded systems",
-        columns: [
-          { title: "What makes a CPU faster", points: ["More cores can work on more instructions at the same time.", "A larger cache keeps more frequently used data close to the CPU. A faster clock starts more fetch–decode–execute cycles each second."] },
-          { title: "Instruction set and embedded systems", points: ["An instruction set is the list of machine-code commands that a CPU can process.", "An embedded system has one dedicated job, such as a washing machine, a car, a security system, lighting or a vending machine. A general-purpose computer, such as a PC or a laptop, does many different jobs."] },
+        id: "set",
+        kicker: "3.1.4",
+        nav: "Instruction set",
+        title: "The instruction set",
+        lede: "A CPU can only process the commands it was built to understand. That list is its instruction set, and the commands are machine code.",
+        prose: [
+          "Each command in the set is a machine-code operation: add, load, store, compare, jump, and the rest of the operations that CPU provides. A program in a high-level language has to be translated into those commands before this CPU can run it.",
+          "Two processors with different instruction sets cannot run each other’s machine code unchanged. That is one reason a low-level program is tied to a type of machine, which topic 4.2 uses.",
         ],
+        pair: {
+          able: ["Understand the purpose and use of an instruction set for a CPU."],
+          notes: ["An instruction set is a list of all the commands that can be processed by a CPU, and the commands are machine code."],
+        },
+      },
+      {
+        id: "embedded",
+        kicker: "3.1.5",
+        nav: "Embedded",
+        title: "Embedded systems",
+        lede: "An embedded system has one dedicated function. A general-purpose computer is used for many different functions.",
+        prose: [
+          "The microprocessor, memory and software are built into a larger device and do that device’s job. Examples named for this course are domestic appliances, cars, security systems, lighting systems and vending machines. The system is not expected to run whatever program the user installs tomorrow.",
+          "A personal computer or a laptop is the contrast. It performs many different functions because the user can run many different applications. Saying “it has a chip” is not enough to call a device embedded. The dedicated function is the point.",
+        ],
+        pair: {
+          able: ["Describe the purpose and characteristics of an embedded system and identify devices in which they are commonly used."],
+          notes: [
+            "An embedded system performs a dedicated function, for example in a domestic appliance, car, security system, lighting system or vending machine.",
+            "A general-purpose computer performs many different functions, for example a PC or a laptop.",
+          ],
+        },
+        exam: "A laptop used for many programs is not an embedded system. A washing-machine controller is.",
       },
     ],
     order: {
@@ -48,9 +149,9 @@ export const partB = {
     ],
     checks: [
       "I can state the role of the CPU and what a microprocessor is.",
-      "I can name the ALU, CU, PC, MAR, MDR, CIR and ACC.",
-      "I can describe the fetch–decode–execute cycle and the three buses.",
-      "I can explain cores, cache and clock speed, and give an example of an embedded system.",
+      "I can name the ALU, CU, PC, MAR, MDR, CIR and ACC, and the three buses.",
+      "I can describe the fetch–decode–execute cycle in order.",
+      "I can explain cores, cache and clock speed, the instruction set, and an embedded system.",
     ],
   },
   "3.2": {
@@ -59,27 +160,83 @@ export const partB = {
     title: "Input and output devices",
     paper: "Paper 1 · Computer systems",
     chapter: "3 Hardware",
-    lede: "An input device sends data into the computer. An output device sends a result out. A sensor is an input that captures a physical quantity. An actuator is an output that produces a physical action.",
+    lede: "An input device is required because the computer needs data before it can process anything. An output device is required so a person, or another device, can receive the result. A sensor is an input that captures one physical quantity.",
+    mapTitle: "Devices, then the sensor that fits",
+    map: [
+      ["#input", "3.2.1", "Input devices", "Why data must enter, and the devices you can be asked to name."],
+      ["#output", "3.2.2", "Output devices", "Why a result must leave, including printers, screens and actuators."],
+      ["#sensors", "3.2.3", "Sensors", "What each sensor captures, and which situation it belongs to."],
+    ],
     sections: [
       {
-        id: "devices",
-        kicker: "Devices",
-        title: "Into the computer and back out",
-        columns: [
-          { title: "Input", points: ["Input is required because the computer needs data before it can process anything.", "Examples include a barcode scanner, digital camera, keyboard, microphone, optical mouse, QR scanner, touch screen, and 2D or 3D scanner."] },
-          { title: "Output", points: ["Output is required so the user, or another device, can receive the result.", "Examples include an actuator, DLP projector, inkjet printer, laser printer, LED screen, LCD projector, LCD screen, speaker and 3D printer."] },
+        id: "input",
+        kicker: "3.2.1",
+        nav: "Input",
+        title: "Input devices",
+        lede: "Processing cannot start on an empty computer. An input device converts something from the world into data.",
+        prose: [
+          "A keyboard sends characters. An optical mouse sends movement. A microphone sends sound. A digital camera sends an image. A barcode scanner and a QR code scanner read a printed code and send the value it stands for. A 2D scanner captures a flat page. A 3D scanner captures the shape of an object.",
+          "A touch screen is both a way of pointing and, on many devices, a display. As an input it comes in three forms. A resistive screen has layers that meet when they are pressed, so a stylus or a gloved finger works. A capacitive screen uses the electrical properties of a finger. An infra-red screen uses beams across the surface; the touch is the place where a beam is broken.",
         ],
-        note: "A touch screen can be resistive, capacitive or infra-red. Resistive responds to pressure. Capacitive responds to a finger’s electrical charge. Infra-red uses beams that are broken by the touch.",
+        pair: {
+          able: ["Understand what is meant by an input device and why it is required."],
+          notes: ["Barcode scanner, digital camera, keyboard, microphone, optical mouse, QR code scanner, touch screen (resistive, capacitive and infra-red), and 2D and 3D scanners."],
+        },
+        exam: "A touch screen used only as a display is output. The moment it captures a touch, that part of the device is input. Say which job the question is asking about.",
+      },
+      {
+        id: "output",
+        kicker: "3.2.2",
+        nav: "Output",
+        title: "Output devices",
+        lede: "A result that stays inside the CPU has not yet been used. An output device turns the result into something a person can sense, or into a physical action.",
+        prose: [
+          "An inkjet printer sprays ink onto paper. A laser printer uses a laser and toner. A 3D printer builds a solid object in layers. A speaker turns data back into sound. An LED screen and an LCD screen display an image in different ways. A DLP projector and an LCD projector throw that image onto a surface.",
+          "An actuator produces movement or another physical action: a motor opens a window, a valve releases water, a wheel turns. In an automated system the actuator is the output that follows the microprocessor’s decision. It is not a sensor.",
+        ],
+        pair: {
+          able: ["Understand what is meant by an output device and why it is required."],
+          notes: ["Actuator, DLP projector, inkjet printer, laser printer, LED screen, LCD projector, LCD screen, speaker and 3D printer."],
+        },
       },
       {
         id: "sensors",
-        kicker: "Sensors",
+        kicker: "3.2.3",
+        nav: "Sensors",
         title: "What each sensor captures",
-        lede: "Choose the sensor that measures the quantity in the situation. The name usually says what it captures.",
-        columns: [
-          { title: "The quantity", points: ["Temperature, light, moisture, humidity, pressure, pH, gas, flow, level, proximity, infra-red, magnetic field, acoustic and accelerometer sensors each capture a different physical value.", "The reading is analogue data from the world. It is converted so the microprocessor can use it."] },
-          { title: "Choosing one", points: ["A greenhouse that must not dry out needs a moisture sensor. A phone that changes orientation needs an accelerometer.", "An automatic door needs a proximity or infra-red sensor. A chemical tank needs a pH sensor. Do not choose a sensor that measures a different quantity."] },
+        lede: "A sensor measures one quantity. Choose the sensor whose quantity is the one in the situation. The reading is then converted so a microprocessor can use it.",
+        prose: [
+          "The name of the sensor is the quantity. A temperature sensor measures temperature. A light sensor measures light level. A moisture sensor measures water in a material such as soil. A humidity sensor measures water vapour in the air. Those two are not interchangeable: soil and air are different places for the water.",
+          "The rest of the list works the same way. Match the quantity in the scenario, not a device you happen to know. An automatic door cares about something nearby, so proximity or infra-red fits. A swimming pool’s water chemistry needs pH. A security beam that is broken needs infra-red. A phone rotating needs an accelerometer.",
         ],
+        pair: {
+          able: [
+            "Understand what is meant by a sensor and the purposes of sensors.",
+            "Identify the type of data captured by each sensor and when each would be used, including the most suitable sensor for a context.",
+          ],
+          notes: ["Limited to acoustic, accelerometer, flow, gas, humidity, infra-red, level, light, magnetic field, moisture, pH, pressure, proximity and temperature."],
+        },
+        table: {
+          title: "The sensor, the data, and a situation",
+          head: ["Sensor", "Data it captures", "A situation that needs it"],
+          rows: [
+            ["Acoustic", "Sound level", "A burglar alarm that listens for breaking glass"],
+            ["Accelerometer", "Change in speed or tilt", "A phone rotating its screen, or an airbag"],
+            ["Flow", "How fast a liquid or gas is moving", "A water pipe or a fuel line"],
+            ["Gas", "Presence of a gas", "A carbon-monoxide alarm"],
+            ["Humidity", "Moisture in the air", "A greenhouse or a museum case"],
+            ["Infra-red", "Infra-red radiation, or a broken beam", "A security beam or a remote control"],
+            ["Level", "How full a container is", "A fuel tank or a reservoir"],
+            ["Light", "Light intensity", "Street lights that switch on at dusk"],
+            ["Magnetic field", "A magnetic field", "A door contact or counting metal objects"],
+            ["Moisture", "Water in a solid or in soil", "Watering plants when the soil is dry"],
+            ["pH", "How acidic or alkaline a liquid is", "A swimming pool or a chemical process"],
+            ["Pressure", "Force of a liquid or gas", "A weather station or a pipe"],
+            ["Proximity", "How close an object is", "A parking sensor or an automatic door"],
+            ["Temperature", "How hot or cold something is", "A heating system or a greenhouse"],
+          ],
+          note: "If the question says the soil is dry, the sensor is moisture. If it says the air is damp, the sensor is humidity.",
+        },
       },
     ],
     sort: {
@@ -102,9 +259,9 @@ export const partB = {
     ],
     checks: [
       "I can define an input device and an output device and give examples of each.",
-      "I can name the three types of touch screen.",
-      "I can say what a sensor captures and choose one for a situation.",
-      "I can explain that an actuator is an output.",
+      "I can name the three types of touch screen and how each detects a touch.",
+      "I can match each sensor in the list to the quantity it captures.",
+      "I can explain that an actuator is an output, not a sensor.",
     ],
   },
   "3.3": {
@@ -113,25 +270,105 @@ export const partB = {
     title: "Data storage",
     paper: "Paper 1 · Computer systems",
     chapter: "3 Hardware",
-    lede: "Primary storage is accessed directly by the CPU. Secondary storage keeps data after the power is off. Magnetic, optical and solid-state storage work in different ways. Virtual memory and cloud storage extend what a single machine can hold.",
+    lede: "Primary storage is accessed directly by the CPU. Secondary storage is not, and it keeps data after the power is off. Magnetic, optical and solid-state storage record that data in different ways. Virtual memory and the cloud extend what one machine appears to hold.",
+    mapTitle: "Primary, secondary, then two ways to extend it",
+    map: [
+      ["#primary", "3.3.1", "Primary storage", "RAM and ROM, why both are needed, and the difference."],
+      ["#secondary", "3.3.2", "Secondary storage", "Not accessed directly by the CPU. Needed for permanent storage."],
+      ["#media", "3.3.3", "Three media", "How magnetic, optical and solid-state storage operate, with an example of each."],
+      ["#virtual", "3.3.4", "Virtual memory", "Pages moved between RAM and secondary storage."],
+      ["#cloud", "3.3.5", "Cloud storage", "Remote access, and the advantages and disadvantages against local storage."],
+    ],
     sections: [
       {
         id: "primary",
-        kicker: "Primary and secondary",
-        title: "RAM, ROM and permanent storage",
-        columns: [
-          { title: "Primary storage", points: ["The CPU can access primary storage directly. RAM holds programs and data in use. It is volatile, so its contents are lost when the power goes off.", "ROM is non-volatile and holds the start-up instructions. A computer needs RAM for current work and ROM so that it can boot."] },
-          { title: "Secondary storage", points: ["Secondary storage is not accessed directly by the CPU. It is needed for more permanent storage.", "Magnetic storage uses platters divided into tracks and sectors, read and written by electromagnets. A hard disk drive is the example.", "Optical storage uses a laser to read pits and lands. Examples are CD, DVD and Blu-ray.", "Solid-state storage uses NAND or NOR flash. Transistors act as control gates and floating gates. Examples are an SSD, an SD card and a USB drive."] },
+        kicker: "3.3.1",
+        nav: "Primary",
+        title: "RAM and ROM",
+        lede: "Primary storage is the memory the CPU can access directly. A computer needs two kinds, because one of them is emptied when the power stops.",
+        prose: [
+          "Random access memory (RAM) holds the programs and data that are in use. The CPU can read and change it directly. It is volatile: when the power goes off, its contents are lost. That is why an unsaved document disappears.",
+          "Read only memory (ROM) holds the start-up instructions. It is non-volatile, so those instructions are still there at the next power-on. The computer needs ROM in order to boot, and RAM in order to do the work after that. Neither one can replace the other.",
         ],
+        pair: {
+          able: ["Understand what is meant by primary storage."],
+          notes: [
+            "Primary storage is directly accessed by the CPU.",
+            "It includes RAM and ROM. A computer needs both, and they are different: RAM is the working store and is volatile; ROM holds start-up instructions and is not.",
+          ],
+        },
       },
       {
-        id: "extra",
-        kicker: "Extra capacity",
-        title: "Virtual memory and the cloud",
-        columns: [
-          { title: "Virtual memory", points: ["When RAM is full, pages of data are moved to secondary storage and brought back when they are needed.", "It lets a computer run more or larger programs, but fetching pages is slower than using RAM."] },
-          { title: "Cloud storage", points: ["The files are stored on physical servers and can be accessed remotely, rather than only on the local device.", "Advantages include access from different places and shared files. Drawbacks include the need for a connection, reliance on the provider, and the fact that the servers still have to exist somewhere."] },
+        id: "secondary",
+        kicker: "3.3.2",
+        nav: "Secondary",
+        title: "Why secondary storage exists",
+        lede: "RAM is fast and temporary. A file that must still be there tomorrow is kept in secondary storage.",
+        prose: [
+          "Secondary storage is not directly accessed by the CPU. Data is copied from it into RAM when a program needs it, and copied back when it must be kept. It is necessary because RAM loses its contents at power-off and because RAM is too small to hold every file.",
+          "The next section is how the three common media actually record the bits. The purpose is the same for all three: more permanent storage than RAM.",
         ],
+        pair: {
+          able: ["Understand what is meant by secondary storage."],
+          notes: ["Secondary storage is not directly accessed by the CPU and is necessary for more permanent storage of data."],
+        },
+      },
+      {
+        id: "media",
+        kicker: "3.3.3",
+        nav: "Three media",
+        title: "Magnetic, optical and solid-state",
+        lede: "Describe the operation, then give the example. A name alone does not answer “how does it work?”.",
+        prose: [
+          "Magnetic storage uses platters. Each platter is divided into tracks, and the tracks are divided into sectors. An electromagnet writes a magnetic pattern onto the surface and later reads it. A hard disk drive (HDD) is the example. The platters spin and a head moves to the right track, so there are moving parts.",
+          "Optical storage uses a laser. The surface has pits and lands. The laser creates them when the disc is written, and reads the reflection when the disc is used. CD, DVD and Blu-ray are the examples. They differ in how much they hold, not in the basic idea of pits, lands and a laser.",
+          "Solid-state storage, also called flash memory, has no spinning platter. It uses NAND or NOR technology. Transistors are used as control gates and floating gates. A charge trapped in a floating gate stores the bit. Examples are a solid-state drive (SSD), an SD card and a USB drive.",
+        ],
+        pair: {
+          able: ["Describe the operation of magnetic, optical and solid-state storage and give examples of each."],
+          notes: [
+            "Magnetic: platters divided into tracks and sectors, read and written by electromagnets. Example: HDD.",
+            "Optical: lasers create and read pits and lands. Examples: CD, DVD and Blu-ray.",
+            "Solid-state: NAND or NOR technology. Transistors are control gates and floating gates. Examples: SSD, SD card and USB drive.",
+          ],
+        },
+        exam: "“An SSD is faster” can be true, but it is not the operation. The operation is the gates and the stored charge. The operation of a hard disk is the platter, the track, the sector and the electromagnet.",
+      },
+      {
+        id: "virtual",
+        kicker: "3.3.4",
+        nav: "Virtual memory",
+        title: "Virtual memory",
+        lede: "When RAM is full, the operating system uses secondary storage as extra memory. The extra space is real storage. The name “virtual” means the program can be larger than the RAM.",
+        prose: [
+          "Data is handled in pages. A page that is not needed immediately is transferred from RAM to virtual memory on secondary storage. When an instruction needs that page, it is transferred back into RAM, and another page may have to move out to make room.",
+          "Virtual memory is necessary when the open programs and their data do not fit in RAM. The computer can keep working instead of refusing to open anything else. It is slower than real RAM, because secondary storage takes longer to read than RAM does. Heavy use of it, with pages constantly swapping, makes the machine feel sluggish.",
+        ],
+        pair: {
+          able: ["Describe what is meant by virtual memory, how it is created and used, and why it is necessary."],
+          notes: ["Pages of data are transferred between RAM and virtual memory when needed."],
+        },
+      },
+      {
+        id: "cloud",
+        kicker: "3.3.5",
+        nav: "Cloud",
+        title: "Cloud storage compared with local storage",
+        lede: "Cloud storage is accessed remotely. The files are still on physical servers. “In the cloud” does not mean the data has no hardware.",
+        prose: [
+          "Local storage is the drive in the device, or a drive attached to it. It is available without an internet connection, and the user keeps the hardware. Cloud storage places the files on servers somewhere else. The user reaches them over a network, from more than one device, and can share them.",
+          "The advantages of the cloud are remote access, a shared copy, and storage that can grow without fitting a larger drive into the computer. The disadvantages are that a connection is required, the service can be unavailable, someone else is responsible for the servers, and those physical servers still have to be bought, powered and protected. A comparison question wants one point on each side, tied to the scenario.",
+        ],
+        pair: {
+          able: [
+            "Understand what is meant by cloud storage.",
+            "Explain the advantages and disadvantages of storing data on the cloud in comparison with storing it locally.",
+          ],
+          notes: [
+            "Cloud storage can be accessed remotely, unlike data stored only on the local device.",
+            "Physical servers and storage are needed to store data in cloud storage.",
+          ],
+        },
       },
     ],
     sort: {
@@ -153,8 +390,8 @@ export const partB = {
     ],
     checks: [
       "I can compare RAM and ROM and say why both are needed.",
-      "I can describe magnetic, optical and solid-state storage and name an example of each.",
-      "I can explain how virtual memory is created and why it is slower.",
+      "I can describe magnetic, optical and solid-state operation and name an example of each.",
+      "I can explain how virtual memory uses pages and why it is slower than RAM.",
       "I can give an advantage and a disadvantage of cloud storage compared with local storage.",
     ],
   },
@@ -164,26 +401,98 @@ export const partB = {
     title: "Network hardware",
     paper: "Paper 1 · Computer systems",
     chapter: "3 Hardware",
-    lede: "A device needs a network interface card before it can join a network. The card has a MAC address from the factory. The network gives the device an IP address. A router moves data towards its destination.",
+    lede: "A computer needs a network interface card to access a network. The card has a MAC address from the factory. The network gives the device an IP address, which may be IPv4 or IPv6. A router sends data to a specific destination.",
+    mapTitle: "The card, two addresses, and the router",
+    map: [
+      ["#nic", "3.4.1", "NIC", "Without a network interface card the computer cannot join the network."],
+      ["#mac", "3.4.2", "MAC address", "Given at manufacture, written in hex, made of a manufacturer code and a serial code."],
+      ["#ip", "3.4.3", "IP address", "Allocated by the network. Static or dynamic. IPv4 or IPv6."],
+      ["#router", "3.4.4", "Router", "Forwards data, can assign IP addresses, and can join a LAN to the internet."],
+    ],
     sections: [
       {
-        id: "addresses",
-        kicker: "Addresses",
-        title: "MAC and IP",
-        columns: [
-          { title: "MAC address", points: ["A NIC is given its MAC address when it is made. The address does not change when the device joins a different network.", "It is usually written in hexadecimal. It contains a manufacturer code and a serial code."] },
-          { title: "IP address", points: ["An IP address identifies a device on a network and is allocated by that network. It can be static, so it stays the same, or dynamic, so it can change each time the device connects.", "IPv4 and IPv6 are different forms. IPv6 provides a much larger number of addresses. IPv6 addresses are written in hexadecimal."] },
+        id: "nic",
+        kicker: "3.4.1",
+        nav: "NIC",
+        title: "The network interface card",
+        lede: "The NIC is the hardware that connects the computer to the network cable or the wireless network. It is also the part that is given a MAC address.",
+        prose: [
+          "A computer with no network interface cannot send or receive network data, however good its CPU is. The card may be built into the motherboard or plugged in. It prepares data for the network and receives data addressed to this machine.",
+          "At the point of manufacture the card is given a media access control address. That address identifies the interface itself. It is not replaced when the computer joins a different network.",
         ],
+        pair: {
+          able: ["Understand that a computer needs a network interface card (NIC) to access a network."],
+          notes: ["A NIC is given a MAC address at the point of manufacture."],
+        },
+      },
+      {
+        id: "mac",
+        kicker: "3.4.2",
+        nav: "MAC",
+        title: "The structure of a MAC address",
+        lede: "The purpose of a MAC address is to identify the network interface. Its structure is two codes joined together, usually written in hexadecimal.",
+        prose: [
+          "The first part is a manufacturer code, so devices from the same maker share that portion. The second part is a serial code, unique to that interface. Together they identify one card. Hexadecimal is used because the underlying binary address would be long and easy to mistype. One hex digit replaces four bits, which is the same reason hexadecimal appeared in topic 1.1.",
+          "Because the address is assigned at manufacture, moving a laptop from school to home does not give it a new MAC address. The IP address can change. The MAC address does not.",
+        ],
+        pair: {
+          able: ["Understand what is meant by a MAC address, including its structure, and its purpose."],
+          notes: [
+            "MAC addresses are usually written as hexadecimal.",
+            "They are created using the manufacturer code and the serial code.",
+          ],
+        },
+      },
+      {
+        id: "ip",
+        kicker: "3.4.3",
+        nav: "IP",
+        title: "IP addresses, including IPv4 and IPv6",
+        lede: "An IP address identifies where a device is on a network. The network allocates it. There are two types in this course.",
+        prose: [
+          "A static IP address stays the same each time the device connects. A server is often given a static address so that other computers can keep finding it. A dynamic IP address is handed out when the device connects and may be different next time. A router on a home network often does that allocation.",
+          "IPv4 addresses are 32 bits long, usually written as four denary numbers. That length does not provide enough addresses for every device now connected to the internet. IPv6 addresses are 128 bits long and are written in hexadecimal. The much larger address space is the characteristic that distinguishes them. Both types have the same purpose: identifying a device on a network.",
+        ],
+        pair: {
+          able: [
+            "Understand what is meant by an IP address and its purpose.",
+            "Understand that there are different types of IP address.",
+          ],
+          notes: [
+            "An IP address is allocated by the network and can be static or dynamic.",
+            "Know the characteristics of IPv4 and IPv6, and the differences between them.",
+          ],
+        },
+        table: {
+          title: "Two types side by side",
+          head: ["", "IPv4", "IPv6"],
+          rows: [
+            ["Length", "32 bits", "128 bits"],
+            ["Usual writing", "Four denary numbers", "Hexadecimal"],
+            ["Address space", "Too small for every modern device", "A very much larger number of addresses"],
+            ["Purpose", "Identify a device on a network", "Identify a device on a network"],
+          ],
+        },
+        exam: "Do not swap MAC and IP. Manufacture, hexadecimal structure, manufacturer code and serial code belong to the MAC address. The network, static or dynamic, and IPv4 or IPv6 belong to the IP address.",
       },
       {
         id: "router",
-        kicker: "Routing",
-        title: "What a router does",
-        columns: [
-          { title: "On the network", points: ["A router sends data to a specific destination.", "It can assign IP addresses, and it can connect a local network to the internet."] },
-          { title: "Which address is which", points: ["The MAC address identifies the interface itself.", "The IP address identifies where that device currently sits on a network. Both are needed for different parts of sending a message."] },
+        kicker: "3.4.4",
+        nav: "Router",
+        title: "The role of a router",
+        lede: "A router sends data to a specific destination on a network. It is also the device that can join a local network to the internet.",
+        prose: [
+          "When a packet arrives, the router looks at the destination and forwards the packet on the appropriate path. That is the same routing job topic 2.1 uses for packet switching. Several possible paths can exist. The router chooses.",
+          "A router can assign IP addresses to the devices on the local network. It can also connect that local network to the internet, so a packet for a distant server leaves the LAN through the router. Those are three roles: forward to a destination, assign addresses, and connect the LAN to the internet.",
         ],
-        exam: "Do not swap the two addresses. A MAC address is fixed at manufacture. An IP address is allocated by the network.",
+        pair: {
+          able: ["Describe the role of a router in a network."],
+          notes: [
+            "A router sends data to a specific destination on a network.",
+            "A router can assign IP addresses.",
+            "A router can connect a local network to the internet.",
+          ],
+        },
       },
     ],
     sort: {
@@ -204,9 +513,9 @@ export const partB = {
       { q: "What is the difference between a static and a dynamic IP address?", options: ["Static is hexadecimal and dynamic is binary", "A static address stays the same; a dynamic address can change", "Static is a MAC address", "Dynamic addresses are only used by routers"], answer: 1, why: "Dynamic addresses are allocated when a device connects and may be different next time." },
     ],
     checks: [
-      "I can explain why a NIC is needed.",
-      "I can describe the structure and purpose of a MAC address.",
-      "I can describe an IP address, including static, dynamic, IPv4 and IPv6.",
+      "I can explain why a NIC is needed and when its MAC address is assigned.",
+      "I can describe a MAC address as a manufacturer code plus a serial code, usually in hexadecimal.",
+      "I can describe static and dynamic IP addresses, and the difference between IPv4 and IPv6.",
       "I can state three roles of a router.",
     ],
   },
@@ -216,25 +525,100 @@ export const partB = {
     title: "Types of software and interrupts",
     paper: "Paper 1 · Computer systems",
     chapter: "4 Software",
-    lede: "System software runs the computer. Application software does the job the user wants. An operating system sits between them and the hardware. An interrupt makes the processor deal with an event now.",
+    lede: "System software provides the services the computer requires. Application software provides the services the user requires. The operating system sits between them and the hardware, and an interrupt makes it deal with an event immediately.",
+    mapTitle: "Two kinds of software, the operating system, then interrupts",
+    map: [
+      ["#types", "4.1.1", "Two kinds", "System software, including utilities, and application software."],
+      ["#os", "4.1.2", "Operating system", "The basic functions, from files and memory to user accounts."],
+      ["#stack", "4.1.3", "What runs on what", "Applications on the OS, the OS on firmware, firmware on hardware."],
+      ["#interrupts", "4.1.4", "Interrupts", "How one is generated, handled by a service routine, and what happens next."],
+    ],
     sections: [
       {
         id: "types",
-        kicker: "Software",
+        kicker: "4.1.1",
+        nav: "Two kinds",
         title: "System software and application software",
-        columns: [
-          { title: "System software", points: ["It provides the services the computer needs. The operating system and utility software are system software.", "Utilities include jobs such as file management and protection against malware."] },
-          { title: "Application software", points: ["It provides the services the user needs, such as a browser, a word processor or a game.", "Applications run on the operating system. The operating system runs on the firmware. The bootloader in the firmware runs on the hardware."] },
+        lede: "Ask who the software is for. If the computer needs it in order to run, it is system software. If the user wants it for a task, it is application software.",
+        prose: [
+          "System software provides services the computer requires. The operating system is the main example. Utility software is system software too: it does housekeeping such as managing files, backing up data, or protecting the computer against malware. The user may start a utility, but the job is looking after the machine.",
+          "Application software provides services the user requires. A browser, a word processor, a spreadsheet and a game are applications. The computer can boot and wait without them. The user cannot do that particular job without them.",
         ],
+        pair: {
+          able: ["Describe the difference between system software and application software and provide examples of each."],
+          notes: [
+            "System software provides the services that the computer requires, including the operating system and utility software.",
+            "Application software provides the services that the user requires.",
+          ],
+        },
+        exam: "“A utility is an application because a person opens it” mixes up the two. Classify it by the service it provides. Looking after the computer is system software.",
       },
       {
         id: "os",
-        kicker: "The operating system",
-        title: "Functions and interrupts",
-        columns: [
-          { title: "What an operating system does", points: ["It manages files, memory, peripherals and drivers, multitasking, user accounts and system security.", "It provides an interface, a platform for applications, and it handles interrupts."] },
-          { title: "Interrupts", points: ["An interrupt is a signal that something needs attention. The current task is paused, an interrupt service routine runs, and then the processor can return to the task.", "A key press or a mouse movement is a hardware interrupt. Division by zero, or two processes trying to use the same memory, is a software interrupt."] },
+        kicker: "4.1.2",
+        nav: "Operating system",
+        title: "What an operating system does",
+        lede: "The operating system is the platform everything else runs on. A question that says “state two functions” is asking for two items from this list, with a verb.",
+        prose: [
+          "It manages files: creating, copying, deleting and organising them on secondary storage. It manages memory, including deciding what stays in RAM and what is moved to virtual memory. It manages multitasking, so more than one process can appear to run at the same time, each getting a share of the processor.",
+          "It manages peripherals and their drivers, so a printer or a keyboard can be used without every application containing its own hardware instructions. It provides an interface, graphical or command-line, between the user and the machine. It provides a platform for running applications. It handles interrupts. It provides system security and manages user accounts, so each user has their own access.",
         ],
+        pair: {
+          able: ["Describe the role and basic functions of an operating system."],
+          notes: [
+            "Managing files, handling interrupts, providing an interface, managing peripherals and drivers, managing memory, managing multitasking.",
+            "Providing a platform for running applications, providing system security, and managing user accounts.",
+          ],
+        },
+      },
+      {
+        id: "stack",
+        kicker: "4.1.3",
+        nav: "The stack",
+        title: "Hardware, firmware and the operating system",
+        lede: "Application software does not talk to the hardware by itself. Each layer runs on the one below it.",
+        prose: [
+          "The hardware is the bottom. The bootloader, which is firmware, runs on that hardware and starts the computer. The operating system runs on the firmware. Applications run on the operating system.",
+          "If the operating system is missing, the application has no platform. If the firmware cannot start, the operating system never loads. A question about “what is required to run application software” wants this stack, not a list of input devices.",
+        ],
+        pair: {
+          able: ["Understand how hardware, firmware and an operating system are required to run application software."],
+          notes: [
+            "Applications are run on the operating system.",
+            "The operating system is run on the firmware.",
+            "The bootloader (firmware) is run on the hardware.",
+          ],
+        },
+        walk: {
+          title: "Switching a computer on",
+          steps: [
+            { label: "Hardware.", text: "Power reaches the circuits." },
+            { label: "Firmware.", text: "The bootloader, stored so that it survives power-off, starts the machine and finds the operating system." },
+            { label: "Operating system.", text: "It loads, sets up memory, devices and the interface, and waits." },
+            { label: "Application.", text: "The user starts a program. It runs on the operating system, not directly on the bare hardware." },
+          ],
+        },
+      },
+      {
+        id: "interrupts",
+        kicker: "4.1.4",
+        nav: "Interrupts",
+        title: "How an interrupt is handled",
+        lede: "An interrupt is a signal that the processor should pause its current work and deal with an event. The operating system handles it.",
+        prose: [
+          "The interrupt is generated by hardware or by software. The processor finishes its current fetch–decode–execute step and notices the signal. The state of the current task is stored, so it can be resumed. An interrupt service routine (ISR) then runs. That routine is the code written for this particular event.",
+          "When the routine finishes, the stored state is restored and the original task continues. That is the result of the interrupt: the event has been dealt with, and the interrupted work has not been thrown away.",
+          "A software interrupt comes from a running program. Division by zero is one. Two processes trying to access the same memory location is another. A hardware interrupt comes from a device. Pressing a key on the keyboard is one. Moving the mouse is another.",
+        ],
+        pair: {
+          able: ["Describe the role and operation of interrupts."],
+          notes: [
+            "Include how an interrupt is generated, how it is handled using an interrupt service routine, and what happens as a result.",
+            "Software interrupts include division by zero and two processes trying to access the same memory location.",
+            "Hardware interrupts include pressing a key and moving the mouse.",
+          ],
+        },
+        exam: "“The computer stops” is incomplete. Say that the current task is paused, the interrupt service routine runs, and then the task can continue.",
       },
     ],
     sort: {
@@ -256,9 +640,9 @@ export const partB = {
     ],
     checks: [
       "I can distinguish system software from application software and give an example of each.",
-      "I can list the main functions of an operating system.",
+      "I can list the functions of an operating system, including files, memory, devices, security and accounts.",
       "I can describe the stack from hardware to firmware to operating system to applications.",
-      "I can describe how an interrupt is handled and give a hardware and a software example.",
+      "I can describe how an interrupt is generated and handled, with a hardware and a software example.",
     ],
   },
   "4.2": {
@@ -267,25 +651,95 @@ export const partB = {
     title: "Languages, translators and IDEs",
     paper: "Paper 1 · Computer systems",
     chapter: "4 Software",
-    lede: "A high-level language is written for people. A low-level language is close to the processor. A translator turns the program into a form the computer can run. An IDE is the set of tools used to write that program.",
+    lede: "A high-level language is written for people. A low-level language is close to the instruction set of one processor. A translator turns a program into something the computer can run. An IDE is the set of tools used while writing it.",
+    mapTitle: "Languages, two translators, then the IDE",
+    map: [
+      ["#languages", "4.2.1", "High-level and low-level", "Reading, debugging, machine independence, and direct control of hardware."],
+      ["#assembly", "4.2.2", "Assembly language", "Mnemonics, translated by an assembler into machine code."],
+      ["#translators", "4.2.3", "Compiler and interpreter", "The whole program, or one line at a time, and how each reports errors."],
+      ["#ide", "4.2.4", "The IDE", "Editor, run-time environment, translator, diagnostics and the writing aids."],
+    ],
     sections: [
       {
         id: "languages",
-        kicker: "Languages",
-        title: "High-level, low-level and assembly",
-        columns: [
-          { title: "High-level language", points: ["It is easier to read, write and debug, and the same source can be moved to different machines.", "It cannot control the hardware as directly, and it must be translated before it will run."] },
-          { title: "Low-level language", points: ["Machine code is the processor’s own instructions. It is hard to read and is tied to one type of machine, but it can control the hardware directly.", "Assembly language is a low-level language that uses mnemonics. An assembler translates those mnemonics into machine code."] },
+        kicker: "4.2.1",
+        nav: "Languages",
+        title: "High-level and low-level languages",
+        lede: "High-level code looks closer to the problem. Low-level code looks closer to the processor. Each advantage of one is a disadvantage of the other.",
+        prose: [
+          "A high-level language uses statements a person can read and write without knowing the registers of a particular CPU. The same source can be translated for different machines, so it is machine independent. Errors are easier to find because the code describes the task. It cannot manipulate the hardware as directly, and it must be translated before it will run.",
+          "A low-level language is close to machine code. It is hard to read, hard to debug, and written for one type of machine. In return, the programmer can manipulate the hardware directly and can control exactly which instruction runs. Machine code itself is the lowest level: the binary commands in that CPU’s instruction set.",
         ],
+        pair: {
+          able: ["Explain what is meant by a high-level language and a low-level language, including the advantages and disadvantages of each."],
+          notes: [
+            "Compare ease of reading and writing. Low-level code is hard to read.",
+            "Compare ease of debugging, machine independence, and direct manipulation of hardware.",
+          ],
+        },
+        table: {
+          title: "The comparison a 4-mark answer is built from",
+          head: ["", "High-level", "Low-level"],
+          rows: [
+            ["Reading and writing", "Easier for a person", "Hard to read and write"],
+            ["Debugging", "Easier to find a mistake", "Harder to follow"],
+            ["Machines", "Can be translated for different machines", "Tied to one instruction set"],
+            ["Hardware", "Less direct control", "Direct manipulation of the hardware"],
+          ],
+        },
       },
       {
-        id: "tools",
-        kicker: "Translators and IDEs",
-        title: "Compiler, interpreter and the editor",
-        columns: [
-          { title: "Compiler and interpreter", points: ["A compiler translates the whole program before it runs and produces an executable file. If there are errors, it reports them for the whole program.", "An interpreter translates and runs one line at a time and stops when it finds an error. An interpreter is often used while a program is being written. A compiler is used for the finished program."] },
-          { title: "IDE", points: ["An IDE gathers the tools for writing code: a code editor, a run-time environment and a translator.", "It also provides error diagnostics, auto-completion, auto-correction and prettyprint."] },
+        id: "assembly",
+        kicker: "4.2.2",
+        nav: "Assembly",
+        title: "Assembly language and the assembler",
+        lede: "Assembly language is still low-level. Mnemonics make the commands readable as short words. They are not yet machine code.",
+        prose: [
+          "A mnemonic is a memorable abbreviation for one machine-code operation, such as loading a value or adding. The programmer writes the mnemonics. The processor cannot execute them. An assembler translates the assembly language program into machine code for that processor.",
+          "Do not call the assembler a compiler. A compiler translates a high-level language. An assembler translates assembly language. Both produce a form the CPU can run, and they start from different languages.",
         ],
+        pair: {
+          able: ["Understand that assembly language is a low-level language that uses mnemonics, and that an assembler translates it into machine code."],
+          notes: ["The assembler is the translator for assembly language. The result is machine code."],
+        },
+      },
+      {
+        id: "translators",
+        kicker: "4.2.3",
+        nav: "Translators",
+        title: "Compilers and interpreters",
+        lede: "Both translate a high-level language. They disagree about when the translation happens, and about what you are given when an error is found.",
+        prose: [
+          "A compiler translates the whole program before any of it is executed. The result is an executable file. That file can be distributed and run without giving the user the source, and without translating it again. If errors are detected, the compiler provides an error report for the whole program, so several faults can be seen together. The wait comes first: nothing runs until the translation has finished. After a change, the program must be compiled again.",
+          "An interpreter translates and executes one line at a time. It stops when an error is found, which is useful while a program is being written because the programmer sees the failure at that line. It does not produce an executable file, so the interpreter is needed every time the program runs, and it has not checked the lines it has not reached. An interpreter is mostly used when developing a program. A compiler is used to translate the final program.",
+        ],
+        pair: {
+          able: [
+            "Describe the operation of a compiler and an interpreter, including how each translates high-level language and how errors are reported.",
+            "Explain the advantages and disadvantages of a compiler and an interpreter.",
+          ],
+          notes: [
+            "A compiler translates the whole code at once before executing it, producing an executable file. It reports errors for the whole code.",
+            "An interpreter translates and executes line by line, and stops when an error is found.",
+            "An interpreter is mostly used while developing a program. A compiler is used to translate the final program.",
+          ],
+        },
+        exam: "“A compiler is better” needs the situation. During development, stopping at the first error can be the advantage. For the program you ship, the executable file is the advantage.",
+      },
+      {
+        id: "ide",
+        kicker: "4.2.4",
+        nav: "IDE",
+        title: "What an IDE provides",
+        lede: "An integrated development environment gathers the tools for writing a program into one place. You should be able to name the common functions, not only the letters IDE.",
+        prose: [
+          "A code editor is where the program is typed. A run-time environment lets the programmer run it. A translator, compiler or interpreter, is included so the run can happen. Error diagnostics show where a fault was found and often what kind of fault it is.",
+          "Auto-completion suggests the rest of a name or a statement. Auto-correction fixes small mistakes as the code is entered. Prettyprint lays the code out, with indentation and colour, so the structure is easier to see. Together these functions are the role of the IDE: to make writing, translating and correcting the program one activity.",
+        ],
+        pair: {
+          able: ["Explain the role of an IDE in writing program code and the common functions IDEs provide."],
+          notes: ["Code editors, a run-time environment, translators, error diagnostics, auto-completion, auto-correction and prettyprint."],
+        },
       },
     ],
     sort: {
@@ -306,9 +760,9 @@ export const partB = {
       { q: "A finished program is distributed to users. Which translator is usually used to produce what they run?", options: ["An interpreter, because it stops at the first error", "A compiler, because it produces an executable file", "An assembler, because the program is high-level", "No translator"], answer: 1, why: "The compiler’s executable file is what is distributed. The interpreter is more useful during development." },
     ],
     checks: [
-      "I can compare high-level and low-level languages.",
-      "I can describe assembly language and an assembler.",
-      "I can compare a compiler with an interpreter, including how each reports errors.",
+      "I can compare high-level and low-level languages on reading, debugging, independence and hardware control.",
+      "I can describe assembly language, mnemonics and an assembler.",
+      "I can compare a compiler with an interpreter, including error reports and when each is used.",
       "I can name the common functions of an IDE.",
     ],
   },

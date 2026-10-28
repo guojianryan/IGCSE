@@ -326,7 +326,7 @@ code {
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .grid-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 
-.card, .lab, .callout, .map-card, .fn, .q, .check-list {
+.card, .lab, .callout, .map-card, .fn, .q, .check-list, .worked {
   background: rgba(16, 20, 28, 0.9);
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -613,6 +613,13 @@ table.sheet { width: 100%; border-collapse: collapse; font-family: var(--mono); 
 table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; }
 .out { overflow-x: auto; }
 .step-btn, .choice, .opt { cursor: pointer; }
+.teaching { max-width: 74ch; }
+.teaching + .teaching { margin-top: -0.2em; }
+.worked { margin-top: 16px; }
+.worked h3 { font-family: var(--sans); letter-spacing: 0; font-size: 1.02rem; }
+.steps { margin: 0.3em 0 0; padding-left: 1.25em; }
+.steps li + li { margin-top: 0.45em; }
+.grid-2 + .grid-2, .teaching + .grid-2, .grid-2 + .worked, .grid-2 + .grid-3 { margin-top: 16px; }
 #ledger { margin: 8px 0 0; padding-left: 1.15em; }
 #ledger li + li { margin-top: 0.35em; }
 
@@ -635,6 +642,6 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 @media print {
   body { background: white; color: black; }
   body::before, header, .stage, .lab, .actions, footer .fine { display: none !important; }
-  .card, .callout, .q, .fn, .map-card { break-inside: avoid; border-color: #ccc; background: white; }
+  .card, .callout, .q, .fn, .map-card, .worked { break-inside: avoid; border-color: #ccc; background: white; }
   a { color: black; }
 }
