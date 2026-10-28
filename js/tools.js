@@ -181,6 +181,12 @@ export const STUDENTS = [
   { StudentID: 2, Name: "Ben", Initial: "B", Class: "10B", Mark: 64, Height: 1.8, FeePaid: false, DateJoined: "2025-01-12" },
   { StudentID: 3, Name: "Chen", Initial: "C", Class: "10A", Mark: 91, Height: 1.5, FeePaid: true, DateJoined: "2024-09-03" },
   { StudentID: 4, Name: "Dia", Initial: "D", Class: "10B", Mark: 55, Height: 1.7, FeePaid: false, DateJoined: "2023-09-01" },
+  { StudentID: 5, Name: "Eva", Initial: "E", Class: "10A", Mark: 70, Height: 1.6, FeePaid: true, DateJoined: "2024-09-01" },
+  { StudentID: 6, Name: "Farid", Initial: "F", Class: "10C", Mark: 48, Height: 1.9, FeePaid: false, DateJoined: "2022-09-05" },
+  { StudentID: 7, Name: "Grace", Initial: "G", Class: "10B", Mark: 82, Height: 1.4, FeePaid: true, DateJoined: "2024-11-18" },
+  { StudentID: 8, Name: "Hana", Initial: "H", Class: "10C", Mark: 73, Height: 1.7, FeePaid: true, DateJoined: "2025-01-12" },
+  { StudentID: 9, Name: "Ivan", Initial: "I", Class: "10A", Mark: 61, Height: 1.8, FeePaid: false, DateJoined: "2023-09-01" },
+  { StudentID: 10, Name: "Jade", Initial: "J", Class: "10C", Mark: 88, Height: 1.5, FeePaid: true, DateJoined: "2024-09-03" },
 ];
 
 export function runQuery(sql, rows = STUDENTS) {

@@ -674,7 +674,7 @@ function labLede(name) {
     media: "The number of colours is 2 to the power of the colour depth. File size uses 1024, not 1000.",
     files: "Image size uses the number of pixels and the colour depth. Sound size uses the sample rate, resolution and length. Run-length encoding is lossless.",
     checks: "Parity and checksum are checked after transmission. A check digit is checked when data is entered.",
-    sql: "One table, four records. Each syllabus data type appears once. The primary key is StudentID. Keywords can be upper or lower case.",
+    sql: "One table, ten records. Each syllabus data type appears once. The primary key is StudentID. Keywords can be upper or lower case.",
     gates: "NOT has one input. Every other gate here has two. XOR is also called EOR.",
     array: "This array uses index 0 for the first cell. A question may instead start at 1. Read the question.",
   }[name];
