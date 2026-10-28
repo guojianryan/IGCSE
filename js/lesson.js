@@ -135,6 +135,7 @@ function teach(section) {
   if (section.lede) head.append(el("p", "lede", section.lede));
   wrap.append(head);
   (section.prose || []).forEach((paragraph) => wrap.append(el("p", "teaching", paragraph)));
+  if (section.structure) wrap.append(renderStructure(section.structure));
   if (section.pair) wrap.append(pair(section.pair));
   if (section.columns?.length) {
     const grid = el("div", section.columns.length > 2 ? "grid-3" : "grid-2");
@@ -408,6 +409,95 @@ function drawLoop(chart) {
   svg.append(flowProcess(x - 132, 430, 264, 46, update));
   svg.append(flowLine([[x, 476], [x, 528], [44, 528], [44, 150], [x, 150]], svg.marker));
   svg.append(flowTag(58, 508, "back to the decision", "start", "flow-back"));
+  return svg;
+}
+
+function renderStructure(spec) {
+  const box = el("div", "worked");
+  if (spec.title) box.append(el("h3", "", spec.title));
+  box.append(drawStructure(spec));
+  if (spec.note) box.append(el("p", "define", spec.note));
+  return box;
+}
+
+function structureLabel(text) {
+  if (text.length <= 14) return [text];
+  const space = text.lastIndexOf(" ", Math.ceil(text.length / 2) + 3);
+  if (space < 4) return [text];
+  return [text.slice(0, space), text.slice(space + 1)];
+}
+
+function structureBox(x, y, w, h, text, kind) {
+  const group = svgEl("g");
+  group.append(svgEl("rect", { class: kind, x, y, width: w, height: h, rx: 4 }));
+  const lines = structureLabel(text);
+  const middle = y + h / 2;
+  if (lines.length === 1) {
+    group.append(flowText(x + w / 2, middle, lines[0]));
+    return group;
+  }
+  lines.forEach((line, index) => {
+    const lineY = middle + (index - (lines.length - 1) / 2) * 18;
+    group.append(flowText(x + w / 2, lineY, line));
+  });
+  return group;
+}
+
+function drawStructure(spec) {
+  const boxH = 46;
+  const tallH = 62;
+  const leafW = 156;
+  const childW = 168;
+  const childGap = 16;
+  const groupGap = 24;
+  const pad = 16;
+  const groups = spec.children.map((child) => {
+    const kids = child.children || [];
+    const width = kids.length ? kids.length * childW + (kids.length - 1) * childGap : leafW;
+    return { text: child.text, kids, width };
+  });
+  const total = groups.reduce((sum, group) => sum + group.width, 0) + groupGap * (groups.length - 1);
+  const deep = groups.some((group) => group.kids.length);
+  const width = total + pad * 2;
+  const height = deep ? 292 : 150;
+  const svg = svgEl("svg", {
+    class: "flow-svg struct-svg",
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": spec.label,
+  });
+  let cursor = pad;
+  const level = groups.map((group) => {
+    const placed = { ...group, center: cursor + group.width / 2 };
+    cursor += group.width + groupGap;
+    return placed;
+  });
+  const rootW = 188;
+  const rootX = pad + total / 2 - rootW / 2;
+  const rootY = 8;
+  svg.append(structureBox(rootX, rootY, rootW, boxH, spec.root, "struct-root"));
+  const busY = rootY + boxH + 26;
+  const rowY = busY + 16;
+  svg.append(flowLine([[pad + total / 2, rootY + boxH], [pad + total / 2, busY]]));
+  svg.append(flowLine([[level[0].center, busY], [level[level.length - 1].center, busY]]));
+  level.forEach((group) => {
+    svg.append(flowLine([[group.center, busY], [group.center, rowY]]));
+    svg.append(structureBox(group.center - leafW / 2, rowY, leafW, boxH, group.text, "struct-part"));
+    if (!group.kids.length) return;
+    const parentBottom = rowY + boxH;
+    const bus2 = parentBottom + 26;
+    const childY = bus2 + 16;
+    const span = group.kids.length * childW + (group.kids.length - 1) * childGap;
+    const centers = group.kids.map((kid, index) => group.center - span / 2 + childW / 2 + index * (childW + childGap));
+    svg.append(flowLine([[group.center, parentBottom], [group.center, bus2]]));
+    if (centers.length > 1) svg.append(flowLine([[centers[0], bus2], [centers[centers.length - 1], bus2]]));
+    group.kids.forEach((kid, index) => {
+      const lines = structureLabel(kid);
+      const h = lines.length > 1 ? tallH : boxH;
+      svg.append(flowLine([[centers[index], bus2], [centers[index], childY]]));
+      svg.append(structureBox(centers[index] - childW / 2, childY, childW, h, kid, "struct-part"));
+    });
+  });
   return svg;
 }
 

@@ -714,6 +714,7 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .flow-label { margin: 0 0 6px; font-family: var(--mono); font-size: 0.78rem; color: var(--amber); }
 .flow-back { margin: 8px 0 0; max-width: 26ch; text-align: center; color: var(--teal); font-size: 0.88rem; }
 .flow-svg { width: min(720px, 100%); height: auto; display: block; margin: 8px auto 0; }
+.struct-svg { width: min(960px, 100%); }
 .flow-svg .flow-line { fill: none; stroke: var(--muted); stroke-width: 2; }
 .flow-svg .flow-head { fill: var(--muted); }
 .flow-svg .flow-term,
@@ -722,6 +723,10 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .flow-svg .flow-decision { fill: #0b0e15; stroke-width: 2; }
 .flow-svg .flow-term { stroke: var(--teal); }
 .flow-svg .flow-process { stroke: var(--blue); }
+.flow-svg .struct-root,
+.flow-svg .struct-part { fill: #0b0e15; stroke-width: 2; }
+.flow-svg .struct-root { stroke: var(--teal); }
+.flow-svg .struct-part { stroke: var(--blue); }
 .flow-svg .flow-io { stroke: var(--amber); }
 .flow-svg .flow-decision { stroke: var(--coral); }
 .flow-svg text {
@@ -758,7 +763,9 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
   .flow-svg .flow-term,
   .flow-svg .flow-process,
   .flow-svg .flow-io,
-  .flow-svg .flow-decision { fill: white; stroke: black; }
+  .flow-svg .flow-decision,
+  .flow-svg .struct-root,
+  .flow-svg .struct-part { fill: white; stroke: black; }
   .flow-svg text, .flow-svg .flow-tag, .flow-svg .flow-back { fill: black; }
   .flow-svg .flow-line { stroke: black; }
   .flow-svg .flow-head { fill: black; }

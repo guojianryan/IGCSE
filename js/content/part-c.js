@@ -414,6 +414,7 @@ export const partC = {
     map: [
       ["#cycle", "7.1", "Life cycle", "Analysis, design, coding and testing, and the tasks inside each."],
       ["#decompose", "7.2", "Decomposition", "Sub-systems, then inputs, processes, outputs and storage."],
+      ["#structure", "7.2", "Structure diagram", "One box for the system, then a line down to each sub-system."],
       ["#methods", "7.4", "Standard methods", "Linear search, bubble sort, totalling, counting, maximum, minimum and average."],
       ["#checks", "7.5", "Validation and verification", "Six validation checks. Visual check and double entry."],
       ["#testing", "7.6", "Test data and traces", "Normal, abnormal, extreme and boundary, then a trace table."],
@@ -477,6 +478,28 @@ export const partC = {
             ["Subroutine", "A call to a separate flowchart"],
           ],
           note: "The examples further down draw these shapes. A decision has two labelled flow lines. A subroutine box calls a separate flowchart, and that flowchart is not joined on.",
+        },
+      },
+      {
+        id: "structure",
+        kicker: "Structure diagram",
+        nav: "Structure",
+        title: "A structure diagram",
+        lede: "A structure diagram is the hierarchy. The whole system is the single box at the top. A line joins it to the sub-systems that make it up, and those can split again. It names the parts. It does not show the order they run in.",
+        prose: [
+          "Every box has one short name and one job. A box splits only into the boxes joined directly under it. Do not add a part the problem never mentions: extra boxes do not earn the marks. The lines have no arrowheads, because nothing here is a flow of control. The order of the steps belongs on the flowchart.",
+          "This is the school library from the section above. Membership, loans and returns are the three sub-systems. Only loans is split again, into the three jobs already named: check the member, check the book, and record the loan. Membership and returns stay as one box each, because this description did not break them down.",
+        ],
+        structure: {
+          title: "The school library",
+          label: "Structure diagram. School library splits into Membership, Loans and Returns. Loans splits into Check the member, Check the book, and Record the loan.",
+          root: "School library",
+          note: "Read each row as the parts of the box above it. Membership is not drawn before loans, and loans is not a step that runs first.",
+          children: [
+            { text: "Membership" },
+            { text: "Loans", children: ["Check the member", "Check the book", "Record the loan"] },
+            { text: "Returns" },
+          ],
         },
       },
       {
@@ -880,7 +903,7 @@ Value ← ROUND(RANDOM() * 6, 0)`,
     ],
     checks: [
       "I can describe analysis, design, coding and testing, including the tasks in each.",
-      "I can decompose a problem into inputs, processes, outputs and storage.",
+      "I can decompose a problem into inputs, processes, outputs and storage, and draw that breakdown as a structure diagram.",
       "I can write a linear search, a bubble sort, a total, a count, a maximum, a minimum and an average.",
       "I can choose normal, abnormal, extreme and boundary data, and complete a trace table.",
     ],
