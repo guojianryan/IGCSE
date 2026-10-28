@@ -674,7 +674,7 @@ function labLede(name) {
     media: "The number of colours is 2 to the power of the colour depth. File size uses 1024, not 1000.",
     files: "Image size uses the number of pixels and the colour depth. Sound size uses the sample rate, resolution and length. Run-length encoding is lossless.",
     checks: "Parity and checksum are checked after transmission. A check digit is checked when data is entered.",
-    sql: "One table, four records. The primary key is StudentID. Keywords can be upper or lower case.",
+    sql: "One table, four records. Each syllabus data type appears once. The primary key is StudentID. Keywords can be upper or lower case.",
     gates: "NOT has one input. Every other gate here has two. XOR is also called EOR.",
     array: "This array uses index 0 for the first cell. A question may instead start at 1. Read the question.",
   }[name];
@@ -895,8 +895,10 @@ function sqlLab(lab) {
   box.value = "SELECT Name, Mark FROM Students WHERE Mark >= 70 ORDER BY Mark DESCENDING";
   const table = el("div", "out");
   table.id = "sql-table";
-  lab.append(el("p", "", "StudentID is unique, so it can be the primary key."));
-  lab.append(renderRows(STUDENTS));
+  lab.append(el("p", "", "StudentID is the primary key. Initial is a character, Name and Class are text, Mark is an integer, Height is a real number, FeePaid is Boolean, and DateJoined is a date written YYYY-MM-DD."));
+  const source = el("div", "out");
+  source.append(renderRows(STUDENTS));
+  lab.append(source);
   lab.append(field("Query", box));
   const actions = el("div", "row-actions");
   [
@@ -905,6 +907,9 @@ function sqlLab(lab) {
     ["Marks of 70 or more", "SELECT Name, Mark FROM Students WHERE Mark >= 70 ORDER BY Mark DESCENDING"],
     ["Count class 10B", "SELECT COUNT(*) FROM Students WHERE Class = '10B'"],
     ["Sum of 10A marks", "SELECT SUM(Mark) FROM Students WHERE Class = '10A'"],
+    ["Unpaid fees", "SELECT Name, FeePaid FROM Students WHERE FeePaid = FALSE"],
+    ["Taller than 1.6", "SELECT Name, Height FROM Students WHERE Height > 1.6"],
+    ["Joined from 2024", "SELECT Name, DateJoined FROM Students WHERE DateJoined >= '2024-09-01' ORDER BY DateJoined ASCENDING"],
   ].forEach(([label, query]) => {
     actions.append(button(label, () => {
       box.value = query;
@@ -936,10 +941,15 @@ function renderRows(rows) {
   table.append(head);
   rows.forEach((row) => {
     const line = el("tr");
-    Object.keys(rows[0]).forEach((key) => line.append(el("td", "", String(row[key]))));
+    Object.keys(rows[0]).forEach((key) => line.append(el("td", "", cellText(row[key]))));
     table.append(line);
   });
   return table;
+}
+
+function cellText(value) {
+  if (typeof value === "boolean") return value ? "TRUE" : "FALSE";
+  return String(value);
 }
 
 function gatesLab(lab) {

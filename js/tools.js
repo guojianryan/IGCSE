@@ -177,10 +177,10 @@ export function truthTable(name) {
 }
 
 export const STUDENTS = [
-  { StudentID: 1, Name: "Amina", Class: "10A", Mark: 78 },
-  { StudentID: 2, Name: "Ben", Class: "10B", Mark: 64 },
-  { StudentID: 3, Name: "Chen", Class: "10A", Mark: 91 },
-  { StudentID: 4, Name: "Dia", Class: "10B", Mark: 55 },
+  { StudentID: 1, Name: "Amina", Initial: "A", Class: "10A", Mark: 78, Height: 1.6, FeePaid: true, DateJoined: "2024-09-03" },
+  { StudentID: 2, Name: "Ben", Initial: "B", Class: "10B", Mark: 64, Height: 1.8, FeePaid: false, DateJoined: "2025-01-12" },
+  { StudentID: 3, Name: "Chen", Initial: "C", Class: "10A", Mark: 91, Height: 1.5, FeePaid: true, DateJoined: "2024-09-03" },
+  { StudentID: 4, Name: "Dia", Initial: "D", Class: "10B", Mark: 55, Height: 1.7, FeePaid: false, DateJoined: "2023-09-01" },
 ];
 
 export function runQuery(sql, rows = STUDENTS) {
@@ -197,9 +197,10 @@ export function runQuery(sql, rows = STUDENTS) {
     const fn = aggregate[1].toUpperCase();
     const column = aggregate[2];
     if (fn === "COUNT") return [{ Result: result.length }];
-    const values = result.map((row) => Number(readField(row, column)));
-    if (values.some((value) => !Number.isFinite(value))) throw new Error("SUM needs a numeric field.");
-    return [{ Result: values.reduce((sum, value) => sum + value, 0) }];
+    const values = result.map((row) => readField(row, column));
+    if (values.some((value) => typeof value !== "number" || !Number.isFinite(value))) throw new Error("SUM needs a numeric field.");
+    const total = values.reduce((sum, value) => sum + value, 0);
+    return [{ Result: Math.round((total + Number.EPSILON) * 1000) / 1000 }];
   }
   if (orderField) {
     const direction = orderWord.startsWith("DESC") ? -1 : 1;
@@ -228,11 +229,16 @@ function matchesWhere(row, where) {
 }
 
 function compareClause(row, clause) {
-  const match = clause.trim().match(/^([a-z]+)\s*(<>|<=|>=|=|<|>)\s*(?:'([^']*)'|(\d+))$/i);
-  if (!match) throw new Error("A condition looks like Mark > 70 or Class = '10A'.");
+  const match = clause.trim().match(/^([a-z]+)\s*(<>|<=|>=|=|<|>)\s*(?:'([^']*)'|(true|false)|(\d+(?:\.\d+)?))$/i);
+  if (!match) throw new Error("A condition looks like Mark > 70, Height > 1.6, FeePaid = FALSE or DateJoined >= '2024-09-01'.");
   const actual = readField(row, match[1]);
-  const expected = match[3] !== undefined ? match[3] : Number(match[4]);
   const op = match[2];
+  const expected = match[3] !== undefined ? match[3] : match[4] !== undefined ? match[4].toUpperCase() === "TRUE" : Number(match[5]);
+  if (typeof actual === "boolean" || typeof expected === "boolean") {
+    if (typeof actual !== "boolean" || typeof expected !== "boolean") throw new Error("Compare a Boolean field with TRUE or FALSE.");
+    if (op !== "=" && op !== "<>") throw new Error("Boolean fields can be compared with = or <>.");
+    return op === "=" ? actual === expected : actual !== expected;
+  }
   if (typeof actual === "number" || typeof expected === "number") {
     const left = Number(actual);
     const right = Number(expected);
@@ -244,9 +250,14 @@ function compareClause(row, clause) {
     if (op === "<=") return left <= right;
     return left >= right;
   }
-  if (op === "=") return actual === expected;
-  if (op === "<>") return actual !== expected;
-  throw new Error("Text fields can be compared with = or <>.");
+  const left = String(actual);
+  const right = String(expected);
+  if (op === "=") return left === right;
+  if (op === "<>") return left !== right;
+  if (op === "<") return left < right;
+  if (op === ">") return left > right;
+  if (op === "<=") return left <= right;
+  return left >= right;
 }
 
 function readField(row, name) {
@@ -260,6 +271,7 @@ function readFieldEntry(row, name) {
 }
 
 function compare(left, right) {
+  if (typeof left === "boolean" && typeof right === "boolean") return Number(left) - Number(right);
   if (typeof left === "number" && typeof right === "number") return left - right;
   return String(left).localeCompare(String(right));
 }
