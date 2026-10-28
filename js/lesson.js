@@ -222,11 +222,7 @@ function tabSet(spec) {
     panel.id = panelId;
     panel.setAttribute("role", "tabpanel");
     if (item.note) panel.append(el("p", "define", item.note));
-    if (item.code) {
-      const pre = el("pre", "pseudo");
-      pre.textContent = item.code.replace(/^\n/, "").replace(/\s+$/, "");
-      panel.append(pre);
-    }
+    if (item.code) panel.append(pseudocodeBlock(item.code));
     const charts = item.charts || [];
     const host = charts.length > 1 ? el("div", "grid-2") : panel;
     charts.forEach((chart) => {
@@ -251,6 +247,87 @@ function tabSet(spec) {
   });
   box.append(bar, panels);
   return box;
+}
+
+const PSEUDO_KEYWORDS = new Set([
+  "AND", "ARRAY", "CALL", "CASE", "CLOSEFILE", "CONSTANT", "DECLARE", "DO", "ELSE",
+  "ENDCASE", "ENDFUNCTION", "ENDIF", "ENDPROCEDURE", "ENDWHILE", "FOR", "FUNCTION",
+  "IF", "INPUT", "NEXT", "NOT", "OF", "OPENFILE", "OR", "OTHERWISE", "OUTPUT",
+  "PROCEDURE", "READ", "READFILE", "REPEAT", "RETURN", "RETURNS", "STEP", "THEN",
+  "TO", "UNTIL", "WHILE", "WRITE", "WRITEFILE",
+]);
+const PSEUDO_TYPES = new Set(["BOOLEAN", "CHAR", "INTEGER", "REAL", "STRING"]);
+const PSEUDO_ROUTINES = new Set(["DIV", "LCASE", "LENGTH", "MOD", "RANDOM", "ROUND", "SUBSTRING", "UCASE"]);
+const PSEUDO_LITERALS = new Set(["FALSE", "TRUE"]);
+
+function pseudocodeBlock(source) {
+  const pre = el("pre", "pseudo");
+  const text = source.replace(/^\n/, "").replace(/\s+$/, "");
+  let plain = "";
+  const flush = () => {
+    if (!plain) return;
+    pre.append(document.createTextNode(plain));
+    plain = "";
+  };
+  const push = (className, value) => {
+    if (!value) return;
+    if (!className) {
+      plain += value;
+      return;
+    }
+    flush();
+    pre.append(el("span", className, value));
+  };
+  let index = 0;
+  while (index < text.length) {
+    if (text.startsWith("//", index)) {
+      const lineEnd = text.indexOf("\n", index);
+      const stop = lineEnd === -1 ? text.length : lineEnd;
+      push("tok-comment", text.slice(index, stop));
+      index = stop;
+      continue;
+    }
+    const mark = text[index];
+    if (mark === "\"" || mark === "'") {
+      let end = index + 1;
+      while (end < text.length && text[end] !== mark && text[end] !== "\n") end += 1;
+      if (end < text.length && text[end] === mark) end += 1;
+      push("tok-string", text.slice(index, end));
+      index = end;
+      continue;
+    }
+    if (mark === "←") {
+      push("tok-key", mark);
+      index += 1;
+      continue;
+    }
+    if (/[0-9]/.test(mark)) {
+      let end = index + 1;
+      while (end < text.length && /[0-9.]/.test(text[end])) end += 1;
+      push("tok-number", text.slice(index, end));
+      index = end;
+      continue;
+    }
+    if (/[A-Za-z]/.test(mark)) {
+      let end = index + 1;
+      while (end < text.length && /[A-Za-z]/.test(text[end])) end += 1;
+      const word = text.slice(index, end);
+      let className = "";
+      if (word === word.toUpperCase()) {
+        if (PSEUDO_KEYWORDS.has(word)) className = "tok-key";
+        else if (PSEUDO_TYPES.has(word)) className = "tok-type";
+        else if (PSEUDO_ROUTINES.has(word)) className = "tok-fn";
+        else if (PSEUDO_LITERALS.has(word)) className = "tok-key";
+      }
+      push(className, word);
+      index = end;
+      continue;
+    }
+    plain += mark;
+    index += 1;
+  }
+  flush();
+  return pre;
 }
 
 function renderChart(chart) {
