@@ -620,11 +620,104 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .steps { margin: 0.3em 0 0; padding-left: 1.25em; }
 .steps li + li { margin-top: 0.45em; }
 .grid-2 + .grid-2, .teaching + .grid-2, .grid-2 + .worked, .grid-2 + .grid-3 { margin-top: 16px; }
+.tabset { margin-top: 16px; }
+.tabbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.tab.is-active { background: var(--teal); color: var(--teal-ink); border-color: var(--teal); }
+.tabpanel { margin-top: 12px; }
+.tabpanel.is-hidden { display: none; }
+.tabpanel h3 { font-family: var(--sans); letter-spacing: 0; font-size: 1rem; margin-top: 14px; }
+.pseudo {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  white-space: pre;
+  overflow-x: auto;
+  background: #0b0e15;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 12px 0 0;
+}
+.chart { display: flex; flex-direction: column; align-items: center; margin-top: 8px; }
+.chart-card + .chart-card { margin-top: 18px; }
+.shape, .diamond {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.86rem;
+  text-align: center;
+}
+.shape {
+  border: 2px solid var(--blue);
+  background: #0b0e15;
+  min-width: 190px;
+  max-width: 280px;
+  padding: 10px 16px;
+}
+.shape.term { border-radius: 999px; border-color: var(--teal); }
+.shape.process { border-radius: 4px; }
+.shape.io { transform: skewX(-14deg); border-color: var(--amber); padding-inline: 22px; }
+.shape.io .unskew { display: inline-block; transform: skewX(14deg); }
+.shape.sub {
+  border-color: var(--teal);
+  box-shadow: inset 8px 0 0 -6px var(--teal), inset -8px 0 0 -6px var(--teal);
+}
+.diamond {
+  width: 200px;
+  height: 132px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0 42px;
+}
+.diamond::before {
+  content: "";
+  position: absolute;
+  inset: 18px 10px;
+  border: 2px solid var(--coral);
+  background: #0b0e15;
+  transform: rotate(45deg);
+}
+.diamond span { position: relative; z-index: 1; }
+.flow-arrow {
+  width: 2px;
+  height: 22px;
+  background: var(--muted);
+  position: relative;
+  margin: 2px 0;
+}
+.flow-arrow::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  bottom: -1px;
+  border: 5px solid transparent;
+  border-top-color: var(--muted);
+}
+.flow-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  width: min(680px, 100%);
+  margin-top: 4px;
+}
+.flow-col { display: flex; flex-direction: column; align-items: center; }
+.flow-label { margin: 0 0 6px; font-family: var(--mono); font-size: 0.78rem; color: var(--amber); }
+.flow-back { margin: 8px 0 0; max-width: 26ch; text-align: center; color: var(--teal); font-size: 0.88rem; }
 #ledger { margin: 8px 0 0; padding-left: 1.15em; }
 #ledger li + li { margin-top: 0.35em; }
 
 @media (max-width: 860px) {
-  .hero-grid, .grid-2, .grid-3, .grid-6, .panes, .jars, .flow, .flow.six, .chain, .calc-grid { grid-template-columns: 1fr; }
+  .hero-grid, .grid-2, .grid-3, .grid-6, .panes, .jars, .flow, .flow.six, .chain, .calc-grid, .flow-split { grid-template-columns: 1fr; }
   .header-row { flex-wrap: wrap; padding-bottom: 8px; }
   .hero { padding-top: 32px; }
 }
@@ -642,6 +735,9 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 @media print {
   body { background: white; color: black; }
   body::before, header, .stage, .lab, .actions, footer .fine { display: none !important; }
-  .card, .callout, .q, .fn, .map-card, .worked { break-inside: avoid; border-color: #ccc; background: white; }
+  .card, .callout, .q, .fn, .map-card, .worked, .shape, .diamond::before { break-inside: avoid; border-color: #ccc; background: white; }
+  .tabpanel.is-hidden { display: block !important; }
+  .tabbar { display: none; }
+  .pseudo { color: black; background: white; }
   a { color: black; }
 }

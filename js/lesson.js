@@ -143,6 +143,7 @@ function teach(section) {
   }
   if (section.table) wrap.append(dataTable(section.table));
   if (section.walk) wrap.append(walkthrough(section.walk));
+  if (section.tabs) wrap.append(tabSet(section.tabs));
   if (section.exam) wrap.append(callout("Exam watch", section.exam, "exam"));
   if (section.note) wrap.append(callout("Remember", section.note, "note"));
   block.append(wrap);
@@ -200,6 +201,87 @@ function dataTable(spec) {
   box.append(table);
   if (spec.note) box.append(el("p", "define", spec.note));
   return box;
+}
+
+function tabSet(spec) {
+  const box = el("div", "tabset");
+  if (spec.lede) box.append(el("p", "", spec.lede));
+  const bar = el("div", "tabbar");
+  bar.setAttribute("role", "tablist");
+  const panels = el("div", "tabpanels");
+  spec.items.forEach((item, index) => {
+    const button = el("button", index === 0 ? "tab is-active" : "tab", item.label);
+    button.type = "button";
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    const panelId = `${spec.id || "tab"}-${index}`;
+    button.setAttribute("aria-controls", panelId);
+    const panel = el("div", index === 0 ? "tabpanel" : "tabpanel is-hidden");
+    panel.id = panelId;
+    panel.setAttribute("role", "tabpanel");
+    if (item.note) panel.append(el("p", "define", item.note));
+    if (item.code) {
+      const pre = el("pre", "pseudo");
+      pre.textContent = item.code.replace(/^\n/, "").replace(/\s+$/, "");
+      panel.append(pre);
+    }
+    const charts = item.charts || [];
+    const host = charts.length > 1 ? el("div", "grid-2") : panel;
+    charts.forEach((chart) => {
+      const column = el("div", "chart-card");
+      if (chart.title) column.append(el("h3", "", chart.title));
+      column.append(renderChart(chart.steps));
+      host.append(column);
+    });
+    if (host !== panel) panel.append(host);
+    button.addEventListener("click", () => {
+      [...bar.querySelectorAll("button")].forEach((other) => {
+        other.classList.remove("is-active");
+        other.setAttribute("aria-selected", "false");
+      });
+      [...panels.children].forEach((other) => other.classList.add("is-hidden"));
+      button.classList.add("is-active");
+      button.setAttribute("aria-selected", "true");
+      panel.classList.remove("is-hidden");
+    });
+    bar.append(button);
+    panels.append(panel);
+  });
+  box.append(bar, panels);
+  return box;
+}
+
+function renderChart(steps) {
+  const chart = el("div", "chart");
+  steps.forEach((step, index) => {
+    if (index > 0 && step.shape !== "branch") chart.append(flowArrow());
+    chart.append(drawStep(step));
+  });
+  return chart;
+}
+
+function drawStep(step) {
+  if (step.shape === "branch") {
+    const row = el("div", "flow-split");
+    [["yes", "Yes"], ["no", "No"]].forEach(([side, label]) => {
+      const column = el("div", "flow-col");
+      column.append(el("p", "flow-label", label));
+      (step[side] || []).forEach((child, index) => {
+        if (index > 0 && child.shape !== "back") column.append(flowArrow());
+        column.append(drawStep(child));
+      });
+      row.append(column);
+    });
+    return row;
+  }
+  if (step.shape === "back") return el("p", "flow-back", step.text);
+  const node = el("div", step.shape === "decision" ? "diamond" : `shape ${step.shape}`);
+  node.append(el("span", step.shape === "io" ? "unskew" : "", step.text));
+  return node;
+}
+
+function flowArrow() {
+  return el("div", "flow-arrow");
 }
 
 function card(column) {

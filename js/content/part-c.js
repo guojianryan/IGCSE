@@ -412,6 +412,8 @@ export const partC = {
       ["#checks", "7.5", "Validation and verification", "Six validation checks. Visual check and double entry."],
       ["#testing", "7.6", "Test data and traces", "Normal, abnormal, extreme and boundary, then a trace table."],
       ["#write", "7.8", "Writing algorithms", "Pseudocode, flowcharts, and the precision the examiner requires."],
+      ["#flowcharts", "7.8", "Flowchart examples", "Sequence, decision, loop and a subroutine call, using the six symbols."],
+      ["#pseudocode", "7.9", "Pseudocode examples", "Every construct in the syllabus guide, shown one tab at a time."],
     ],
     sections: [
       {
@@ -468,7 +470,7 @@ export const partC = {
             ["Decision", "A yes/no question, with two outgoing paths"],
             ["Subroutine", "A call to a separate flowchart"],
           ],
-          note: "Use these shapes. A decision needs two labelled exits. A process is not a decision.",
+          note: "The examples further down draw these shapes. A decision has two labelled flow lines. A subroutine box calls a separate flowchart, and that flowchart is not joined on.",
         },
       },
       {
@@ -572,7 +574,282 @@ export const partC = {
             "Use the standard flowchart symbols and the pseudocode format from the syllabus.",
           ],
         },
-        note: "Spend time on the 15-mark scenario in class. It is the last question, it is unseen, and it uses the methods in topics 7 to 10. The logic matters more than the dialect.",
+        note: "The question paper numbers the lines of pseudocode it gives you. When you write an answer, do not number the lines. Spend time on the 15-mark scenario: it is unseen, and it can be pseudocode or Python, Visual Basic or Java.",
+      },
+      {
+        id: "flowcharts",
+        kicker: "Flowcharts",
+        nav: "Flowcharts",
+        title: "Flowchart examples",
+        lede: "These use only the six symbols from the syllabus. An arrow is a flow line: control passes along it. A decision has two flow lines. A subroutine box is a call, not the subroutine itself.",
+        tabs: {
+          id: "chart",
+          lede: "Open one example at a time. The same symbols appear in a sequence, a decision, a loop and a subroutine call.",
+          items: [
+            {
+              label: "Sequence",
+              note: "A terminator starts and stops the chart. A parallelogram is input or output. A rectangle is a process. Nothing here asks a question, so there is no decision.",
+              charts: [{
+                title: "Add one mark to a total",
+                steps: [
+                  { shape: "term", text: "Start" },
+                  { shape: "io", text: "INPUT Mark" },
+                  { shape: "process", text: "Total ← Total + Mark" },
+                  { shape: "process", text: "Count ← Count + 1" },
+                  { shape: "io", text: "OUTPUT Total" },
+                  { shape: "term", text: "Stop" },
+                ],
+              }],
+            },
+            {
+              label: "Decision",
+              note: "The diamond asks a question with two outcomes. Label the flow lines Yes and No, or True and False. Both paths can meet again at the next symbol.",
+              charts: [{
+                title: "Pass or fail",
+                steps: [
+                  { shape: "term", text: "Start" },
+                  { shape: "io", text: "INPUT Mark" },
+                  { shape: "decision", text: "Mark >= 50?" },
+                  {
+                    shape: "branch",
+                    yes: [{ shape: "io", text: "OUTPUT \"Pass\"" }],
+                    no: [{ shape: "io", text: "OUTPUT \"Fail\"" }],
+                  },
+                  { shape: "term", text: "Stop" },
+                ],
+              }],
+            },
+            {
+              label: "Loop",
+              note: "A loop is a decision whose Yes flow line comes back. This one outputs 1, then 2, then 3. When Count becomes 4 the No line leaves the loop.",
+              charts: [{
+                title: "Count from 1 to 3",
+                steps: [
+                  { shape: "term", text: "Start" },
+                  { shape: "process", text: "Count ← 1" },
+                  { shape: "decision", text: "Count <= 3?" },
+                  {
+                    shape: "branch",
+                    yes: [
+                      { shape: "io", text: "OUTPUT Count" },
+                      { shape: "process", text: "Count ← Count + 1" },
+                      { shape: "back", text: "This flow line returns to the decision. It does not start a new chart." },
+                    ],
+                    no: [{ shape: "term", text: "Stop" }],
+                  },
+                ],
+              }],
+            },
+            {
+              label: "Subroutine",
+              note: "The double bars at the sides of a rectangle mean a subroutine call. The call relates to a separate flowchart. Do not draw a flow line from this chart into that one.",
+              charts: [
+                {
+                  title: "Main flowchart",
+                  steps: [
+                    { shape: "term", text: "Start" },
+                    { shape: "sub", text: "FindAverage" },
+                    { shape: "io", text: "OUTPUT Average" },
+                    { shape: "term", text: "Stop" },
+                  ],
+                },
+                {
+                  title: "Separate flowchart for FindAverage",
+                  steps: [
+                    { shape: "term", text: "Start" },
+                    { shape: "process", text: "Average ← Total / Count" },
+                    { shape: "term", text: "Stop" },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+      {
+        id: "pseudocode",
+        kicker: "Pseudocode",
+        nav: "Pseudocode",
+        title: "Pseudocode examples",
+        lede: "This is the syntax the exam uses. Keywords are upper case. Identifiers are Pascal case, start with a capital letter, and use only letters and digits. Assignment is ←. A comment starts with //. Lines inside a statement are indented by four spaces. THEN, ELSE and each CASE value are indented by only two spaces.",
+        tabs: {
+          id: "code",
+          lede: "One construct group is open at a time. Copy the pattern, not the sample names.",
+          items: [
+            {
+              label: "Types and assignment",
+              note: "INTEGER, REAL, CHAR, STRING and BOOLEAN are the five types. A real literal needs a digit on both sides of the point, such as 4.7, 0.3, -4.0 or 0.0. A character uses single quotes. A string uses double quotes, and \"\" is the empty string. TRUE and FALSE are the Boolean literals. A constant is a literal only: never another variable or an expression. Countdown and CountDown would be the same identifier, so do not declare both.",
+              code: `// A comment occupies the rest of the line
+DECLARE Counter : INTEGER
+DECLARE TotalToPay : REAL
+DECLARE Initial : CHAR
+DECLARE Pupil : STRING
+DECLARE Finished : BOOLEAN
+CONSTANT PassMark ← 50
+CONSTANT Rate ← 6.50
+CONSTANT Blank ← ""
+Counter ← 0
+Counter ← Counter + 1 // a short comment may sit at the end
+TotalToPay ← Hours * Rate
+Initial ← 'A'
+Pupil ← "Amina"
+Finished ← FALSE`,
+            },
+            {
+              label: "Input, output, operators",
+              note: "INPUT reads into a variable. OUTPUT can send several values, separated by commas. * and / are done before + and -. Use parentheses when the order matters. DIV returns the whole-number quotient and MOD returns the remainder. The relational operators are = < <= > >= and <>. They produce a Boolean. AND, OR and NOT also produce a Boolean.",
+              code: `OUTPUT "Enter the mark"
+INPUT Mark
+OUTPUT "You scored ", Mark, " marks"
+Answer ← Score * 100 / MaxMark
+Area ← 3.14 * Radius ^ 2
+Quotient ← DIV(10, 3) // returns 3
+Remainder ← MOD(10, 3) // returns 1
+IF (Mark < 0 OR Mark > 100) AND NOT Finished
+  THEN
+    Accepted ← FALSE
+  ELSE
+    Accepted ← TRUE
+ENDIF
+IF Reply <> "Y"
+  THEN
+    OUTPUT "Stopping"
+ENDIF`,
+            },
+            {
+              label: "Selection",
+              note: "THEN and ELSE stay indented by two spaces, including inside a nested IF. A CASE value is also indented by two spaces. Cases are tested in order. The first match runs, then control goes to the line after ENDCASE. OTHERWISE, if you use it, is the last case.",
+              code: `// IF with no ELSE
+IF Score > HighScore
+  THEN
+    HighScore ← Score
+ENDIF
+
+// IF with ELSE
+IF Score >= PassMark
+  THEN
+    OUTPUT "Pass"
+  ELSE
+    OUTPUT "Fail"
+ENDIF
+
+// Nested IF. The inner IF is indented by four spaces.
+IF NewScore > BestScore
+  THEN
+    IF NewScore > Record
+      THEN
+        OUTPUT Name, " has the record"
+      ELSE
+        OUTPUT Name, " is in the lead"
+    ENDIF
+  ELSE
+    OUTPUT "No change"
+ENDIF
+
+INPUT Move
+CASE OF Move
+  'W' : Position ← Position - 10
+  'E' : Position ← Position + 10
+  'A' : Position ← Position - 1
+  'D' : Position ← Position + 1
+  OTHERWISE
+    OUTPUT "Beep"
+ENDCASE`,
+            },
+            {
+              label: "Iteration",
+              note: "FOR uses an integer counter. It includes both end values. If the start is already past the end, the body does not run. STEP can be negative. REPEAT runs the body at least once and stops when the UNTIL condition is TRUE. WHILE tests first, so the body may never run, and it stops when the condition is FALSE.",
+              code: `// Count-controlled, including both ends
+FOR Count ← 1 TO 3
+    Total ← Total + Count
+NEXT Count
+
+// A negative step counts downwards
+FOR Count ← 3 TO 1 STEP -1
+    OUTPUT Count
+NEXT Count
+
+// Nested FOR. Each contained level is indented by four more spaces.
+Total ← 0
+FOR Row ← 1 TO MaxRow
+    RowTotal ← 0
+    FOR Column ← 1 TO 10
+        RowTotal ← RowTotal + Marks[Row, Column]
+    NEXT Column
+    OUTPUT "Total for row ", Row, " is ", RowTotal
+    Total ← Total + RowTotal
+NEXT Row
+OUTPUT "The grand total is ", Total
+
+// Post-condition loop
+REPEAT
+    OUTPUT "Enter the password"
+    INPUT Password
+UNTIL Password = "Secret"
+
+// Pre-condition loop
+WHILE Number > 9 DO
+    Number ← Number - 9
+ENDWHILE`,
+            },
+            {
+              label: "Arrays and strings",
+              note: "State the lower and upper index. A lower bound of 1 is the usual choice in this course. A question may instead start at 0. Use one index for each dimension, and a variable may be that index. LENGTH returns an integer. LCASE and UCASE change case. SUBSTRING(text, start, length) uses 1 as the first character unless the question says otherwise.",
+              code: `DECLARE Names : ARRAY[1:30] OF STRING
+DECLARE Board : ARRAY[1:3, 1:3] OF CHAR
+Names[1] ← "Ali"
+Board[2, 3] ← 'X'
+Names[Index + 1] ← Names[Index]
+FOR Index ← 1 TO 30
+    Names[Index] ← ""
+NEXT Index
+
+Length ← LENGTH("Revision") // returns 8
+Letter ← LCASE('A') // returns 'a'
+Word ← UCASE("mark") // returns "MARK"
+Piece ← SUBSTRING("Computer", 1, 3) // returns "Com"`,
+            },
+            {
+              label: "Procedures and functions",
+              note: "Define procedures and functions at the start of the program. A procedure does a job. CALL runs it, with or without arguments, and CALL is a complete statement. A function returns one value with RETURN. Do not use CALL for a function: write the call inside an expression. Either may have up to three parameters.",
+              code: `PROCEDURE DrawDefault
+    CALL DrawLine(40)
+ENDPROCEDURE
+
+PROCEDURE DrawLine(Size : INTEGER)
+    DECLARE Length : INTEGER
+    FOR Length ← 1 TO Size
+        OUTPUT "-"
+    NEXT Length
+ENDPROCEDURE
+
+FUNCTION SumOfSquares(Number1 : INTEGER, Number2 : INTEGER) RETURNS INTEGER
+    RETURN Number1 * Number1 + Number2 * Number2
+ENDFUNCTION
+
+IF MySize = Default
+  THEN
+    CALL DrawDefault
+  ELSE
+    CALL DrawLine(MySize)
+ENDIF
+OUTPUT "Sum of squares = ", SumOfSquares(10, 20)`,
+            },
+            {
+              label: "Files and library routines",
+              note: "Open a file before you use it, in one mode only. READ reads existing data. WRITE creates a new file and any data already in it is lost. READFILE reads one item into a variable. WRITEFILE writes one item. Close the file when you have finished. RANDOM() returns a real number from 0 to 1 inclusive. ROUND(value, places) rounds a real number to that many decimal places. MOD, DIV, ROUND and RANDOM are the library routines.",
+              code: `DECLARE LineOfText : STRING
+OPENFILE "Scores.txt" FOR READ
+OPENFILE "Copy.txt" FOR WRITE
+READFILE "Scores.txt", LineOfText
+WRITEFILE "Copy.txt", LineOfText
+CLOSEFILE "Scores.txt"
+CLOSEFILE "Copy.txt"
+
+Value ← ROUND(RANDOM() * 6, 0)`,
+            },
+          ],
+        },
       },
     ],
     order: {
