@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5.1 The Internet and the Web · IGCSE Computer Science</title>
+  <meta name="description" content="Interactive revision for Cambridge IGCSE Computer Science topic 5.1: the Internet, the World Wide Web, URLs, HTTP, browsers, DNS and cookies.">
+  <meta name="theme-color" content="#07090f">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%2307090f' width='32' height='32' rx='6'/%3E%3Ccircle cx='8' cy='16' r='3' fill='%233ddc97'/%3E%3Ccircle cx='24' cy='10' r='3' fill='%23ffc14d'/%3E%3Ccircle cx='22' cy='23' r='3' fill='%238eb7ff'/%3E%3Cpath d='M11 15h8M15 17l6 5' stroke='%23edf1f7' stroke-width='1.4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=IBM+Plex+Mono:wght@450;560&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap header-row">
+      <a class="brand" href="index.html"><span class="mark">5.1</span> Internet &amp; Web</a>
+      <nav class="nav" aria-label="Lesson">
+        <a href="index.html">All topics</a>
+        <a href="#overview">Overview</a>
+        <a href="#map">Syllabus</a>
+        <a href="#internet">Internet</a>
+        <a href="#url">URLs</a>
+        <a href="#protocols">HTTP</a>
+        <a href="#browser">Browsers</a>
+        <a href="#retrieval">Retrieval</a>
+        <a href="#dns">DNS</a>
+        <a href="#cookies">Cookies</a>
+        <a href="#practice">Practice</a>
+        <a href="#review">Review</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="overview">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="kicker">Cambridge IGCSE Computer Science 0478 · Paper 1 · Theory</p>
+          <h1>The Internet and the World Wide Web</h1>
+          <p class="lede">They are not two names for the same thing. The Internet is the global infrastructure. The Web is one service that uses it. This lesson follows topic 5.1 from that distinction through URLs, HTTP, browsers, page retrieval and cookies.</p>
+          <div class="actions">
+            <a class="btn" href="#internet">Start with the distinction</a>
+            <a class="btn ghost" href="#practice">Jump to exam practice</a>
+          </div>
+          <ul class="chips">
+            <li class="chip">Infrastructure</li>
+            <li class="chip">Protocols</li>
+            <li class="chip">Page retrieval</li>
+            <li class="chip">Cookies</li>
+          </ul>
+        </div>
+        <div class="stage" aria-hidden="true">
+          <span class="node a"></span>
+          <span class="node b"></span>
+          <span class="node c"></span>
+          <div class="road"><span class="car"></span></div>
+          <div class="page-card">&lt;html&gt;<br>page.html</div>
+          <p class="stage-caption">Roads carry traffic. The Internet carries the Web.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="map">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Syllabus map</p>
+          <h2>Six ideas Paper 1 can ask for</h2>
+          <p class="lede">Each card is one statement from section 5.1. Open it, use the activity, then come back to the checklist.</p>
+        </div>
+        <div class="grid-3">
+          <a class="map-card" href="#internet"><span>5.1.1</span><h3>Internet vs WWW</h3><p>Separate the hardware network from the pages and media it carries.</p></a>
+          <a class="map-card" href="#url"><span>5.1.2</span><h3>URL anatomy</h3><p>Name the protocol, the domain name and the file path.</p></a>
+          <a class="map-card" href="#protocols"><span>5.1.3</span><h3>HTTP and HTTPS</h3><p>Request and response, then what SSL/TLS adds.</p></a>
+          <a class="map-card" href="#browser"><span>5.1.4</span><h3>Web browsers</h3><p>Render HTML, and use the six built-in functions.</p></a>
+          <a class="map-card" href="#retrieval"><span>5.1.5</span><h3>Finding a page</h3><p>URL, DNS, IP address, server, files, rendering.</p></a>
+          <a class="map-card" href="#cookies"><span>5.1.6</span><h3>Cookies</h3><p>Session cookies in RAM, persistent cookies on disk.</p></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="internet">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.1</p>
+          <h2>The Internet is not the Web</h2>
+          <p class="lede">Cambridge tests this distinction directly. Marks are lost when the answer talks about Wi-Fi versus computers, instead of infrastructure versus content.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card internet">
+            <h3>The Internet</h3>
+            <ul>
+              <li>A global network of interconnected computer networks.</li>
+              <li>Hardware: fibre-optic and copper cables, routers, switches, satellites and servers.</li>
+              <li>It runs on foundational protocols such as TCP/IP.</li>
+              <li>Analogy: the roads, tracks and bridges.</li>
+            </ul>
+          </article>
+          <article class="card www">
+            <h3>The World Wide Web</h3>
+            <ul>
+              <li>A collection of websites, web pages and multimedia.</li>
+              <li>Resources: HTML files, CSS, images and other media.</li>
+              <li>It is accessed over the Internet using HTTP and HTTPS.</li>
+              <li>Analogy: the traffic carrying people and cargo.</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="callout exam">
+          <strong>Exam watch · 2 marks</strong>
+          <p>A difference question wants infrastructure versus service. This answer would not score: “the Web is on computers and the Internet is on Wi-Fi.” Wi-Fi is only one way a device joins the Internet.</p>
+        </aside>
+        <div class="lab" id="sort-lab">
+          <h3>Sort the statements</h3>
+          <p>Decide whether each one belongs to the Internet or to the World Wide Web.</p>
+          <div class="sort-grid">
+            <article class="sort-card" data-answer="internet" data-why="These are physical parts of the network infrastructure.">
+              <p>Fibre-optic cables, routers, switches and satellites</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="www" data-why="These are the content of the Web, not the cables that carry them.">
+              <p>HTML pages, stylesheets, images and video on websites</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="internet" data-why="TCP/IP is a foundational protocol of the Internet.">
+              <p>Communication using TCP/IP</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="www" data-why="The Web is fetched over the Internet using HTTP or HTTPS.">
+              <p>Pages fetched with HTTP and HTTPS</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="internet" data-why="The highway is the infrastructure. That matches the Internet.">
+              <p>Like the roads, tracks and bridges</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="www" data-why="The traffic is the information moving across the network. That matches the Web.">
+              <p>Like the traffic carrying people and cargo</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="internet">Internet</button>
+                <button class="choice" type="button" data-choice="www">World Wide Web</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+          </div>
+          <p id="sort-status" class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="url">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.2</p>
+          <h2>Three parts of a URL</h2>
+          <p class="lede">A Uniform Resource Locator is a text address for one web resource. People use it so they do not have to remember a numerical IP address.</p>
+        </div>
+        <div class="lab">
+          <label class="field" for="url-input">Edit this URL, or load an example</label>
+          <input id="url-input" name="url" type="text" spellcheck="false" maxlength="300" value="https://www.cambridgeinternational.org/programmes/igcse/index.html">
+          <div class="presets">
+            <button class="btn small ghost" type="button" data-url="https://www.cambridgeinternational.org/programmes/igcse/index.html">Cambridge page</button>
+            <button class="btn small ghost" type="button" data-url="http://example.com/index.html">HTTP page</button>
+            <button class="btn small ghost" type="button" data-url="https://shop.example.org/cart/checkout.html">Checkout path</button>
+            <button class="btn small ghost" type="button" data-url="www.school.org/index.html">Missing protocol</button>
+          </div>
+          <div id="url-bar" class="url-bar" aria-live="polite"></div>
+          <p id="url-define" class="define"></p>
+          <p id="url-sentence" class="define"></p>
+          <div class="row-actions">
+            <button class="btn small" id="url-practice" type="button">Drill the three labels</button>
+          </div>
+          <p id="url-status" class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="grid-3" style="margin-top:16px">
+          <article class="card">
+            <h3>1. Protocol</h3>
+            <p><code>https://</code> The rules the browser and the server follow. HTTPS tells you the transfer will be encrypted.</p>
+          </article>
+          <article class="card">
+            <h3>2. Domain name</h3>
+            <p><code>www.cambridgeinternational.org</code> The readable name of the host that stores the site.</p>
+          </article>
+          <article class="card">
+            <h3>3. File path</h3>
+            <p><code>/programmes/igcse/index.html</code> The folder and file requested on that server.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="protocols">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.3</p>
+          <h2>HTTP asks. HTTPS hides the reply.</h2>
+          <p class="lede">Hypertext Transfer Protocol is a request-response conversation between the browser and a web server. It moves text, images, sound and video. HTTPS is that same conversation with SSL/TLS encryption.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>HTTP</h3>
+            <ul>
+              <li>Rules for transmitting web resources across the Web.</li>
+              <li>The browser sends a request. The server sends a response.</li>
+              <li>Data travels as plaintext, so it can be read if someone intercepts it.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>HTTPS</h3>
+            <ul>
+              <li>Protects the transfer against eavesdropping and tampering.</li>
+              <li>SSL/TLS scrambles the data. Intercepted packets are not readable.</li>
+              <li>Used for banking, checkout pages, login forms and cloud storage.</li>
+            </ul>
+          </article>
+        </div>
+        <aside class="callout note">
+          <strong>Do not over-claim</strong>
+          <p>HTTPS does not mean a site is honest or free of malware. It means the data between the browser and that server is encrypted and the server is authenticated. A criminal site can still have a padlock.</p>
+        </aside>
+        <div class="lab">
+          <h3>Watch one message travel</h3>
+          <p>Type a fake checkout message. The left pane is what HTTP would expose. The right pane is a classroom picture of scrambling, not real TLS.</p>
+          <label class="field" for="packet">Message</label>
+          <input id="packet" name="packet" type="text" maxlength="280" value="card=4242&amp;name=Student&amp;amount=20">
+          <div class="panes">
+            <div class="pane http">
+              <h4>HTTP · plaintext</h4>
+              <pre id="plain"></pre>
+            </div>
+            <div class="pane https">
+              <h4>HTTPS · illustrated scramble</h4>
+              <pre id="cipher"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="browser">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.4</p>
+          <h2>The browser renders the page</h2>
+          <p class="lede">A web browser is client software. It requests files from a web server and turns HTML into the page on screen. It reads HTML, CSS and, on modern pages, JavaScript, then draws the layout, type, controls and media.</p>
+        </div>
+        <div class="grid-6">
+          <article class="fn" data-fn="address">
+            <h3>1. Address bar</h3>
+            <p>The field where the user types a URL or a search.</p>
+          </article>
+          <article class="fn" data-fn="nav">
+            <h3>2. Navigation</h3>
+            <p>Back, forward, and refresh, reload or stop.</p>
+          </article>
+          <article class="fn" data-fn="bookmarks">
+            <h3>3. Bookmarks</h3>
+            <p>Saved shortcuts to URLs the user wants again.</p>
+          </article>
+          <article class="fn" data-fn="history">
+            <h3>4. History</h3>
+            <p>A dated list of URLs already visited.</p>
+          </article>
+          <article class="fn" data-fn="tabs">
+            <h3>5. Tabs</h3>
+            <p>Several pages open in one window.</p>
+          </article>
+          <article class="fn" data-fn="cookies">
+            <h3>6. Cookies</h3>
+            <p>The browser stores, updates and deletes cookies from servers.</p>
+          </article>
+        </div>
+        <div class="lab" id="scenario-lab">
+          <h3>Which function is it?</h3>
+          <p class="prompt"></p>
+          <div class="options stack"></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="retrieval">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.5</p>
+          <h2>How a page is fetched</h2>
+          <p class="lede">Walk the six steps in order. The first three resolve the name. The last three fetch the files and draw them.</p>
+        </div>
+        <div class="lab">
+          <ol class="flow">
+            <li data-node="user"><strong>You</strong><span>Type a URL</span></li>
+            <li data-node="browser"><strong>Browser</strong><span>Client software</span></li>
+            <li data-node="dns"><strong>DNS</strong><span>Name to IP</span></li>
+            <li data-node="server"><strong>Web server</strong><span>Holds the files</span></li>
+          </ol>
+          <p class="kicker" id="step-phase"></p>
+          <p class="step-readout" id="step-readout"></p>
+          <div class="row-actions">
+            <button class="btn small ghost" id="step-prev" type="button">Previous</button>
+            <button class="btn small" id="step-next" type="button">Next step</button>
+            <span class="chip" id="step-count"></span>
+          </div>
+        </div>
+        <div class="lab" id="order-lab">
+          <h3>Put the steps in order</h3>
+          <p>Click a step to add it. Click a chosen step to remove it.</p>
+          <div class="chosen"></div>
+          <div class="pool"></div>
+          <div class="row-actions">
+            <button class="btn small check" type="button">Check order</button>
+            <button class="btn small ghost reset" type="button">Reset</button>
+          </div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="dns">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.5 continued</p>
+          <h2>DNS is a phone directory, not the website</h2>
+          <p class="lede">Routers use numerical IP addresses such as 198.51.100.42. People remember names such as cambridgeinternational.org. The Domain Name Server translates the name into the number.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card internet">
+            <h3>What DNS does</h3>
+            <p>It receives a domain name, searches its database, and returns the matching IP address so the browser can contact the right server.</p>
+          </article>
+          <article class="card www">
+            <h3>What DNS does not do</h3>
+            <p>It does not store the HTML, the images or the rest of the page. After the IP address comes back, the browser still has to request the files from the web server.</p>
+          </article>
+        </div>
+        <div class="lab">
+          <h3>Resolve a name</h3>
+          <label class="field" for="dns-input">Domain name</label>
+          <input id="dns-input" name="domain" type="text" maxlength="200" spellcheck="false" value="www.cambridgeinternational.org">
+          <div class="row-actions">
+            <button class="btn small" id="dns-go" type="button">Ask the DNS</button>
+          </div>
+          <div id="dns-out" style="margin-top:12px"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="cookies">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">5.1.6</p>
+          <h2>Cookies remember what HTTP forgets</h2>
+          <p class="lede">A cookie is a small text file the browser stores because a web server asked it to. HTTP itself is stateless: each request arrives with no memory. Cookies carry a little state, such as a login or a basket.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>What cookies are used for</h3>
+            <ul>
+              <li>Keeping someone logged in as they move between pages.</li>
+              <li>Holding the items in a shopping cart.</li>
+              <li>Storing preferences such as language or a chosen theme.</li>
+              <li>Recording browsing patterns for analytics and adverts.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Two lifetimes</h3>
+            <ul>
+              <li><strong>Session:</strong> kept in RAM, deleted when the browser closes. Used for a live cart or a login that lasts one visit.</li>
+              <li><strong>Persistent:</strong> kept on secondary storage (HDD or SSD) until an expiry date or until the user deletes it. Used for “remember me” and saved preferences.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="lab">
+          <h3>Close the browser and see what survives</h3>
+          <p>Set a few cookies, then close the browser. Only the persistent cookies should remain.</p>
+          <div class="row-actions">
+            <button class="btn small" id="add-cart" type="button">Add cart cookie</button>
+            <button class="btn small" id="add-auth" type="button">Log in for this visit</button>
+            <button class="btn small amber" id="add-lang" type="button">Save language</button>
+            <button class="btn small amber" id="add-remember" type="button">Remember login</button>
+          </div>
+          <div class="row-actions">
+            <button class="btn small ghost" id="close-browser" type="button">Close the browser</button>
+            <button class="btn small ghost" id="open-browser" type="button">Open the browser</button>
+            <button class="btn small ghost" id="expire" type="button">Reach the expiry date</button>
+            <button class="btn small ghost" id="manual-delete" type="button">Delete persistent cookies</button>
+          </div>
+          <div class="jars" style="margin-top:12px">
+            <div class="jar ram">
+              <h4>RAM · session cookies</h4>
+              <div class="jar-list" id="session-jar"></div>
+            </div>
+            <div class="jar disk">
+              <h4>HDD / SSD · persistent cookies</h4>
+              <div class="jar-list" id="persist-jar"></div>
+            </div>
+          </div>
+          <p id="cookie-status" class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="practice">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Exam practice</p>
+          <h2>Write first, then open the scheme</h2>
+          <p class="lede">These are the three questions from the lesson. The keyword check is a study aid. You still award the marks from the scheme.</p>
+        </div>
+        <article class="q" data-q="1">
+          <h3>Question 1 <span class="marks">2 marks</span></h3>
+          <p>Explain why an e-commerce website uses HTTPS instead of HTTP when a customer is entering payment details.</p>
+          <label class="field" for="ans-1">Your answer</label>
+          <textarea id="ans-1" name="answer-1" maxlength="800"></textarea>
+          <div class="row-actions">
+            <button class="btn small check-written" type="button">Compare with the mark scheme</button>
+          </div>
+          <div class="scheme" hidden>
+            <p class="hits feedback"></p>
+            <ol>
+              <li>HTTPS encrypts the payment data, such as the card number, during transmission.</li>
+              <li>That stops a third party who intercepts the traffic from reading or stealing it.</li>
+            </ol>
+            <label class="award" for="mark-1">Marks you would give
+              <input id="mark-1" name="mark-1" type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 1">
+            </label>
+          </div>
+        </article>
+        <article class="q" data-q="2">
+          <h3>Question 2 <span class="marks">3 marks</span></h3>
+          <p>Describe the role of a Domain Name Server (DNS) when a web page is retrieved.</p>
+          <label class="field" for="ans-2">Your answer</label>
+          <textarea id="ans-2" name="answer-2" maxlength="800"></textarea>
+          <div class="row-actions">
+            <button class="btn small check-written" type="button">Compare with the mark scheme</button>
+          </div>
+          <div class="scheme" hidden>
+            <p class="hits feedback"></p>
+            <ol>
+              <li>It receives the domain name from the browser.</li>
+              <li>It searches its database for the matching numerical IP address.</li>
+              <li>It returns that IP address to the browser so the browser can request the page from the server.</li>
+            </ol>
+            <label class="award" for="mark-2">Marks you would give
+              <input id="mark-2" name="mark-2" type="number" min="0" max="3" step="1" value="0" aria-label="Marks for question 2">
+            </label>
+          </div>
+        </article>
+        <article class="q" data-q="3">
+          <h3>Question 3 <span class="marks">2 marks</span></h3>
+          <p>State two differences between a session cookie and a persistent cookie.</p>
+          <label class="field" for="ans-3">Your answer</label>
+          <textarea id="ans-3" name="answer-3" maxlength="800"></textarea>
+          <div class="row-actions">
+            <button class="btn small check-written" type="button">Compare with the mark scheme</button>
+          </div>
+          <div class="scheme" hidden>
+            <p class="hits feedback"></p>
+            <ol>
+              <li>A session cookie is stored in RAM. A persistent cookie is stored on secondary storage, such as a hard drive or SSD.</li>
+              <li>A session cookie is deleted when the browser closes. A persistent cookie remains until its expiry date or until it is deleted manually.</li>
+            </ol>
+            <label class="award" for="mark-3">Marks you would give
+              <input id="mark-3" name="mark-3" type="number" min="0" max="2" step="1" value="0" aria-label="Marks for question 3">
+            </label>
+          </div>
+        </article>
+        <div class="scoreboard">
+          <div>
+            <span>Written marks you awarded</span>
+            <strong id="written-score">0 / 7</strong>
+          </div>
+          <div>
+            <span>Quick check</span>
+            <strong id="mcq-score">0 / 8</strong>
+          </div>
+        </div>
+        <div class="section-head" style="margin-top:28px">
+          <h2>Quick check</h2>
+          <p class="lede">Eight short questions. The explanation appears as soon as you choose.</p>
+        </div>
+        <div id="mcq-lab" class="stack"></div>
+      </div>
+    </section>
+
+    <section class="block" id="review">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Section 5.1 review</p>
+          <h2>Leave the lesson able to say these</h2>
+          <p class="lede">Tick an idea only when you can say it without looking. The ticks stay in this browser.</p>
+        </div>
+        <div class="check-list" id="checklist">
+          <label><input id="check-internet" name="check-internet" type="checkbox" value="internet"> The Internet is the physical infrastructure of interconnected networks.</label>
+          <label><input id="check-www" name="check-www" type="checkbox" value="www"> The World Wide Web is the collection of pages and sites accessed over the Internet.</label>
+          <label><input id="check-url" name="check-url" type="checkbox" value="url"> A URL is made of a protocol, a domain name and a file path.</label>
+          <label><input id="check-http" name="check-http" type="checkbox" value="http"> HTTP is a client-server request-response protocol. HTTPS adds SSL/TLS encryption.</label>
+          <label><input id="check-browser" name="check-browser" type="checkbox" value="browser"> A web browser requests pages and renders HTML. It also provides the address bar, navigation, bookmarks, history, tabs and cookie storage.</label>
+          <label><input id="check-dns" name="check-dns" type="checkbox" value="dns"> DNS translates a domain name into an IP address. It does not store the web page.</label>
+          <label><input id="check-session" name="check-session" type="checkbox" value="session"> A session cookie is held in RAM and deleted when the browser closes.</label>
+          <label><input id="check-persistent" name="check-persistent" type="checkbox" value="persistent"> A persistent cookie is stored on secondary storage until it expires or the user deletes it.</label>
+        </div>
+        <div class="row-actions">
+          <span class="chip" id="check-count">0 / 8</span>
+          <button class="btn small ghost" id="check-reset" type="button">Clear ticks</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Topic 5.1 revision for Cambridge IGCSE Computer Science (0478), Paper 1. Built from the class slideshow. It is a study tool, not an official past paper.</p>
+      <p class="fine"><a href="index.html">All topics</a> · Progress ticks are stored only in this browser. Nothing is sent to a server.</p>
+    </div>
+  </footer>
+  <script type="module" src="js/topic-51.js"></script>
+</body>
+</html>

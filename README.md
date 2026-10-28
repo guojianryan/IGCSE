@@ -1,23 +1,16 @@
-# IGCSE Computer Science · Topic 5.1
+# Cambridge IGCSE Computer Science 0478
 
-A dark, interactive revision page for **the Internet and the World Wide Web** (Cambridge IGCSE Computer Science, Paper 1).
+Interactive revision pages for the CIE course. The home page lists every topic in the 2026–2028 syllabus. Pages are added one topic at a time.
 
-It follows the class slideshow:
+Ready now:
 
-- 5.1.1 Internet versus World Wide Web
-- 5.1.2 The three parts of a URL
-- 5.1.3 HTTP and HTTPS
-- 5.1.4 Purpose and functions of a web browser
-- 5.1.5 How a page is retrieved, including DNS
-- 5.1.6 Session cookies and persistent cookies
-- Exam-style questions with mark schemes, plus a short quiz
+- [5.1 The internet and the world wide web](5-1-internet-and-web.html)
+- [5.2 Digital currency](5-2-digital-currency.html)
 
-Open `index.html` in a browser. Checklist ticks are saved in that browser only.
-
-To serve it locally:
+Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python3 -m http.server 8765
 ```
 
-Then visit `http://localhost:8765`.
+Checklist ticks are stored in that browser only.

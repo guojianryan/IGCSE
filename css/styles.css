@@ -554,8 +554,56 @@ footer {
 
 .stack { display: grid; gap: 8px; }
 
+.paper-label {
+  margin: 36px 0 8px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.chapter { margin: 18px 0 26px; }
+.chapter h2 { font-size: 1.55rem; }
+.chapter .count { color: var(--faint); font-family: var(--sans); font-size: 0.92rem; letter-spacing: 0; font-weight: 520; }
+
+.topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+
+.topic {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: 124px;
+  padding: 14px 14px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(16, 20, 28, 0.9);
+  color: inherit;
+  text-decoration: none;
+}
+
+.topic strong { font-family: var(--sans); font-weight: 520; letter-spacing: 0; font-size: 1rem; }
+.topic .code { font-family: var(--mono); font-size: 0.78rem; color: var(--teal); }
+.topic em { margin-top: auto; font-style: normal; font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); }
+.topic.ready { box-shadow: inset 3px 0 0 var(--teal); }
+.topic.ready:hover { border-color: rgba(61, 220, 151, 0.55); }
+.topic.later { color: var(--muted); }
+.topic.later .code, .topic.later em { color: var(--faint); }
+
+.chain { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.bcard { border-radius: 14px; padding: 12px; background: #0b0e15; border: 1px solid var(--line); }
+.bcard h4 { font-family: var(--sans); letter-spacing: 0; font-size: 0.95rem; margin-bottom: 8px; }
+.bcard p { margin: 0 0 6px; font-size: 0.92rem; }
+.bcard code { display: block; word-break: break-all; }
+.bcard.bad { border-color: rgba(255, 139, 120, 0.7); box-shadow: inset 3px 0 0 var(--coral); }
+.bcard.ok { border-color: rgba(61, 220, 151, 0.45); }
+.flow.six { grid-template-columns: repeat(3, 1fr); }
+#ledger { margin: 8px 0 0; padding-left: 1.15em; }
+#ledger li + li { margin-top: 0.35em; }
+
 @media (max-width: 860px) {
-  .hero-grid, .grid-2, .grid-3, .grid-6, .panes, .jars, .flow { grid-template-columns: 1fr; }
+  .hero-grid, .grid-2, .grid-3, .grid-6, .panes, .jars, .flow, .flow.six, .chain { grid-template-columns: 1fr; }
   .header-row { flex-wrap: wrap; padding-bottom: 8px; }
   .hero { padding-top: 32px; }
 }
