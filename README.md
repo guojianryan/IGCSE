@@ -1,11 +1,6 @@
 # Cambridge IGCSE Computer Science 0478
 
-Interactive revision pages for the CIE course. The home page lists every topic in the 2026–2028 syllabus. Pages are added one topic at a time.
-
-Ready now:
-
-- [5.1 The internet and the world wide web](5-1-internet-and-web.html)
-- [5.2 Digital currency](5-2-digital-currency.html)
+Interactive revision for the CIE course, covering all ten chapters of the 2026–2028 syllabus.
 
 Open `index.html` in a browser, or serve the folder:
 
@@ -13,4 +8,10 @@ Open `index.html` in a browser, or serve the folder:
 python3 -m http.server 8765
 ```
 
-Checklist ticks are stored in that browser only.
+Topics 5.1 and 5.2 are the original lesson pages. The other topics share one lesson layout: explanation, a calculator or sorting activity where it helps, a short quiz, and a checklist saved in the browser.
+
+To regenerate the shared topic pages after editing `js/content/`:
+
+```bash
+node scripts/build-topic-pages.mjs
+```

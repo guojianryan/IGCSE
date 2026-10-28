@@ -1,0 +1,288 @@
+export const partA = {
+  "1.1": {
+    id: "1.1",
+    file: "1-1-number-systems.html",
+    title: "Number systems",
+    paper: "Paper 1 · Computer systems",
+    chapter: "1 Data representation",
+    lede: "A computer processes and stores every kind of data as binary. People also use denary and hexadecimal. You need to convert between them, add 8-bit numbers, shift bits, and read two’s complement.",
+    sections: [
+      {
+        id: "bases",
+        kicker: "Bases",
+        title: "Three ways to write an integer",
+        lede: "Values in this topic are integers. Conversions can be asked in either direction, up to 16 bits.",
+        columns: [
+          { title: "Denary and binary", points: ["Denary is base 10. Binary is base 2, so each column is worth double the column on its right.", "All data is converted to binary before a computer can process it. Processing uses logic gates, and values are stored in registers."] },
+          { title: "Hexadecimal", points: ["Hexadecimal is base 16. One hex digit stands for four bits, so a long binary string becomes shorter.", "It is easier for people to read than binary. It is used for colours, MAC addresses, memory dumps and error codes."] },
+        ],
+        exam: "An 8-bit register stores 0 to 255. If a result is greater than 255, the extra bit does not fit. That is overflow.",
+      },
+      {
+        id: "shifts",
+        kicker: "Registers",
+        title: "Shifts and two’s complement",
+        columns: [
+          { title: "Logical shift", points: ["A left or right shift moves every bit. Bits that fall off the end are lost. Zeros enter at the other end.", "Each left place multiplies the positive value by 2. Each right place divides it by 2. The result is no longer exact if a 1 is lost."] },
+          { title: "Two’s complement", points: ["An 8-bit pattern can represent −128 to 127. The left-most bit is the sign bit.", "A positive number is the same as its ordinary binary. A negative number uses the range above 127: the stored value minus 256."] },
+        ],
+      },
+    ],
+    lab: "numbers",
+    mcqs: [
+      { q: "Why does a computer use binary for every kind of data?", options: ["Hexadecimal cannot be stored", "Data is processed by logic gates and stored in registers", "Denary has only two digits", "Overflow only happens in denary"], answer: 1, why: "Any data must become binary before the computer can process it." },
+      { q: "Why is hexadecimal useful?", options: ["It stores more data than binary", "It is a shorter way to write binary and is easier for people to read", "It removes the need for registers", "It prevents overflow"], answer: 1, why: "One hex digit replaces four bits. The value is the same." },
+      { q: "11111111 + 00000001 is stored in an 8-bit register. What happens?", options: ["The register stores 256", "The register stores 00000000 and an overflow has occurred", "The register stores 11111110", "The addition cannot be started"], answer: 1, why: "The true sum is 256, which is 100000000 in binary. Only eight bits are kept." },
+      { q: "A logical right shift of a positive integer by one place does what?", options: ["Multiplies it by 2", "Divides it by 2, and loses the bit that shifts out", "Changes the sign bit only", "Converts it to hexadecimal"], answer: 1, why: "A zero enters on the left and the right-most bit is lost." },
+    ],
+    checks: [
+      "I can convert between denary, binary and hexadecimal.",
+      "I can explain overflow in an 8-bit addition.",
+      "I can perform a logical left or right shift and say which bits are lost.",
+      "I can read and write an 8-bit two’s complement integer.",
+    ],
+  },
+  "1.2": {
+    id: "1.2",
+    file: "1-2-text-sound-images.html",
+    title: "Text, sound and images",
+    paper: "Paper 1 · Computer systems",
+    chapter: "1 Data representation",
+    lede: "Text, sound and images are all converted to binary. The character set, the sample rate and the colour depth decide what can be represented and how large the file becomes.",
+    sections: [
+      {
+        id: "text",
+        kicker: "Text",
+        title: "Character sets",
+        columns: [
+          { title: "ASCII", points: ["Each character has a binary code. ASCII uses a small set of codes, enough for English letters, digits and basic symbols.", "A computer can only process the text after those codes are stored as binary."] },
+          { title: "Unicode", points: ["Unicode includes many more characters: other languages, symbols and emoji.", "It needs more bits for each character than ASCII, so the same text can take more storage."] },
+        ],
+      },
+      {
+        id: "media",
+        kicker: "Sound and images",
+        title: "Samples and pixels",
+        columns: [
+          { title: "Sound", points: ["A sound wave is sampled. The sample rate is the number of samples taken in one second.", "The sample resolution is the number of bits stored for each sample. A higher rate and resolution make the recording more accurate and the file larger."] },
+          { title: "Images", points: ["An image is a grid of pixels. The resolution is the number of pixels.", "The colour depth is the number of bits used for each pixel. More bits mean more possible colours, a larger file and a higher quality image."] },
+        ],
+        note: "The number of different colours is 2 to the power of the colour depth. A depth of 1 bit gives 2 colours. A depth of 8 bits gives 256 colours.",
+      },
+    ],
+    lab: "media",
+    sort: {
+      title: "What increases?",
+      lede: "Choose what gets better, and remember the file size.",
+      done: "Higher settings store more detail, and they also store more bits.",
+      choices: [["detail", "More detail"], ["size", "Larger file"], ["both", "Both"]],
+      cards: [
+        { text: "A higher sample rate", answer: "both", why: "More samples per second follow the wave more closely, and each extra sample is stored.", miss: "Accuracy and file size both increase." },
+        { text: "A higher sample resolution", answer: "both", why: "Each sample is measured more precisely, using more bits.", miss: "Both the recording and the file size change." },
+        { text: "A higher image resolution", answer: "both", why: "More pixels show more detail and take more bits.", miss: "Resolution affects quality and size." },
+        { text: "Using Unicode instead of ASCII for the same English sentence", answer: "size", why: "The sentence does not gain sound or picture detail. Unicode simply uses more bits per character.", miss: "The syllabus point here is the extra bits per character." },
+      ],
+    },
+    mcqs: [
+      { q: "What is the sample rate?", options: ["The number of bits in each sample", "The number of samples taken in one second", "The number of pixels in an image", "The number of characters in ASCII"], answer: 1, why: "Sample resolution is the bits per sample. Sample rate is how often the wave is measured." },
+      { q: "Why can Unicode represent more characters than ASCII?", options: ["It uses fewer bits per character", "It uses more bits per character, so there are more possible codes", "It stores sound instead of text", "It compresses every character"], answer: 1, why: "A longer code gives a larger set of characters, languages and symbols." },
+      { q: "An image uses a colour depth of 3 bits. How many colours can each pixel be?", options: ["3", "6", "8", "9"], answer: 2, why: "2 to the power of 3 is 8." },
+      { q: "What happens when the colour depth of an image is increased?", options: ["The file becomes smaller and less accurate", "The file size and the quality both increase", "The resolution must fall", "The image becomes a sound file"], answer: 1, why: "More bits per pixel can represent more colours, and those bits are stored." },
+    ],
+    checks: [
+      "I can explain why text is stored with a character set.",
+      "I can state the difference between ASCII and Unicode.",
+      "I can define sample rate and sample resolution.",
+      "I can define image resolution and colour depth, and say how each affects the file.",
+    ],
+  },
+  "1.3": {
+    id: "1.3",
+    file: "1-3-data-storage-compression.html",
+    title: "Data storage and compression",
+    paper: "Paper 1 · Computer systems",
+    chapter: "1 Data representation",
+    lede: "Storage is measured in powers of 1024, not 1000. File sizes for images and sound can be calculated from the values in the question. Compression makes a file smaller, either by discarding data or by recording it more efficiently.",
+    sections: [
+      {
+        id: "units",
+        kicker: "Units",
+        title: "From a bit to an exbibyte",
+        columns: [
+          { title: "The small units", points: ["A bit is a single 0 or 1. A nibble is 4 bits. A byte is 8 bits.", "Give the answer in the unit the question names."] },
+          { title: "The binary prefixes", points: ["1 kibibyte (KiB) = 1024 bytes. 1 mebibyte (MiB) = 1024 KiB. 1 gibibyte (GiB) = 1024 MiB.", "The sequence continues: tebibyte (TiB), pebibyte (PiB), exbibyte (EiB). Do not divide by 1000."] },
+        ],
+        exam: "Image size uses the resolution and the colour depth. Sound size uses the sample rate, the resolution and the length of the track. Multiply by the number of channels only when the question gives that number.",
+      },
+      {
+        id: "compression",
+        kicker: "Compression",
+        title: "Lossy and lossless",
+        columns: [
+          { title: "Why compress", points: ["A smaller file needs less storage and less bandwidth.", "It also takes less time to transmit."] },
+          { title: "Two methods", points: ["Lossy compression permanently removes data, for example by lowering the resolution, colour depth or sample rate.", "Lossless compression does not permanently remove data. Run-length encoding stores a count and the value that repeats."] },
+        ],
+      },
+    ],
+    lab: "files",
+    mcqs: [
+      { q: "How many bytes are in a kibibyte?", options: ["1000", "1024", "8", "512"], answer: 1, why: "The syllabus uses 1024, not 1000." },
+      { q: "A sound file’s size is calculated from which three values, unless a question adds another?", options: ["Width, height and colour depth", "Sample rate, sample resolution and length", "Bit, nibble and byte", "ASCII, Unicode and pixels"], answer: 1, why: "Width, height and colour depth belong to an image." },
+      { q: "Which description is lossy compression?", options: ["The file is smaller and the removed detail cannot be restored", "The file is smaller and the original data can be restored", "The file is copied onto a second disk", "The file is converted from denary to binary"], answer: 0, why: "Lossy methods permanently discard data. Lossless methods do not." },
+      { q: "What does run-length encoding store for a run of identical values?", options: ["Every value again", "A count and the value that repeats", "Only the first pixel of the image", "A new sample rate"], answer: 1, why: "AAAA can be stored as 4 A. Decoding rebuilds AAAA, so the method is lossless." },
+    ],
+    checks: [
+      "I can list the storage units from bit to exbibyte and use 1024.",
+      "I can calculate an image file size from resolution and colour depth.",
+      "I can calculate a sound file size from sample rate, resolution and length.",
+      "I can explain lossy compression, lossless compression and run-length encoding.",
+    ],
+  },
+  "2.1": {
+    id: "2.1",
+    file: "2-1-data-transmission.html",
+    title: "Types and methods of data transmission",
+    paper: "Paper 1 · Computer systems",
+    chapter: "2 Data transmission",
+    lede: "Data is split into packets before it is sent. The packets can travel by different routes. The direction and the number of wires decide which transmission method suits a task. USB is a common serial interface.",
+    sections: [
+      {
+        id: "packets",
+        kicker: "Packets",
+        title: "What a packet contains",
+        columns: [
+          { title: "Three parts", points: ["The header holds the destination address, the packet number and the sender’s address.", "The payload is the data itself. The trailer is used for checks such as error detection."] },
+          { title: "Packet switching", points: ["A router chooses the route for each packet. Packets from one message may take different routes.", "They can arrive out of order. When the last packet arrives, they are put back in order using the packet numbers."] },
+        ],
+      },
+      {
+        id: "methods",
+        kicker: "Methods",
+        title: "Direction and wires",
+        columns: [
+          { title: "Serial and parallel", points: ["Serial transmission sends one bit after another over a single channel. It stays reliable over longer distances.", "Parallel transmission sends several bits at the same time over several wires. It can be faster over a short distance, but the bits can arrive out of step if the cable is long."] },
+          { title: "Simplex, half-duplex, full-duplex", points: ["Simplex is one direction only, such as a sensor sending readings.", "Half-duplex is both directions, but only one way at a time. Full-duplex is both directions at the same time, such as a telephone call."] },
+        ],
+        note: "USB sends data serially. A device can be recognised when it is plugged in, and the port can supply power. The cable length is limited, and an older USB version is slower than a newer one.",
+      },
+    ],
+    sort: {
+      title: "Which method fits?",
+      done: "Match the direction and the distance to the method.",
+      choices: [["serial", "Serial"], ["parallel", "Parallel"], ["full", "Full-duplex"], ["half", "Half-duplex"]],
+      cards: [
+        { text: "One bit at a time, over a long cable", answer: "serial", why: "Serial uses one channel and avoids the skew that parallel cables suffer over distance.", miss: "Several bits at once would be parallel." },
+        { text: "Several bits at once, across a very short connection inside a device", answer: "parallel", why: "Parallel uses several wires. The short distance limits the problem of bits arriving at different times.", miss: "One bit after another is serial." },
+        { text: "Two people speak and hear each other at the same time", answer: "full", why: "Full-duplex carries data in both directions at once.", miss: "Half-duplex would make them take turns." },
+        { text: "A walkie-talkie: each person talks, then listens", answer: "half", why: "Both directions are possible, but not together.", miss: "Simplex would allow only one of those directions." },
+      ],
+    },
+    mcqs: [
+      { q: "Which item is stored in a packet header?", options: ["The payload only", "The destination address, packet number and sender’s address", "The colour depth", "The sample rate"], answer: 1, why: "The payload is separate from the header. The packet number lets the receiver reorder the packets." },
+      { q: "What does a router do during packet switching?", options: ["It draws the web page", "It chooses the route a packet takes", "It converts text to Unicode", "It stores the file permanently"], answer: 1, why: "Different packets can be sent along different routes." },
+      { q: "Packets from one file arrive out of order. What happens next?", options: ["The file is discarded at once", "They are reordered when transmission of the packets is complete", "They are stored as an image", "The router deletes the packet numbers"], answer: 1, why: "The packet numbers are used to rebuild the original order." },
+      { q: "USB is best described as which kind of transmission?", options: ["Parallel and simplex only", "Serial", "A method that sends eight bits on eight wires", "Half-duplex inside every packet header"], answer: 1, why: "USB transmits bits one after another." },
+    ],
+    checks: [
+      "I can name the header, payload and trailer, and say what the header stores.",
+      "I can describe packet switching, including routes and reordering.",
+      "I can compare serial with parallel, and simplex with half-duplex and full-duplex.",
+      "I can give a benefit and a drawback of USB.",
+    ],
+  },
+  "2.2": {
+    id: "2.2",
+    file: "2-2-error-detection.html",
+    title: "Methods of error detection",
+    paper: "Paper 1 · Computer systems",
+    chapter: "2 Data transmission",
+    lede: "Interference can add, lose or change bits while data is moving. Parity, checksums, echo checks and ARQ look for that. A check digit looks for mistakes when a person types a number.",
+    sections: [
+      {
+        id: "need",
+        kicker: "After transmission",
+        title: "Why a check is needed",
+        columns: [
+          { title: "What can go wrong", points: ["Interference can cause data loss, data gain or a bit that flips from 0 to 1 or from 1 to 0.", "The receiver needs a way to notice that the bits which arrived are not the bits which were sent."] },
+          { title: "Parity", points: ["A parity bit is added so that the total number of 1s is even, or odd, as agreed.", "A parity byte can check a block of bytes. A parity block adds parity across the rows and down the columns, so it can point towards the bit that changed."] },
+        ],
+        exam: "Two errors in the same byte can leave the parity looking correct. A passed parity check does not prove that every bit is right.",
+      },
+      {
+        id: "others",
+        kicker: "Other checks",
+        title: "Checksum, echo, check digit and ARQ",
+        columns: [
+          { title: "Checksum and echo", points: ["A checksum is a total calculated from the data before it is sent. The receiver calculates the total again and compares it.", "An echo check sends the received data back. The sender compares it with what was sent."] },
+          { title: "Check digit and ARQ", points: ["A check digit is calculated from the other digits and added to the number. It is used when data is entered, including ISBNs and bar codes.", "ARQ uses an acknowledgement. A positive acknowledgement means the data arrived correctly. A negative acknowledgement, or no reply before a timeout, means the data is sent again."] },
+        ],
+      },
+    ],
+    lab: "checks",
+    mcqs: [
+      { q: "Which error can interference cause during transmission?", options: ["A bit changes from 0 to 1", "A character is added to Unicode", "A pixel gains colour depth", "A register overflows"], answer: 0, why: "Interference can lose, add or change bits." },
+      { q: "Even parity is being used. The seven data bits contain three 1s. What parity bit is added?", options: ["0, because three is odd", "1, so the byte has an even number of 1s", "3", "No bit is added"], answer: 1, why: "Three plus one makes four, which is even." },
+      { q: "A check digit is used when?", options: ["A person enters a number such as an ISBN or a bar code", "A packet is routed", "A sound wave is sampled", "A file is stored in ROM"], answer: 0, why: "Check digits detect errors in data entry. Parity and checksums are used after transmission." },
+      { q: "In ARQ, a timeout means what?", options: ["The checksum was correct", "An acknowledgement did not arrive in time, so the data is sent again", "The parity bit is removed", "The packet number is even"], answer: 1, why: "ARQ also uses a positive or negative acknowledgement." },
+    ],
+    checks: [
+      "I can explain data loss, data gain and data change.",
+      "I can work out an odd or even parity bit.",
+      "I can describe a checksum and an echo check.",
+      "I can describe a check digit and ARQ, including acknowledgements and timeout.",
+    ],
+  },
+  "2.3": {
+    id: "2.3",
+    file: "2-3-encryption.html",
+    title: "Encryption",
+    paper: "Paper 1 · Computer systems",
+    chapter: "2 Data transmission",
+    lede: "Encryption scrambles data before it is transmitted so that someone who intercepts it cannot read it. The receiver reverses the process with a key. Symmetric encryption uses one shared key. Asymmetric encryption uses a public key and a private key.",
+    sections: [
+      {
+        id: "purpose",
+        kicker: "Purpose",
+        title: "Why data is encrypted",
+        lede: "Data travelling across a network can be intercepted. Encryption does not stop the interception. It stops the intercepted data from being understood.",
+        columns: [
+          { title: "Plaintext and ciphertext", points: ["The original message is encrypted into a form that looks meaningless.", "Only someone with the correct key can decrypt it back into the original message."] },
+          { title: "When it is used", points: ["It is used when data is transmitted, including passwords, payment details and private messages.", "The key must be managed carefully. A key that is stolen or lost defeats the protection."] },
+        ],
+      },
+      {
+        id: "keys",
+        kicker: "Keys",
+        title: "Symmetric and asymmetric",
+        columns: [
+          { title: "Symmetric", points: ["The same key encrypts and decrypts.", "It is faster, but the key has to be sent to the other person without an eavesdropper seeing it."] },
+          { title: "Asymmetric", points: ["A public key encrypts the data. The matching private key decrypts it.", "The public key can be shared openly. The private key stays secret, so the key-sharing problem of symmetric encryption is avoided. The method is slower."] },
+        ],
+        exam: "Do not say that encryption hides the fact that a message was sent. Say that it keeps the contents unreadable if the transmission is intercepted.",
+      },
+    ],
+    sort: {
+      title: "Symmetric or asymmetric?",
+      done: "One shared key is symmetric. A public key and a private key are asymmetric.",
+      choices: [["sym", "Symmetric"], ["asy", "Asymmetric"]],
+      cards: [
+        { text: "The same key is used to encrypt and to decrypt", answer: "sym", why: "That single shared key is symmetric encryption.", miss: "Asymmetric uses two different keys." },
+        { text: "Anyone can use the public key to encrypt, and only the owner uses the private key to decrypt", answer: "asy", why: "The public key is shared. The private key is not.", miss: "A single shared secret would be symmetric." },
+        { text: "The key itself must be transmitted securely to the other person", answer: "sym", why: "Both sides need the same secret, so exchanging it is the weak point.", miss: "A public key is designed to be shared." },
+        { text: "It avoids sending the secret key, but it is slower", answer: "asy", why: "Asymmetric encryption solves the key exchange and costs more processing.", miss: "Speed is an advantage of the shared-key method." },
+      ],
+    },
+    mcqs: [
+      { q: "What is the purpose of encryption during transmission?", options: ["To make the file smaller", "To stop intercepted data from being read", "To add a parity bit", "To reorder packets"], answer: 1, why: "The data can still be captured. Without the key it cannot be understood." },
+      { q: "Which statement describes symmetric encryption?", options: ["A public key encrypts and a private key decrypts", "One key is used for both encryption and decryption", "No key is used", "The checksum is the key"], answer: 1, why: "Symmetric means the same key on both sides." },
+      { q: "In asymmetric encryption, which key is kept secret?", options: ["The public key", "The private key", "Both keys", "The packet number"], answer: 1, why: "The public key can be distributed. The private key stays with its owner." },
+      { q: "Why might a system use symmetric encryption even though the key must be shared?", options: ["It is faster than asymmetric encryption", "It needs no key", "It is the same method as a parity check", "It only works on images"], answer: 0, why: "The syllabus comparison is speed against the problem of exchanging the key." },
+    ],
+    checks: [
+      "I can explain why transmitted data is encrypted.",
+      "I can describe symmetric encryption and the problem of sharing the key.",
+      "I can describe the public key and the private key in asymmetric encryption.",
+      "I can say which method is faster and which method avoids sending the secret key.",
+    ],
+  },
+};
