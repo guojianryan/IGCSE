@@ -1,0 +1,12 @@
+{
+  "name": "IGCSE Computer Science",
+  "short_name": "IGCSE CS",
+  "start_url": "index.html",
+  "display": "browser",
+  "background_color": "#3ddc97",
+  "theme_color": "#07090f",
+  "icons": [
+    { "src": "favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
