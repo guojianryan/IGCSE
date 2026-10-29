@@ -742,6 +742,7 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .flow-svg { width: min(720px, 100%); height: auto; display: block; margin: 8px auto 0; }
 .flow-svg.idea-svg { width: 100%; min-width: 720px; margin: 0; }
 .flow-svg .flow-small { font-size: 13px; }
+.idea > * + * { margin-top: 12px; }
 .struct-svg { width: min(960px, 100%); }
 .flow-svg .flow-line { fill: none; stroke: var(--muted); stroke-width: 2; }
 .flow-svg .flow-head { fill: var(--muted); }
@@ -797,6 +798,7 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
   .flow-svg text, .flow-svg .flow-tag, .flow-svg .flow-back { fill: black; }
   .flow-svg .flow-line { stroke: black; }
   .flow-svg .flow-head { fill: black; }
+  .flow-svg.idea-svg { min-width: 0; width: 100%; }
   .tabpanel.is-hidden { display: block !important; }
   .tabbar { display: none; }
   .pseudo, .pseudo span { color: black; background: white; font-style: normal; }
