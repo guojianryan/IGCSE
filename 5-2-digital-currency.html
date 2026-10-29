@@ -286,6 +286,85 @@
             <p>The signature checks one payment. The block hash checks that the agreed history has not been rewritten.</p>
           </article>
         </div>
+        <div class="lab">
+          <h3>Same data, same fingerprint</h3>
+          <div class="out">
+            <svg class="flow-svg idea-svg" viewBox="0 0 1000 292" role="img" aria-label="Hashing diagram. Alice to Bob, 2.5 coins is hashed one way to 4951b1d8. Changing the amount to 9 coins produces a380f610. The fingerprint cannot be turned back into the sentence.">
+              <defs>
+                <marker id="hash-arrow" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" class="flow-head"></path>
+                </marker>
+              </defs>
+              <text class="flow-tag" x="250" y="18" text-anchor="middle">Original payment</text>
+              <rect class="flow-io" x="70" y="32" width="360" height="64" rx="10"></rect>
+              <text x="250" y="68" text-anchor="middle">Alice to Bob, 2.5 coins</text>
+              <line class="flow-line" x1="250" y1="96" x2="250" y2="128" marker-end="url(#hash-arrow)"></line>
+              <text class="flow-back" x="262" y="118">one way</text>
+              <rect class="flow-process" x="170" y="132" width="160" height="48" rx="8"></rect>
+              <text x="250" y="160" text-anchor="middle">Hash</text>
+              <line class="flow-line" x1="250" y1="180" x2="250" y2="210" marker-end="url(#hash-arrow)"></line>
+              <rect class="flow-term" x="70" y="214" width="360" height="56" rx="28"></rect>
+              <text x="250" y="246" text-anchor="middle">4951b1d8</text>
+              <text class="flow-tag" x="750" y="18" text-anchor="middle">Amount changed</text>
+              <rect class="flow-io" x="570" y="32" width="360" height="64" rx="10"></rect>
+              <text x="750" y="68" text-anchor="middle">Alice to Bob, 9 coins</text>
+              <line class="flow-line" x1="750" y1="96" x2="750" y2="128" marker-end="url(#hash-arrow)"></line>
+              <text class="flow-back" x="762" y="118">one way</text>
+              <rect class="flow-process" x="670" y="132" width="160" height="48" rx="8"></rect>
+              <text x="750" y="160" text-anchor="middle">Hash</text>
+              <line class="flow-line" x1="750" y1="180" x2="750" y2="210" marker-end="url(#hash-arrow)"></line>
+              <rect class="flow-term" x="570" y="214" width="360" height="56" rx="28"></rect>
+              <text x="750" y="246" text-anchor="middle">a380f610</text>
+            </svg>
+          </div>
+          <p>Both fingerprints are eight characters. Changing 2.5 to 9 replaces the fingerprint. You cannot rebuild the sentence from either one.</p>
+        </div>
+        <div class="lab">
+          <h3>Who signed, and whether it still matches</h3>
+          <div class="out">
+            <svg class="flow-svg idea-svg" viewBox="0 0 1000 372" role="img" aria-label="Digital signature diagram. Alice hashes the payment and signs that fingerprint with her private key. A node hashes the payment it received and checks the signature with Alice's public key. A match is accepted. A difference is rejected.">
+              <defs>
+                <marker id="sign-arrow" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" class="flow-head"></path>
+                </marker>
+              </defs>
+              <text class="flow-tag" x="24" y="22">Alice signs</text>
+              <rect class="flow-io" x="24" y="36" width="220" height="78" rx="10"></rect>
+              <text class="flow-small" x="134" y="66" text-anchor="middle">Transaction</text>
+              <text class="flow-small" x="134" y="88" text-anchor="middle">Alice to Bob, 2.5 coins</text>
+              <line class="flow-line" x1="244" y1="75" x2="276" y2="75" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-process" x="280" y="36" width="160" height="78" rx="8"></rect>
+              <text x="360" y="80" text-anchor="middle">Hash</text>
+              <line class="flow-line" x1="440" y1="75" x2="472" y2="75" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-decision" x="476" y="36" width="230" height="78" rx="10"></rect>
+              <text class="flow-small" x="591" y="66" text-anchor="middle">Private key</text>
+              <text class="flow-small" x="591" y="88" text-anchor="middle">stays in the wallet</text>
+              <line class="flow-line" x1="706" y1="75" x2="738" y2="75" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-term" x="742" y="36" width="234" height="78" rx="28"></rect>
+              <text x="859" y="80" text-anchor="middle">Signature</text>
+              <polyline class="flow-line" points="859,114 859,168 591,168 591,196" marker-end="url(#sign-arrow)"></polyline>
+              <text class="flow-back" x="720" y="160" text-anchor="middle">sent with the readable payment</text>
+              <text class="flow-tag" x="24" y="188">A node checks</text>
+              <rect class="flow-io" x="24" y="200" width="220" height="78" rx="10"></rect>
+              <text class="flow-small" x="134" y="230" text-anchor="middle">Payment received</text>
+              <text class="flow-small" x="134" y="252" text-anchor="middle">still readable</text>
+              <line class="flow-line" x1="244" y1="239" x2="276" y2="239" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-process" x="280" y="200" width="160" height="78" rx="8"></rect>
+              <text class="flow-small" x="360" y="244" text-anchor="middle">Hash again</text>
+              <line class="flow-line" x1="440" y1="239" x2="472" y2="239" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-process" x="476" y="200" width="230" height="78" rx="8"></rect>
+              <text class="flow-small" x="591" y="230" text-anchor="middle">Public key</text>
+              <text class="flow-small" x="591" y="252" text-anchor="middle">checks the signature</text>
+              <line class="flow-line" x1="706" y1="220" x2="738" y2="220" marker-end="url(#sign-arrow)"></line>
+              <line class="flow-line" x1="706" y1="258" x2="738" y2="258" marker-end="url(#sign-arrow)"></line>
+              <rect class="flow-term" x="742" y="200" width="234" height="36" rx="16"></rect>
+              <text class="flow-small" x="859" y="223" text-anchor="middle">Match: accept</text>
+              <rect class="flow-decision" x="742" y="242" width="234" height="36" rx="8"></rect>
+              <text class="flow-small" x="859" y="265" text-anchor="middle">Differ: reject</text>
+            </svg>
+          </div>
+          <p>The payment stays readable. The private key creates the signature. The public key only checks it. Editing the amount, or signing with a different key, makes the two fingerprints differ.</p>
+        </div>
         <aside class="callout exam">
           <strong>Exam watch</strong>
           <p>Paper 1 asks for the ledger, the timestamp, and the fact that agreed records cannot be altered. You do not need the name of a hash algorithm. Use these two ideas when you explain how a node notices a change, or how it checks that the wallet owner sent the payment. <a href="2-3-encryption.html">Topic 2.3</a> is the page for encryption itself.</p>
@@ -363,6 +442,63 @@
           <p class="kicker">5.2.2 continued</p>
           <h2>What one block holds</h2>
           <p class="lede">A block holds the transactions, a timestamp, its own hash, and the hash of the block before it. The previous hash is the link. A digital signature on a transaction shows who authorised that payment. The hash below is a classroom fingerprint of those fields, not a real blockchain hash.</p>
+        </div>
+        <div class="lab">
+          <h3>What is stored</h3>
+          <div class="out">
+            <svg class="flow-svg idea-svg" viewBox="0 0 1000 468" role="img" aria-label="A transaction stores the sender, recipient, amount and digital signature. Block 1 stores that transaction, a timestamp, its own hash 0e42f289, and previous hash 00000000. Block 2 stores the next payment, its own hash, and Block 1's hash as its previous hash.">
+              <defs>
+                <marker id="store-arrow" viewBox="0 0 10 10" markerWidth="7" markerHeight="7" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" class="flow-head"></path>
+                </marker>
+              </defs>
+              <text class="flow-tag" x="24" y="22">A transaction stores</text>
+              <rect class="flow-io" x="24" y="36" width="226" height="78" rx="10"></rect>
+              <text class="flow-tag" x="137" y="64" text-anchor="middle">Sender</text>
+              <text x="137" y="88" text-anchor="middle">Alice</text>
+              <rect class="flow-io" x="266" y="36" width="226" height="78" rx="10"></rect>
+              <text class="flow-tag" x="379" y="64" text-anchor="middle">Recipient</text>
+              <text x="379" y="88" text-anchor="middle">Bob</text>
+              <rect class="flow-io" x="508" y="36" width="226" height="78" rx="10"></rect>
+              <text class="flow-tag" x="621" y="64" text-anchor="middle">Amount</text>
+              <text x="621" y="88" text-anchor="middle">2.5 coins</text>
+              <rect class="flow-term" x="750" y="36" width="226" height="78" rx="18"></rect>
+              <text class="flow-tag" x="863" y="64" text-anchor="middle">Signature</text>
+              <text class="flow-small" x="863" y="88" text-anchor="middle">Alice's private key</text>
+              <line class="flow-line" x1="254" y1="114" x2="254" y2="168" marker-end="url(#store-arrow)"></line>
+              <text class="flow-back" x="266" y="148">stored in Block 1</text>
+              <text class="flow-tag" x="24" y="196">A block stores</text>
+              <rect class="flow-process" x="24" y="208" width="460" height="240" rx="14"></rect>
+              <text x="44" y="236">Block 1</text>
+              <rect class="flow-io" x="40" y="250" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="52" y="275">Transactions</text>
+              <text class="flow-small" x="250" y="275">Alice to Bob, 2.5 coins</text>
+              <rect class="flow-process" x="40" y="298" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="52" y="323">Timestamp</text>
+              <text class="flow-small" x="250" y="323">09:15:02</text>
+              <rect class="flow-term" x="40" y="346" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="52" y="371">This hash</text>
+              <text class="flow-small" x="250" y="371">0e42f289</text>
+              <rect class="flow-process" x="40" y="394" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="52" y="419">Previous hash</text>
+              <text class="flow-small" x="250" y="419">00000000</text>
+              <rect class="flow-process" x="516" y="208" width="460" height="240" rx="14"></rect>
+              <text x="536" y="236">Block 2</text>
+              <rect class="flow-io" x="532" y="250" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="544" y="275">Transactions</text>
+              <text class="flow-small" x="742" y="275">Bob to the shop, 1 coin</text>
+              <rect class="flow-process" x="532" y="298" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="544" y="323">Timestamp</text>
+              <text class="flow-small" x="742" y="323">09:16:40</text>
+              <rect class="flow-term" x="532" y="346" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="544" y="371">This hash</text>
+              <text class="flow-small" x="742" y="371">584081b6</text>
+              <rect class="flow-term" x="532" y="394" width="428" height="40" rx="8"></rect>
+              <text class="flow-small" x="544" y="419">Previous hash</text>
+              <text class="flow-small" x="742" y="419">0e42f289</text>
+            </svg>
+          </div>
+          <p>Block 2’s previous hash is 0e42f289, the same fingerprint as Block 1. That is the link. The signature sits inside the transaction. The block then stores that transaction with the time and the two hashes. These fingerprints match the chain below.</p>
         </div>
         <div class="grid-2">
           <article class="card">
