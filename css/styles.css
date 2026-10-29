@@ -87,7 +87,7 @@ h3 { font-size: 1.25rem; }
 p { margin: 0 0 0.8em; }
 
 .wrap {
-  width: min(1100px, calc(100% - 32px));
+  width: min(1440px, calc(100% - 48px));
   margin-inline: auto;
 }
 
@@ -101,7 +101,6 @@ p { margin: 0 0 0.8em; }
 }
 
 .lede {
-  max-width: 68ch;
   color: var(--muted);
   font-size: 1.08rem;
 }
@@ -615,7 +614,6 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .out table.sheet { width: max-content; min-width: 100%; }
 .out table.sheet th, .out table.sheet td { white-space: nowrap; }
 .step-btn, .choice, .opt { cursor: pointer; }
-.teaching { max-width: 74ch; }
 .teaching + .teaching { margin-top: -0.2em; }
 .worked { margin-top: 16px; }
 .worked h3 { font-family: var(--sans); letter-spacing: 0; font-size: 1.02rem; }
