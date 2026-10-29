@@ -23,6 +23,7 @@
         <a href="#meaning">Currency</a>
         <a href="#uses">Uses</a>
         <a href="#blockchain">Blockchain</a>
+        <a href="#hash-sign">Hash and signature</a>
         <a href="#blocks">Blocks</a>
         <a href="#process">Process</a>
         <a href="#why">Why</a>
@@ -250,12 +251,118 @@
       </div>
     </section>
 
+    <section class="block" id="hash-sign">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Background for 5.2.2</p>
+          <h2>A hash and a digital signature</h2>
+          <p class="lede">The next section uses both words. Neither one is encryption. A hash shows whether data has changed. A digital signature shows who authorised it.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Hashing</h3>
+            <p>A hash is a short fingerprint of some data. The same data always produces the same fingerprint. Change one character and the fingerprint changes. The fingerprint has a fixed length, however long the message was.</p>
+            <p>You cannot rebuild the message from the fingerprint. The transaction itself can still be read. A hash is not a secret and it is not a smaller copy of the file. It only shows whether the data still matches.</p>
+          </article>
+          <article class="card">
+            <h3>A digital signature</h3>
+            <p>A digital signature shows that this person authorised this message, and that the message is still the one they authorised. The wallet owner signs with a private key, which stays in the wallet. Everyone else checks that signature with the matching public key, which can be shared.</p>
+            <p>Topic 2.3 uses the same kind of key pair for encryption, the other way round: the public key hides a message and the private key reads it. A signature does not hide the payment. The nodes still need to read who is paying whom.</p>
+          </article>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>How a payment is signed</h3>
+            <ol>
+              <li>The wallet hashes the transaction, such as “Alice pays Bob 2.5 coins”.</li>
+              <li>The owner’s private key is applied to that fingerprint. The result is the signature.</li>
+              <li>A node hashes the transaction it received and checks the signature with Alice’s public key.</li>
+              <li>If the amount was edited afterwards, or if someone else signed it, the check fails and the payment is rejected.</li>
+            </ol>
+          </article>
+          <article class="card">
+            <h3>How the chain uses a hash</h3>
+            <p>Each block stores its own hash and the hash of the block before it. That stored fingerprint is the link. Change an agreed transaction and the block’s hash no longer matches, so every later link fails too.</p>
+            <p>The signature checks one payment. The block hash checks that the agreed history has not been rewritten.</p>
+          </article>
+        </div>
+        <aside class="callout exam">
+          <strong>Exam watch</strong>
+          <p>Paper 1 asks for the ledger, the timestamp, and the fact that agreed records cannot be altered. You do not need the name of a hash algorithm. Use these two ideas when you explain how a node notices a change, or how it checks that the wallet owner sent the payment. <a href="2-3-encryption.html">Topic 2.3</a> is the page for encryption itself.</p>
+        </aside>
+        <div class="lab" id="hash-lab">
+          <h3>Change one detail and watch the fingerprint</h3>
+          <p>This is a classroom fingerprint, not a real blockchain hash. A real hash is much longer. You do not need the algorithm’s name.</p>
+          <label class="field" for="hash-text">Transaction</label>
+          <input id="hash-text" name="hash-text" type="text" value="Alice to Bob, 2.5 coins" maxlength="80">
+          <p>Fingerprint <code id="hash-out"></code></p>
+          <div class="row-actions">
+            <button class="btn small ghost" id="hash-reset" type="button">Restore the original</button>
+          </div>
+          <p id="hash-status" class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="lab" id="sign-lab">
+          <h3>Check Alice’s signature</h3>
+          <p id="sign-detail">Alice signed “Alice pays Bob 2.5 coins” with her private key. The nodes check it with Alice’s public key.</p>
+          <div class="row-actions">
+            <button class="btn small" id="sign-check" type="button">Check Alice’s signature</button>
+            <button class="btn small amber" id="sign-tamper" type="button">Change the amount after she signed</button>
+            <button class="btn small amber" id="sign-other" type="button">Sign with a different private key</button>
+            <button class="btn small ghost" id="sign-reset" type="button">Restore Alice’s payment</button>
+          </div>
+          <p id="sign-status" class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="lab" id="idea-lab" data-done="A hash detects a change. A signature shows who authorised the message. Encryption hides the message.">
+          <h3>Hash, signature, or encryption?</h3>
+          <div class="sort-grid">
+            <article class="sort-card" data-answer="hash" data-why="That is a hash: same data, same fingerprint, and a change produces a different one." data-miss="A hash is the fingerprint. It does not hide the message, and it is not made with a private key.">
+              <p>A short fingerprint. The same data always gives the same result, and changing one character gives a different result.</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="hash">Hash</button>
+                <button class="choice" type="button" data-choice="signature">Signature</button>
+                <button class="choice" type="button" data-choice="encryption">Encryption</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="signature" data-why="The private key creates the signature. The public key lets everyone else check who authorised the payment." data-miss="That pair of jobs is a digital signature, not a hash and not encryption.">
+              <p>Made with the private key and checked with the public key, to show who authorised this payment.</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="hash">Hash</button>
+                <button class="choice" type="button" data-choice="signature">Signature</button>
+                <button class="choice" type="button" data-choice="encryption">Encryption</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="encryption" data-why="Encryption turns plaintext into ciphertext so an interceptor cannot read it. Topic 2.3 covers that job." data-miss="Hiding the contents is encryption. A hash and a signature both leave the payment readable.">
+              <p>Turns a readable message into ciphertext so an interceptor cannot read it.</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="hash">Hash</button>
+                <button class="choice" type="button" data-choice="signature">Signature</button>
+                <button class="choice" type="button" data-choice="encryption">Encryption</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+            <article class="sort-card" data-answer="hash" data-why="The previous hash is the link. If an earlier block changes, this stored fingerprint no longer matches." data-miss="Storing the previous fingerprint is how the hash chains the blocks. It is not a signature.">
+              <p>The previous block’s fingerprint, stored so a change earlier in the chain is visible.</p>
+              <div class="choices">
+                <button class="choice" type="button" data-choice="hash">Hash</button>
+                <button class="choice" type="button" data-choice="signature">Signature</button>
+                <button class="choice" type="button" data-choice="encryption">Encryption</button>
+              </div>
+              <p class="why feedback"></p>
+            </article>
+          </div>
+          <p class="feedback" data-status aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
     <section class="block" id="blocks">
       <div class="wrap">
         <div class="section-head">
           <p class="kicker">5.2.2 continued</p>
           <h2>What one block holds</h2>
-          <p class="lede">A block holds the transactions, a timestamp, its own hash, and the hash of the block before it. The previous hash is the link. The hash below is a classroom fingerprint of those fields, not a real blockchain hash.</p>
+          <p class="lede">A block holds the transactions, a timestamp, its own hash, and the hash of the block before it. The previous hash is the link. A digital signature on a transaction shows who authorised that payment. The hash below is a classroom fingerprint of those fields, not a real blockchain hash.</p>
         </div>
         <div class="grid-2">
           <article class="card">
@@ -425,12 +532,12 @@
           </div>
           <div>
             <span>Quick check</span>
-            <strong id="mcq-score">0 / 8</strong>
+            <strong id="mcq-score">0 / 10</strong>
           </div>
         </div>
         <div class="section-head" style="margin-top:28px">
           <h2>Quick check</h2>
-          <p class="lede">Eight short questions. The explanation appears as soon as you choose.</p>
+          <p class="lede">Ten short questions. The explanation appears as soon as you choose.</p>
         </div>
         <div id="mcq-lab" class="stack"></div>
       </div>
@@ -448,13 +555,15 @@
           <label><input id="check-wallet" name="check-wallet" type="checkbox" value="wallet"> It is stored in a digital wallet on a device or a secure server.</label>
           <label><input id="check-bitcoin" name="check-bitcoin" type="checkbox" value="bitcoin"> Bitcoin is an example. It is not the definition of digital currency.</label>
           <label><input id="check-ledger" name="check-ledger" type="checkbox" value="ledger"> A blockchain is a digital ledger: a time-stamped series of records that cannot be altered.</label>
+          <label><input id="check-fingerprint" name="check-fingerprint" type="checkbox" value="fingerprint"> A hash is a fingerprint. The same data gives the same hash, and a change gives a different hash.</label>
+          <label><input id="check-signature" name="check-signature" type="checkbox" value="signature"> A digital signature is made with the private key and checked with the public key. It shows who authorised the transaction.</label>
           <label><input id="check-hash" name="check-hash" type="checkbox" value="hash"> Each block stores its own hash and the previous block’s hash, which is what chains them together.</label>
           <label><input id="check-tamper" name="check-tamper" type="checkbox" value="tamper"> Changing an earlier block changes its hash and breaks the later links.</label>
           <label><input id="check-double" name="check-double" type="checkbox" value="double"> The ledger prevents double-spending by showing that a coin was already spent.</label>
           <label><input id="check-nodes" name="check-nodes" type="checkbox" value="nodes"> No single authority keeps the only copy. Other nodes still hold the ledger if one node fails.</label>
         </div>
         <div class="row-actions">
-          <span class="chip" id="check-count">0 / 8</span>
+          <span class="chip" id="check-count">0 / 10</span>
           <button class="btn small ghost" id="check-reset" type="button">Clear ticks</button>
         </div>
       </div>

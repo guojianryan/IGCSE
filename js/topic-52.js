@@ -1,18 +1,21 @@
-export function blockHash(block) {
-  const source = `${block.tx}|${block.time}|${block.prev}`;
+export function fingerprint(text) {
   let x = 2166136261;
-  for (const ch of source) {
+  for (const ch of String(text)) {
     x ^= ch.codePointAt(0);
     x = Math.imul(x, 16777619);
   }
   return (x >>> 0).toString(16).padStart(8, "0").slice(0, 8);
 }
 
+export function blockHash(block) {
+  return fingerprint(`${block.tx}|${block.time}|${block.prev}`);
+}
+
 const STEPS = [
   { id: "s1", phase: "The blockchain process", title: "Request", text: "A user starts a transaction from a digital wallet, for example sending currency to another person." },
   { id: "s2", phase: "The blockchain process", title: "Block setup", text: "The transaction is grouped with other pending transactions into one candidate block." },
   { id: "s3", phase: "The blockchain process", title: "Broadcast", text: "The candidate block is broadcast across a decentralised peer-to-peer network of nodes." },
-  { id: "s4", phase: "The blockchain process", title: "Validation", text: "The nodes use cryptographic hashing to check that the transaction is legitimate." },
+  { id: "s4", phase: "The blockchain process", title: "Validation", text: "The nodes check the digital signature with the sender’s public key, and they use the hashes to reject a block that has been changed." },
   { id: "s5", phase: "The blockchain process", title: "Chaining", text: "The valid block is time-stamped, hashed, and added to the existing chain." },
   { id: "s6", phase: "The blockchain process", title: "Completion", text: "The ledger updates across the network and the recipient receives the funds." },
 ];
@@ -133,6 +136,28 @@ const MCQS = [
     answer: 1,
     why: "Double-spending is spending the same digital coin twice. The blockchain checks the ledger before it accepts a new transaction.",
   },
+  {
+    q: "What is a hash used for on this ledger?",
+    options: [
+      "A fingerprint that changes when the data changes, so tampering can be detected",
+      "A way to hide the transaction so the nodes cannot read it",
+      "The private key of the wallet",
+      "A paper receipt kept by the bank",
+    ],
+    answer: 0,
+    why: "A hash is a fingerprint. The same data gives the same hash. Change the data and the hash changes. It does not hide the transaction.",
+  },
+  {
+    q: "What does a digital signature show?",
+    options: [
+      "That the wallet owner authorised this transaction, and that it has not been changed since",
+      "That the price of the coin will stay the same",
+      "That the payment is hidden from every node",
+      "That the previous block can be deleted",
+    ],
+    answer: 0,
+    why: "The owner signs with the private key. Nodes check with the public key. Editing the payment after it was signed makes the check fail.",
+  },
 ];
 
 function shuffle(list) {
@@ -224,6 +249,74 @@ function initChoices(rootId) {
       });
     });
   });
+}
+
+function initHashLab() {
+  const input = document.querySelector("#hash-text");
+  const out = document.querySelector("#hash-out");
+  const status = document.querySelector("#hash-status");
+  if (!input || !out || !status) return;
+  const original = "Alice to Bob, 2.5 coins";
+  const originalHash = fingerprint(original);
+  function paint() {
+    const text = input.value;
+    const live = fingerprint(text);
+    out.textContent = live;
+    if (text === original) {
+      status.className = "feedback good";
+      status.textContent = "This is the original transaction, so the fingerprint matches the one the block would have stored.";
+      return;
+    }
+    status.className = "feedback bad";
+    status.textContent = `The text changed, so the fingerprint changed from ${originalHash} to ${live}. The old fingerprint cannot be edited into the new one, and the sentence cannot be rebuilt from either fingerprint.`;
+  }
+  input.addEventListener("input", paint);
+  document.querySelector("#hash-reset")?.addEventListener("click", () => {
+    input.value = original;
+    paint();
+  });
+  paint();
+}
+
+function initSignLab() {
+  const detail = document.querySelector("#sign-detail");
+  const status = document.querySelector("#sign-status");
+  if (!detail || !status) return;
+  const original = "Alice pays Bob 2.5 coins";
+  let text = original;
+  let signer = "Alice";
+
+  function paint(message, ok) {
+    detail.textContent = `Transaction: ${text}. Signed with ${signer}’s private key. The nodes check that signature with Alice’s public key.`;
+    status.className = ok === true ? "feedback good" : ok === false ? "feedback bad" : "feedback";
+    status.textContent = message;
+  }
+
+  document.querySelector("#sign-check")?.addEventListener("click", () => {
+    if (text === original && signer === "Alice") {
+      paint("Accepted. The signature was made with Alice’s private key, and the transaction still matches the one she signed.", true);
+      return;
+    }
+    if (signer !== "Alice") {
+      paint("Rejected. This signature was made with a different private key, so Alice’s public key does not match it.", false);
+      return;
+    }
+    paint("Rejected. The amount was changed after Alice signed. The signature still belongs to the original wording, so the check fails.", false);
+  });
+  document.querySelector("#sign-tamper")?.addEventListener("click", () => {
+    text = "Alice pays Bob 9 coins";
+    paint("The amount is now 9 coins, but the signature was made for 2.5 coins. Check it: Alice’s public key will not accept the edited payment.", false);
+  });
+  document.querySelector("#sign-other")?.addEventListener("click", () => {
+    signer = "someone else";
+    paint("A different private key was used. Check it: the nodes only trust a signature that matches Alice’s public key.", false);
+  });
+  document.querySelector("#sign-reset")?.addEventListener("click", () => {
+    text = original;
+    signer = "Alice";
+    paint("Restored. Alice’s private key has signed the original payment again.", true);
+  });
+  paint("Alice signed the original payment. Check it before you change anything.", null);
 }
 
 function initChain() {
@@ -509,6 +602,9 @@ function init() {
   initNav();
   initChoices("#sort-lab");
   initChoices("#risk-lab");
+  initChoices("#idea-lab");
+  initHashLab();
+  initSignLab();
   initChain();
   initRetrieval();
   initOrder();
