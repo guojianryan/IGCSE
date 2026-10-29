@@ -367,6 +367,25 @@ code {
 
 .lab { margin-top: 16px; }
 .lab h3 { margin-bottom: 6px; }
+.lab > * + * { margin-top: 12px; }
+
+main .wrap > * + .card,
+main .wrap > * + .lab,
+main .wrap > * + .callout,
+main .wrap > * + .worked,
+main .wrap > * + .tabset,
+main .wrap > * + .check-list,
+main .wrap > * + .scoreboard,
+main .wrap > * + .grid-2,
+main .wrap > * + .grid-3,
+main .wrap > * + .grid-6,
+main .wrap > * + .fn,
+main .wrap > * + .q,
+main .wrap > * + .stack,
+main .wrap > * + .sim-grid,
+main .wrap > * + .row-actions {
+  margin-top: 20px;
+}
 
 label.field { display: block; font-size: 0.92rem; color: var(--muted); margin-bottom: 8px; }
 
