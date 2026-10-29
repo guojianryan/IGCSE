@@ -1,3 +1,9 @@
+const sim = (slug, title, text) => ({
+  href: `https://guojianryan.github.io/CompSimu/simulations/${slug}/index.html`,
+  title,
+  text,
+});
+
 export const partB = {
   "3.1": {
     id: "3.1",
@@ -70,6 +76,10 @@ export const partB = {
           ],
           result: "RAM holds the instruction until it is fetched. The CIR, not the MDR, is the register the control unit decodes.",
         },
+        linksLede: "Step through the same cycle on CompSimu. The page calls it the fetch–execute cycle, and it labels the current instruction register as IR. On this course that register is the CIR.",
+        links: [
+          sim("fetch-execute-cycle", "Fetch–decode–execute", "A short program loads 10, adds 25 and stores 35. Watch the PC, MAR, MDR, IR, accumulator, ALU and the three buses."),
+        ],
       },
       {
         id: "speed",
