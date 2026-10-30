@@ -224,7 +224,7 @@ function tabSet(spec) {
     if (item.note) panel.append(el("p", "define", item.note));
     if (item.code) panel.append(pseudocodeBlock(item.code));
     const charts = item.charts || [];
-    const host = charts.length > 1 ? el("div", "grid-2") : panel;
+    const host = charts.length > 1 && !item.stack ? el("div", "grid-2") : panel;
     charts.forEach((chart) => {
       const column = el("div", "chart-card");
       if (chart.title) column.append(el("h3", "", chart.title));
@@ -333,6 +333,7 @@ function pseudocodeBlock(source) {
 function renderChart(chart) {
   if (chart.layout === "decision") return drawDecision(chart);
   if (chart.layout === "loop") return drawLoop(chart);
+  if (chart.layout === "pay") return drawPay(chart);
   const box = el("div", "chart");
   (chart.steps || []).forEach((step, index) => {
     if (index > 0 && step.shape !== "branch") box.append(flowArrow());
@@ -486,6 +487,32 @@ function drawLoop(chart) {
   svg.append(flowProcess(x - 132, 430, 264, 46, update));
   svg.append(flowLine([[x, 476], [x, 528], [44, 528], [44, 150], [x, 150]], svg.marker));
   svg.append(flowTag(58, 508, "back to the decision", "start", "flow-back"));
+  return svg;
+}
+
+function drawPay(chart) {
+  const svg = flowSvg(
+    "flow-head-pay",
+    700,
+    600,
+    `Subroutine flowchart for CalculatePay. ${chart.basic}. If ${chart.question} then ${chart.extra}, then ${chart.add}. Otherwise pay is left unchanged. Both paths meet at Stop.`,
+  );
+  const x = 250;
+  svg.append(flowTerminator(x - 80, 16, 160, 44, "Start"));
+  svg.append(flowLine([[x, 60], [x, 80]], svg.marker));
+  svg.append(flowProcess(x - 130, 80, 260, 48, chart.basic));
+  svg.append(flowLine([[x, 128], [x, 156]], svg.marker));
+  svg.append(flowDiamond(x, 228, 124, 72, chart.question));
+  svg.append(flowTag(x + 16, 312, "Yes", "start"));
+  svg.append(flowLine([[x, 300], [x, 326]], svg.marker));
+  svg.append(flowProcess(40, 326, 420, 50, chart.extra));
+  svg.append(flowLine([[x, 376], [x, 396]], svg.marker));
+  svg.append(flowProcess(x - 130, 396, 260, 48, chart.add));
+  svg.append(flowLine([[x, 444], [x, 478]]));
+  svg.append(flowLine([[374, 228], [620, 228], [620, 478], [x, 478]]));
+  svg.append(flowTag(470, 212, "No"));
+  svg.append(flowLine([[x, 478], [x, 502]], svg.marker));
+  svg.append(flowTerminator(x - 80, 502, 160, 44, "Stop"));
   return svg;
 }
 

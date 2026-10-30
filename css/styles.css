@@ -685,7 +685,7 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
   border: 2px solid var(--blue);
   background: #0b0e15;
   min-width: 190px;
-  max-width: 280px;
+  max-width: min(460px, 100%);
   padding: 10px 16px;
 }
 .shape.term { border-radius: 999px; border-color: var(--teal); }
@@ -693,9 +693,22 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
 .shape.io { transform: skewX(-14deg); border-color: var(--amber); padding-inline: 22px; }
 .shape.io .unskew { display: inline-block; transform: skewX(14deg); }
 .shape.sub {
+  position: relative;
   border-color: var(--teal);
-  box-shadow: inset 8px 0 0 -6px var(--teal), inset -8px 0 0 -6px var(--teal);
+  border-radius: 4px;
+  padding: 12px 36px;
 }
+.shape.sub::before,
+.shape.sub::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 4px;
+  background: var(--teal);
+}
+.shape.sub::before { left: 12px; }
+.shape.sub::after { right: 12px; }
 .diamond {
   width: 200px;
   height: 132px;
@@ -789,6 +802,7 @@ table.sheet th, table.sheet td { border-bottom: 1px solid var(--line); padding: 
   body { background: white; color: black; }
   body::before, header, .stage, .lab, .actions, footer .fine { display: none !important; }
   .card, .callout, .q, .fn, .map-card, .worked, .shape, .diamond::before { break-inside: avoid; border-color: #ccc; background: white; }
+  .shape.sub::before, .shape.sub::after { background: black; }
   .flow-svg .flow-term,
   .flow-svg .flow-process,
   .flow-svg .flow-io,

@@ -729,15 +729,14 @@ export const chapter7 = {
           items: [
             {
               label: "Sequence",
-              note: "A terminator starts and stops the chart. A parallelogram is input or output. A rectangle is a process. Nothing here asks a question, so there is no decision.",
+              note: "A terminator starts and stops the chart. A parallelogram is input or output. A rectangle is a process. Nothing here asks a question, so there is no decision. The Celsius that was input is the value the formula uses, and Fahrenheit is what gets output.",
               charts: [{
-                title: "Add one mark to a total",
+                title: "Celsius to Fahrenheit",
                 steps: [
                   { shape: "term", text: "Start" },
-                  { shape: "io", text: "INPUT Mark" },
-                  { shape: "process", text: "Total ← Total + Mark" },
-                  { shape: "process", text: "Count ← Count + 1" },
-                  { shape: "io", text: "OUTPUT Total" },
+                  { shape: "io", text: "INPUT Celsius" },
+                  { shape: "process", text: "Fahrenheit ← (Celsius * 9 / 5) + 32" },
+                  { shape: "io", text: "OUTPUT Fahrenheit" },
                   { shape: "term", text: "Stop" },
                 ],
               }],
@@ -767,24 +766,27 @@ export const chapter7 = {
             },
             {
               label: "Subroutine",
-              note: "The double bars at the sides of a rectangle mean a subroutine call. The call relates to a separate flowchart. Do not draw a flow line from this chart into that one.",
+              stack: true,
+              note: "The two vertical lines inside the rectangle mark a subroutine call. CalculatePay is a separate flowchart because it makes a decision: basic pay is Hours times Rate, and extra pay is added only when Hours is over 40. Do not draw a flow line from the main chart into that one. After the call, the main chart outputs Pay.",
               charts: [
                 {
                   title: "Main flowchart",
                   steps: [
                     { shape: "term", text: "Start" },
-                    { shape: "sub", text: "FindAverage" },
-                    { shape: "io", text: "OUTPUT Average" },
+                    { shape: "io", text: "INPUT Hours" },
+                    { shape: "io", text: "INPUT Rate" },
+                    { shape: "sub", text: "CalculatePay" },
+                    { shape: "io", text: "OUTPUT Pay" },
                     { shape: "term", text: "Stop" },
                   ],
                 },
                 {
-                  title: "Separate flowchart for FindAverage",
-                  steps: [
-                    { shape: "term", text: "Start" },
-                    { shape: "process", text: "Average ← Total / Count" },
-                    { shape: "term", text: "Stop" },
-                  ],
+                  title: "Separate flowchart for CalculatePay",
+                  layout: "pay",
+                  basic: "Pay ← Hours * Rate",
+                  question: "Hours > 40?",
+                  extra: "Extra ← (Hours - 40) * Rate * 0.5",
+                  add: "Pay ← Pay + Extra",
                 },
               ],
             },
