@@ -8,7 +8,7 @@ const page = (topic) => `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${topic.id} ${escapeHtml(topic.title)} · IGCSE Computer Science</title>
   <meta name="description" content="${escapeHtml(topic.lede)}">
-  <meta name="theme-color" content="#07090f">
+  <meta name="theme-color" content="#101010">
   <meta name="apple-mobile-web-app-title" content="IGCSE CS">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -16,7 +16,7 @@ const page = (topic) => `<!DOCTYPE html>
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560&family=IBM+Plex+Mono:wght@450;560&family=Outfit:wght@380;520;640&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
