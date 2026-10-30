@@ -8,7 +8,7 @@ const page = (topic) => `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${topic.id} ${escapeHtml(topic.title)} · IGCSE Computer Science</title>
   <meta name="description" content="${escapeHtml(topic.lede)}">
-  <meta name="theme-color" content="#101010">
+  <meta name="theme-color" content="#0c1220">
   <meta name="apple-mobile-web-app-title" content="IGCSE CS">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">

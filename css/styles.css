@@ -1,21 +1,21 @@
 :root {
   color-scheme: dark;
-  --bg: #101010;
-  --bg-elev: #1a1a1a;
+  --bg: #0c1220;
+  --bg-elev: #161e30;
   --ink: #f2f2f2;
   --ink-strong: #ffffff;
-  --muted: #bdbdbd;
-  --faint: #8b949e;
-  --line: #3d3a39;
-  --teal: #00d992;
-  --teal-soft: #2fd6a1;
-  --teal-ink: #101010;
-  --link: #10b981;
+  --muted: #c5cde0;
+  --faint: #8b97ad;
+  --line: #2c3a52;
+  --teal: #6e9bff;
+  --teal-soft: #8eb4ff;
+  --teal-ink: #0c1220;
+  --link: #9ec0ff;
   --amber: #ffc14d;
   --amber-ink: #2b2108;
-  --blue: #8eb7ff;
+  --blue: #b7d2ff;
   --coral: #ff8b78;
-  --good: #00d992;
+  --good: #6e9bff;
   --bad: #ff8b78;
   --shadow: 0 0 15px rgba(92, 88, 85, 0.2);
   --serif: Inter, system-ui, sans-serif;
@@ -40,7 +40,7 @@ body {
   font-feature-settings: "calt", "rlig";
 }
 
-::selection { background: rgba(0, 217, 146, 0.35); color: white; }
+::selection { background: rgba(110, 155, 255, 0.35); color: white; }
 
 :focus-visible {
   outline: 2px solid var(--teal);
@@ -285,7 +285,7 @@ header {
   height: 16px;
   border-radius: 50%;
   background: var(--teal);
-  box-shadow: 0 0 0 6px rgba(0, 217, 146, 0.15);
+  box-shadow: 0 0 0 6px rgba(110, 155, 255, 0.15);
 }
 
 .node.a { top: 18%; left: 16%; }
@@ -515,8 +515,8 @@ textarea { min-height: 110px; resize: vertical; font-family: var(--sans); }
 }
 
 .choice.is-correct, .sort-card.is-correct, .opt.is-correct {
-  background: rgba(0, 217, 146, 0.16);
-  border-color: rgba(0, 217, 146, 0.6);
+  background: rgba(110, 155, 255, 0.16);
+  border-color: rgba(110, 155, 255, 0.6);
 }
 
 .choice.is-wrong, .opt.is-wrong {
@@ -627,7 +627,7 @@ footer {
 .bcard p { margin: 0 0 6px; font-size: 0.92rem; }
 .bcard code { display: block; word-break: break-all; }
 .bcard.bad { border-color: rgba(255, 139, 120, 0.7); box-shadow: inset 3px 0 0 var(--coral); }
-.bcard.ok { border-color: rgba(0, 217, 146, 0.55); }
+.bcard.ok { border-color: rgba(110, 155, 255, 0.55); }
 .flow.six { grid-template-columns: repeat(3, 1fr); }
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 8px 0; }
 select {
