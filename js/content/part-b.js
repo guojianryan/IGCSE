@@ -334,6 +334,7 @@ export const partB = {
           "Optical storage uses a laser. The surface has pits and lands. The laser creates them when the disc is written, and reads the reflection when the disc is used. CD, DVD and Blu-ray are the examples. They differ in how much they hold, not in the basic idea of pits, lands and a laser.",
           "Solid-state storage, also called flash memory, has no spinning platter. It uses NAND or NOR technology. Transistors are used as control gates and floating gates. A charge trapped in a floating gate stores the bit. Examples are a solid-state drive (SSD), an SD card and a USB drive.",
         ],
+        diagrams: "storage-media",
         pair: {
           able: ["Describe the operation of magnetic, optical and solid-state storage and give examples of each."],
           notes: [

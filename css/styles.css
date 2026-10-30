@@ -395,9 +395,28 @@ main .wrap > * + .fn,
 main .wrap > * + .q,
 main .wrap > * + .stack,
 main .wrap > * + .sim-grid,
-main .wrap > * + .row-actions {
+main .wrap > * + .row-actions,
+main .wrap > * + .media-set {
   margin-top: 20px;
 }
+
+.media-set { display: grid; gap: 20px; }
+.media-svg { width: 100%; min-width: 680px; margin: 0; }
+.media-svg .disc { fill: var(--bg); stroke: var(--teal); stroke-width: 3; }
+.media-svg .track { fill: none; stroke: var(--line); stroke-width: 2; }
+.media-svg .hub { fill: var(--teal); }
+.media-svg .sector { fill: rgba(255, 193, 77, 0.38); stroke: var(--amber); stroke-width: 2; }
+.media-svg .arm { fill: none; stroke: var(--muted); stroke-width: 4; stroke-linecap: round; }
+.media-svg .head { fill: var(--amber); }
+.media-svg .surface { fill: var(--bg); stroke: var(--teal); stroke-width: 2; }
+.media-svg .laser { fill: var(--bg-elev); stroke: var(--amber); stroke-width: 2; }
+.media-svg .beam { fill: none; stroke: var(--amber); stroke-width: 2.5; stroke-linecap: round; }
+.media-svg .beam-miss { fill: none; stroke: var(--coral); stroke-width: 2.5; stroke-dasharray: 5 4; stroke-linecap: round; }
+.media-svg .gate { fill: var(--bg); stroke: var(--teal); stroke-width: 2; }
+.media-svg .float { fill: var(--bg-elev); stroke: var(--amber); stroke-width: 2; }
+.media-svg .base { fill: var(--bg); stroke: var(--blue); stroke-width: 2; }
+.media-svg .charge { fill: var(--amber); }
+.media-svg .leader { fill: none; stroke: var(--faint); stroke-width: 1.5; }
 
 label.field { display: block; font-size: 0.92rem; color: var(--muted); margin-bottom: 8px; }
 
@@ -767,6 +786,7 @@ table.sheet th { background: var(--bg-elev); font-weight: 500; }
 .flow-back { margin: 8px 0 0; max-width: 26ch; text-align: center; color: var(--teal); font-size: 0.88rem; }
 .flow-svg { width: min(720px, 100%); height: auto; display: block; margin: 8px auto 0; }
 .flow-svg.idea-svg { width: 100%; min-width: 720px; margin: 0; }
+.flow-svg.media-svg { width: 100%; min-width: 680px; margin: 0; }
 .flow-svg .flow-small { font-size: 13px; }
 .idea > * + * { margin-top: 12px; }
 .struct-svg { width: min(960px, 100%); }
@@ -825,7 +845,22 @@ table.sheet th { background: var(--bg-elev); font-weight: 500; }
   .flow-svg text, .flow-svg .flow-tag, .flow-svg .flow-back { fill: black; }
   .flow-svg .flow-line { stroke: black; }
   .flow-svg .flow-head { fill: black; }
-  .flow-svg.idea-svg { min-width: 0; width: 100%; }
+  .flow-svg.idea-svg, .media-svg { min-width: 0; width: 100%; }
+  .media-svg .disc,
+  .media-svg .surface,
+  .media-svg .laser,
+  .media-svg .gate,
+  .media-svg .float,
+  .media-svg .base { fill: white; stroke: black; }
+  .media-svg .track,
+  .media-svg .arm,
+  .media-svg .leader,
+  .media-svg .beam,
+  .media-svg .beam-miss { stroke: black; }
+  .media-svg .hub,
+  .media-svg .head,
+  .media-svg .charge,
+  .media-svg .sector { fill: #ddd; stroke: black; }
   .tabpanel.is-hidden { display: block !important; }
   .tabbar { display: none; }
   .pseudo, .pseudo span { color: black; background: white; font-style: normal; }

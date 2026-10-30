@@ -135,6 +135,7 @@ function teach(section) {
   if (section.lede) head.append(el("p", "lede", section.lede));
   wrap.append(head);
   (section.prose || []).forEach((paragraph) => wrap.append(el("p", "teaching", paragraph)));
+  if (section.diagrams === "storage-media") wrap.append(storageMediaDiagrams());
   if (section.structure) wrap.append(renderStructure(section.structure));
   if (section.pair) wrap.append(pair(section.pair));
   if (section.columns?.length) {
@@ -328,6 +329,172 @@ function pseudocodeBlock(source) {
   }
   flush();
   return pre;
+}
+
+function polar(cx, cy, r, deg) {
+  const rad = deg * Math.PI / 180;
+  return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)];
+}
+
+function sectorPath(cx, cy, r0, r1, a0, a1) {
+  const [x0, y0] = polar(cx, cy, r0, a0);
+  const [x1, y1] = polar(cx, cy, r1, a0);
+  const [x2, y2] = polar(cx, cy, r1, a1);
+  const [x3, y3] = polar(cx, cy, r0, a1);
+  const large = Math.abs(a1 - a0) > 180 ? 1 : 0;
+  return `M ${x0} ${y0} L ${x1} ${y1} A ${r1} ${r1} 0 ${large} 1 ${x2} ${y2} L ${x3} ${y3} A ${r0} ${r0} 0 ${large} 0 ${x0} ${y0} Z`;
+}
+
+function mediaSvg(width, height, label) {
+  return svgEl("svg", {
+    class: "flow-svg media-svg",
+    viewBox: `0 0 ${width} ${height}`,
+    role: "img",
+    "aria-label": label,
+  });
+}
+
+function mediaFigure(title, svg, caption) {
+  const fig = el("figure", "worked");
+  fig.append(el("h3", "", title));
+  const frame = el("div", "out");
+  frame.append(svg);
+  fig.append(frame);
+  fig.append(el("p", "define", caption));
+  return fig;
+}
+
+function mediaLines(x, y, lines) {
+  const group = svgEl("g");
+  lines.forEach((line, index) => {
+    group.append(svgEl("text", {
+      class: "flow-symbol",
+      x,
+      y: y + index * 30,
+      "text-anchor": "start",
+      "dominant-baseline": "middle",
+    }, line));
+  });
+  return group;
+}
+
+function mediaLeader(x1, y1, x2, y2) {
+  return svgEl("line", { class: "leader", x1, y1, x2, y2 });
+}
+
+function drawMagnetic() {
+  const svg = mediaSvg(920, 380, "Magnetic storage. A platter is divided into circular tracks and sectors. A head with an electromagnet moves to one track.");
+  const cx = 200;
+  const cy = 190;
+  svg.append(svgEl("circle", { class: "disc", cx, cy, r: 150 }));
+  [56, 88, 120].forEach((r) => svg.append(svgEl("circle", { class: "track", cx, cy, r })));
+  svg.append(svgEl("path", { class: "sector", d: sectorPath(cx, cy, 120, 150, -60, -30) }));
+  for (let angle = -90; angle < 270; angle += 30) {
+    const [x0, y0] = polar(cx, cy, 120, angle);
+    const [x1, y1] = polar(cx, cy, 150, angle);
+    svg.append(svgEl("line", { class: "track", x1: x0, y1: y0, x2: x1, y2: y1 }));
+  }
+  svg.append(svgEl("circle", { class: "hub", cx, cy, r: 14 }));
+  const [hx, hy] = polar(cx, cy, 134, -45);
+  svg.append(svgEl("line", { class: "arm", x1: 28, y1: 352, x2: hx, y2: hy }));
+  svg.append(svgEl("rect", { class: "head", x: hx - 13, y: hy - 10, width: 26, height: 20, rx: 3 }));
+  const [trackX, trackY] = polar(cx, cy, 88, -15);
+  const [sectorX, sectorY] = polar(cx, cy, 150, -45);
+  const [platterX, platterY] = polar(cx, cy, 150, 18);
+  svg.append(mediaLeader(sectorX, sectorY, 378, 58));
+  svg.append(flowTag(386, 58, "Sector", "start"));
+  svg.append(mediaLeader(hx + 12, hy + 6, 378, 112));
+  svg.append(flowTag(386, 112, "Head", "start"));
+  svg.append(mediaLeader(trackX, trackY, 378, 176));
+  svg.append(flowTag(386, 176, "Track", "start"));
+  svg.append(mediaLeader(platterX, platterY, 378, 240));
+  svg.append(flowTag(386, 240, "Platter", "start"));
+  svg.append(mediaLines(530, 108, [
+    "Tracks are circles.",
+    "A sector is one piece",
+    "of a track.",
+    "The head is an",
+    "electromagnet.",
+    "It writes a pattern,",
+    "then reads it later.",
+  ]));
+  return svg;
+}
+
+function drawOptical() {
+  const svg = mediaSvg(920, 340, "Optical storage. A laser creates and reads pits and lands. A land reflects the beam. A pit does not reflect it the same way.");
+  const top = 168;
+  const floor = 202;
+  const bottom = 250;
+  const pits = [[120, 190], [260, 330], [400, 470]];
+  let surface = `M 40 ${top}`;
+  pits.forEach(([start, end]) => {
+    surface += ` L ${start} ${top} L ${start} ${floor} L ${end} ${floor} L ${end} ${top}`;
+  });
+  surface += ` L 510 ${top} L 510 ${bottom} L 40 ${bottom} Z`;
+  svg.append(svgEl("path", { class: "surface", d: surface }));
+  svg.append(svgEl("rect", { class: "laser", x: 182, y: 24, width: 86, height: 36, rx: 6 }));
+  svg.append(flowText(225, 42, "Laser"));
+  svg.append(svgEl("line", { class: "beam", x1: 210, y1: 60, x2: 225, y2: top }));
+  svg.append(svgEl("line", { class: "beam", x1: 225, y1: top, x2: 118, y2: 72 }));
+  svg.append(svgEl("line", { class: "beam-miss", x1: 248, y1: 60, x2: 295, y2: floor }));
+  svg.append(flowTag(250, 150, "Land", "middle"));
+  svg.append(flowTag(155, 226, "Pit", "middle"));
+  svg.append(flowTag(295, 226, "Pit", "middle"));
+  svg.append(flowTag(435, 226, "Pit", "middle"));
+  svg.append(flowTag(86, 64, "Reflected", "middle"));
+  svg.append(flowTag(348, 108, "Scattered", "middle"));
+  svg.append(mediaLines(548, 78, [
+    "The laser creates",
+    "the pits.",
+    "A land reflects",
+    "the beam.",
+    "A pit scatters it.",
+    "CD, DVD and Blu-ray",
+    "use the same idea.",
+  ]));
+  return svg;
+}
+
+function drawSolid() {
+  const svg = mediaSvg(920, 340, "Solid-state storage. A control gate and a floating gate. Charge trapped in the floating gate stores the bit. There is no moving platter.");
+  svg.append(svgEl("rect", { class: "gate", x: 80, y: 36, width: 300, height: 52, rx: 6 }));
+  svg.append(flowText(230, 62, "Control gate"));
+  svg.append(svgEl("rect", { class: "float", x: 110, y: 112, width: 240, height: 86, rx: 6 }));
+  [160, 200, 240, 280].forEach((x) => svg.append(svgEl("circle", { class: "charge", cx: x, cy: 140, r: 7 })));
+  svg.append(flowText(230, 172, "Floating gate"));
+  svg.append(svgEl("rect", { class: "base", x: 70, y: 228, width: 320, height: 48, rx: 6 }));
+  svg.append(flowText(230, 252, "Substrate"));
+  svg.append(mediaLeader(352, 140, 408, 140));
+  svg.append(flowTag(416, 140, "Stored charge", "start"));
+  svg.append(mediaLines(548, 86, [
+    "No spinning platter.",
+    "NAND or NOR flash.",
+    "The trapped charge",
+    "is the stored bit.",
+    "SSD, SD card, USB.",
+  ]));
+  return svg;
+}
+
+function storageMediaDiagrams() {
+  const box = el("div", "media-set");
+  box.append(mediaFigure(
+    "Magnetic — a hard disk",
+    drawMagnetic(),
+    "Example: a hard disk drive (HDD). The platter is divided into tracks, and each track is divided into sectors.",
+  ));
+  box.append(mediaFigure(
+    "Optical — a disc",
+    drawOptical(),
+    "Examples: CD, DVD and Blu-ray. The laser creates the pits and lands, then reads them from the reflection.",
+  ));
+  box.append(mediaFigure(
+    "Solid-state — flash memory",
+    drawSolid(),
+    "Examples: an SSD, an SD card and a USB drive. Transistors are the control gate and the floating gate.",
+  ));
+  return box;
 }
 
 function renderChart(chart) {
