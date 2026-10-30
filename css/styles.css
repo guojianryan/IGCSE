@@ -400,8 +400,13 @@ main .wrap > * + .media-set {
   margin-top: 20px;
 }
 
-.media-set { display: grid; gap: 20px; }
-.media-svg { width: 100%; min-width: 680px; margin: 0; }
+.media-set { display: grid; gap: 20px; width: 100%; min-width: 0; grid-template-columns: minmax(0, 1fr); }
+.media-set > .worked { min-width: 0; justify-self: stretch; margin-inline: 0; }
+.media-body { display: grid; gap: 16px; width: 100%; min-width: 0; align-items: center; }
+.media-scroll { overflow-x: auto; max-width: 100%; min-width: 0; overscroll-behavior-x: contain; }
+.media-notes { margin: 0; padding-left: 1.15em; }
+.media-notes li + li { margin-top: 0.35em; }
+.media-svg { margin: 0; }
 .media-svg .disc { fill: var(--bg); stroke: var(--teal); stroke-width: 3; }
 .media-svg .track { fill: none; stroke: var(--line); stroke-width: 2; }
 .media-svg .hub { fill: var(--teal); }
@@ -786,7 +791,7 @@ table.sheet th { background: var(--bg-elev); font-weight: 500; }
 .flow-back { margin: 8px 0 0; max-width: 26ch; text-align: center; color: var(--teal); font-size: 0.88rem; }
 .flow-svg { width: min(720px, 100%); height: auto; display: block; margin: 8px auto 0; }
 .flow-svg.idea-svg { width: 100%; min-width: 720px; margin: 0; }
-.flow-svg.media-svg { width: 100%; min-width: 680px; margin: 0; }
+.flow-svg.media-svg { width: auto; height: auto; max-width: none; min-width: 0; margin: 0; display: block; }
 .flow-svg .flow-small { font-size: 13px; }
 .idea > * + * { margin-top: 12px; }
 .struct-svg { width: min(960px, 100%); }
@@ -814,6 +819,10 @@ table.sheet th { background: var(--bg-elev); font-weight: 500; }
 .sim-grid { margin-top: 16px; }
 #ledger { margin: 8px 0 0; padding-left: 1.15em; }
 #ledger li + li { margin-top: 0.35em; }
+
+@media (min-width: 861px) {
+  .media-body { grid-template-columns: auto minmax(0, 1fr); }
+}
 
 @media (max-width: 860px) {
   .hero-grid, .grid-2, .grid-3, .grid-6, .panes, .jars, .flow, .flow.six, .chain, .calc-grid, .flow-split { grid-template-columns: 1fr; }
@@ -845,7 +854,7 @@ table.sheet th { background: var(--bg-elev); font-weight: 500; }
   .flow-svg text, .flow-svg .flow-tag, .flow-svg .flow-back { fill: black; }
   .flow-svg .flow-line { stroke: black; }
   .flow-svg .flow-head { fill: black; }
-  .flow-svg.idea-svg, .media-svg { min-width: 0; width: 100%; }
+  .flow-svg.idea-svg, .flow-svg.media-svg { min-width: 0; width: 100%; max-width: 100%; height: auto; }
   .media-svg .disc,
   .media-svg .surface,
   .media-svg .laser,
